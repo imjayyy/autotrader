@@ -1,0 +1,107 @@
+{% extends 'home/layout.html' %}
+{% block body %}
+    <!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.contact}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home}}</a></li>
+                <li class="active">{{lang.home_site.contact}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Contact 2 start -->
+<div class="contact-2 content-area-5">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>{{lang.home_site.contact_us}}</h1>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-12 text-left">
+                            <div class="form-group name">
+                                <label for="message-name" class="col-form-label">{{lang.home_site.your_name_and_surname}}:<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="message-name" required>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group email">
+                                <label for="message-contact" class="col-form-label">{{lang.home_site.contact_info_phone_or_email}}:<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="message-contact" required>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group subject">
+                                <label for="message-subject" class="col-form-label">{{lang.home_site.subject}}:<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="message-subject" required>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group message">
+                                <label for="message-text" class="col-form-label">{{lang.home_site.your_message}}:<span style="color:red">*</span></label>
+                                <textarea class="form-control" id="message-text" required></textarea>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class='g-recaptcha capctha_div' data-sitekey='6LfCq9YgAAAAAHSho3_KTBidYE4fVtDsI6W1rras' style="margin-bottom:20px"></div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="send-btn text-center">
+                                <button type="button" onClick="submitForm()" class="btn btn-5 send_message">{{lang.home_site.send}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="contact-info-2">
+                        <div class="ci-box">
+                            <div class="icon">
+                                <i class="flaticon-phone"></i>
+                            </div>
+                            <div class="detail">
+                                <h5>{{lang.home_site.phone}}:</h5>
+                                <p><a href="tel:{{settings.Phone}}">{{settings.Phone}}</a></p>
+                            </div>
+                        </div>
+                        <div class="ci-box">
+                            <div class="icon">
+                                <i class="flaticon-mail"></i>
+                            </div>
+                            <div class="detail">
+                                <h5>{{lang.home_site.email}}:</h5>
+                                <p><a href="mailto:{{settings.Email}}">{{settings.Email}}</a></p>
+                            </div>
+                        </div>
+                        <div class="get-social">
+                            <h3 class="heading">{{lang.home_site.social_media}}</h3>
+                            {% for social in social_media_accounts %}
+                            <a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg">
+                                <i class="{{social.SocialMedia.Icon}}"></i>
+                            </a>    
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="map" style="margin-top:30px">
+            <div id="map" class="contact-map">
+                <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen
+                        src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ2bdZhXtjMEARrZUuvmzIKg0&key=AIzaSyDjAVQ9ATTBE3B85tM2s3h29GBP55Rjfd8"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

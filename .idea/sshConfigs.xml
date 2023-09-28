@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="46.101.219.78" id="0eed907c-1057-4c10-af44-b3cd1bda7a76" keyPath="$USER_HOME$/.ssh/id_rsa" port="22" customName="Autotrader-Deploy.root" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="Autotrader-Deploy.root" />
+      </sshConfig>
+      <sshConfig connectionConfig="{&quot;serverAliveInterval&quot;:30}" host="46.101.219.78" id="9e2e077b-7db3-412a-95f0-cafa649f6d27" keyPath="$USER_HOME$/.ssh/id_rsa" port="22" customName="Autotrader-Deploy.autotrader-admin" nameFormat="CUSTOM" username="autotrader-admin" useOpenSSHConfig="true">
+        <option name="customName" value="Autotrader-Deploy.autotrader-admin" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

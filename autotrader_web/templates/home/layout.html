@@ -1,0 +1,648 @@
+{% load static %}   
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+    <title>Auto Trader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/bootstrap-submenu.css">
+
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/fonts/linearicons/style.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/lightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/jnoty.css">
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/style.css?ver=2.1">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="https://autotrader.az/Assets/css/skins/red.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.3.2/css/lightgallery.css" />
+    <link href='https://css.gg/shopping-bag.css' rel='stylesheet'>
+    <link href='https://css.gg/search.css' rel='stylesheet'>
+    <script src="{% static '/Admin/js/fontawesome.js' %}" crossorigin="anonymous"></script>
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="https://autotrader.az/Assets/img/favicon.ico" type="image/x-icon">
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="https://autotrader.az/Assets/css/ie10-viewport-bug-workaround.css">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script  src="~https://autotrader.az/Assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="https://autotrader.az/Assets/js/ie-emulation-modes-warning.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery-2.2.0.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script  src="~https://autotrader.az/Assets/js/html5shiv.min.js"></script>
+    <script  src="~https://autotrader.az/Assets/js/respond.min.js"></script>
+
+
+
+    <![endif]-->
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '3086874694892954');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=3086874694892954&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PLG3MRJ');</script>
+    <!-- End Google Tag Manager -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-213741869-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-213741869-1');
+    </script>
+</head>
+
+<body class="scroll scroll--simple">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PLG3MRJ" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Messenger Sohbet Eklentisi Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Sohbet Eklentisi code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "101480208830536");
+        chatbox.setAttribute("attribution", "biz_inbox");
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v12.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <style>
+        .badge {
+            padding-left: 9px;
+            padding-right: 9px;
+            -webkit-border-radius: 9px;
+            -moz-border-radius: 9px;
+            border-radius: 9px;
+            line-height: .7;
+        }
+
+        .label-warning[href],
+        .badge-warning[href] {
+            background-color: #c67605;
+        }
+
+        #lblCartCount {
+            font-size: 11px;
+            background: #ff0000;
+            color: #fff;
+            padding: 3px;
+            transform: translate(12px, -32px);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            line-height: 16px;
+        }
+
+        #bag {
+            font-size: 17px;
+            color: #515151;
+            width: 20px;
+            height: 20px;
+            line-height: 35px;
+            text-align: center;
+            background: transparent;
+            position: absolute;
+            top: 31px;
+            font-size: 17px;
+            right: 56px;
+            cursor: pointer;
+            -webkit-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            transition: all 0.3s;
+            display: block;
+        }
+    </style>
+    <div class="page_loader"></div>
+
+    <!-- Top header start -->
+    <header class="top-header bg-active" id="top-header-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-7">
+                <div class="list-inline">
+                    <a href="tel:{{settings.Phone}}"><i class="fa fa-phone"></i> {{settings.Phone}}</a>
+                    <a href="mailto:{{settings.Email}}"><i class="fa fa-envelope"></i> {{settings.Email}}</a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-4 col-sm-5">
+                <ul style="text-align:end">
+                    <li><a onClick="changeLang('AZE')"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiM3M0FGMDA7IiBkPSJNMCw0MDBjMCw2MS44NTYsNTAuMTQ0LDExMiwxMTIsMTEyaDI4OGM2MS44NTYsMCwxMTItNTAuMTQ0LDExMi0xMTJ2LTU4LjY2N0gwVjQwMHoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiM4MkFGRkY7IiBkPSJNNDAwLDBIMTEyQzUwLjE0NCwwLDAsNTAuMTQ0LDAsMTEydjU4LjY2N2g1MTJWMTEyQzUxMiw1MC4xNDQsNDYxLjg1NiwwLDQwMCwweiIvPg0KPHJlY3QgeT0iMTcwLjY3IiBzdHlsZT0iZmlsbDojRkY0QjU1OyIgd2lkdGg9IjUxMiIgaGVpZ2h0PSIxNzAuNjciLz4NCjxnPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiNGNUY1RjU7IiBkPSJNMjc0LjQzLDMxMS44NzRjLTMwLjIzNywwLTU0Ljc2NS0yNC41MjgtNTQuNzY1LTU0Ljc5M2MwLTMwLjIwOSwyNC41MjgtNTQuNzkyLDU0Ljc2NS01NC43OTINCgkJYzExLjI1LDAsMjEuNjI1LDMuNDYsMzAuMjcsOS4zMTZjMS4zMjQsMC44OTcsMi44MzUtMC44NDMsMS43MjctMS45OTZjLTEyLjkyMS0xMy40MzQtMzEuMjA5LTIxLjYzLTUxLjQ4Ni0yMC45MzgNCgkJYy0zNC44MzYsMS4xODktNjMuNjc1LDI5LjExOS02NS45MDEsNjMuOTA0Yy0yLjU1LDM5Ljg0NCwyOC45OTksNzIuOTU2LDY4LjI3OSw3Mi45NTZjMTkuMzQ5LDAsMzYuNzM4LTguMDg5LDQ5LjE1Ni0yMS4wMjMNCgkJYzEuMDk3LTEuMTQzLTAuNDE3LTIuODU2LTEuNzI5LTEuOTY3QzI5Ni4wOTIsMzA4LjQxLDI4NS43LDMxMS44NzQsMjc0LjQzLDMxMS44NzR6Ii8+DQoJPHBhdGggc3R5bGU9ImZpbGw6I0Y1RjVGNTsiIGQ9Ik0zMjIuMzc1LDIyMy4zNTRsNS42ODIsMTUuOTc3bDE1LjMxNS03LjI4YzEuMTU0LTAuNTQ4LDIuMzU3LDAuNjU1LDEuODA5LDEuODA5bC03LjI4LDE1LjMxNQ0KCQlsMTUuOTc3LDUuNjgyYzEuMjAzLDAuNDI4LDEuMjAzLDIuMTMsMCwyLjU1OGwtMTUuOTc3LDUuNjgybDcuMjgsMTUuMzE1YzAuNTQ4LDEuMTU0LTAuNjU1LDIuMzU3LTEuODA5LDEuODA5bC0xNS4zMTUtNy4yOA0KCQlsLTUuNjgyLDE1Ljk3N2MtMC40MjgsMS4yMDMtMi4xMywxLjIwMy0yLjU1OCwwbC01LjY4Mi0xNS45NzdsLTE1LjMxNSw3LjI4Yy0xLjE1NCwwLjU0OC0yLjM1Ny0wLjY1NS0xLjgwOS0xLjgwOWw3LjI4LTE1LjMxNQ0KCQlsLTE1Ljk3Ny01LjY4MmMtMS4yMDMtMC40MjgtMS4yMDMtMi4xMywwLTIuNTU4bDE1Ljk3Ny01LjY4MmwtNy4yOC0xNS4zMTVjLTAuNTQ4LTEuMTU0LDAuNjU1LTIuMzU3LDEuODA5LTEuODA5bDE1LjMxNSw3LjI4DQoJCWw1LjY4Mi0xNS45NzdDMzIwLjI0NSwyMjIuMTUsMzIxLjk0NywyMjIuMTUsMzIyLjM3NSwyMjMuMzU0eiIvPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=" style="width:20px;height:20px"/></a></li>
+                    <li><a onClick="changeLang('ENG')"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiM0MTQ3OUI7IiBkPSJNNDAwLDUxMkgxMTJDNTAuMTQ0LDUxMiwwLDQ2MS44NTYsMCw0MDBWMTEyQzAsNTAuMTQ0LDUwLjE0NCwwLDExMiwwaDI4OA0KCWM2MS44NTYsMCwxMTIsNTAuMTQ0LDExMiwxMTJ2Mjg4QzUxMiw0NjEuODU2LDQ2MS44NTYsNTEyLDQwMCw1MTJ6Ii8+DQo8Zz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRjVGNUY1OyIgZD0iTTUxMiwzOTkuOTg5di0yNC41ODdsLTc5LjQxOS01Mi4wMzNINTEydi0yNi45NDhIMjk2LjQyMVY1MTJoMjYuOTQ3VjM0OC40Nkw0OTQuMyw0NjAuNDUNCgkJYzYuMDU0LTkuNDI1LDEwLjcyOC0xOS44MiwxMy43NS0zMC44OTYiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRjVGNUY1OyIgZD0iTTcuNTMxLDQ0MC40NDNjMi43MjgsNy4wNCw2LjE0MiwxMy43MzgsMTAuMTY4LDIwLjAwN2wxNzAuOTMyLTExMS45OVY1MTJoMjYuOTQ3VjI5Ni40MjFIMHYyNi45NDgNCgkJaDc5LjQxOUwwLDM3NS40MDJWNDAwYzAsNC4zMDYsMC4yNTIsOC41NTMsMC43MjUsMTIuNzMzIi8+DQoJPHBhdGggc3R5bGU9ImZpbGw6I0Y1RjVGNTsiIGQ9Ik0wLDExNS44MDd2MjAuNzkxbDc5LjQxOSw1Mi4wMzRIMHYyNi45NDdoMjE1LjU3OVYwaC0yNi45NDd2MTYzLjU0TDE3LjY5OSw1MS41NQ0KCQlDMTEuMDU2LDYxLjg5Myw2LjA3Myw3My40MDIsMy4xMTQsODUuNyIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiNGNUY1RjU7IiBkPSJNNTA0LjMyMSw3MS4xNjljLTIuNzAyLTYuODk5LTYuMDY4LTEzLjQ2Ni0xMC4wMjEtMTkuNjJMMzIzLjM2OCwxNjMuNTRWMGgtMjYuOTQ3djIxNS41NzlINTEyDQoJCXYtMjYuOTQ3aC03OS40MTlMNTEyLDEzNi41OThWMTEyYzAtNC40Ni0wLjI2OS04Ljg1OC0wLjc3Ni0xMy4xODIiLz4NCjwvZz4NCjxnPg0KCTxwb2x5Z29uIHN0eWxlPSJmaWxsOiNGRjRCNTU7IiBwb2ludHM9IjI5Ni40MjEsMCAyMTUuNTc5LDAgMjE1LjU3OSwyMTUuNTc5IDAsMjE1LjU3OSAwLDI5Ni40MjEgMjE1LjU3OSwyOTYuNDIxIDIxNS41NzksNTEyIA0KCQkyOTYuNDIxLDUxMiAyOTYuNDIxLDI5Ni40MjEgNTEyLDI5Ni40MjEgNTEyLDIxNS41NzkgMjk2LjQyMSwyMTUuNTc5IAkiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRkY0QjU1OyIgZD0iTTEzOC4zOTUsMzIzLjM2OUwwLjcyNSw0MTIuNzMzYzEuMDk0LDkuNjYzLDMuNDE0LDE4Ljk1Myw2LjgwNywyNy43MWwxODAuMzU5LTExNy4wNzVoLTQ5LjQ5Ng0KCQlMMTM4LjM5NSwzMjMuMzY5TDEzOC4zOTUsMzIzLjM2OXoiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRkY0QjU1OyIgZD0iTTM0NC40NjUsMzIzLjM2OWwxNjMuNTg2LDEwNi4xODZDNTEwLjYyLDQyMC4xMzgsNTEyLDQxMC4yMzEsNTEyLDQwMHYtMC4wMTFsLTExOC4wMzktNzYuNjIxDQoJCUwzNDQuNDY1LDMyMy4zNjlMMzQ0LjQ2NSwzMjMuMzY5eiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiNGRjRCNTU7IiBkPSJNMTYxLjY4NCwxODguNjMyTDMuMTE0LDg1LjdDMS4wODMsOTQuMTM2LDAsMTAyLjk0MSwwLDExMnYzLjgwN2wxMTIuMTg4LDcyLjgyNUwxNjEuNjg0LDE4OC42MzINCgkJTDE2MS42ODQsMTg4LjYzMnoiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRkY0QjU1OyIgZD0iTTM3Mi44NjMsMTg4LjYzMmwxMzguMzYtODkuODE0Yy0xLjEzMS05LjY0NC0zLjQ4MS0xOC45MTQtNi45MDItMjcuNjQ4TDMyMy4zNjgsMTg4LjYzMkgzNzIuODYzeiINCgkJLz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K" style="width:20px;height:20px" /></a></li>
+                    <li><a onClick="changeLang('RUS')"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGNUY1RjU7IiBkPSJNNDA3LjgxOCwwLjI3NkgxMDQuMTgyQzQ1Ljk3NCw0LjI5MSwwLDUyLjc3MywwLDExMnY1OC43NTloNTEyVjExMg0KCUM1MTIsNTIuNzczLDQ2Ni4wMjUsNC4yOTEsNDA3LjgxOCwwLjI3NnoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGRjRCNTU7IiBkPSJNMCw0MDBjMCw1OS4yMjgsNDUuOTc1LDEwNy43MSwxMDQuMTgzLDExMS43MjRoMzAzLjYzNEM0NjYuMDI1LDUwNy43MSw1MTIsNDU5LjIyOCw1MTIsNDAwdi01OC43NTkNCglIMFY0MDB6Ii8+DQo8cmVjdCB5PSIxNzAuNzYiIHN0eWxlPSJmaWxsOiM0MTQ3OUI7IiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjE3MC40OCIvPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=" style="width:20px;height:20px" /></a></li>
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</header>
+<script>
+    $.each($(".flags a"), function (index, item) {
+        var href = $(item).attr("href")
+        var page = "";
+        var lang = $(item).attr("class")
+        if (window.location.href.indexOf("page") != -1) {
+            $(item).attr("href", window.location.href.split("&culture")[0] + "&culture=" + lang)
+        }
+    })
+</script>
+
+    <!-- Top header end -->
+    <!-- Main header start -->
+    <header class="main-header sticky-header sh-2" style="z-index:25">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand company-logo-2 culture_href tag-links-btn" href="/home">
+                    <img src="https://autotrader.az/Assets/img/logos/logo-2.png" alt="logo">
+                </a>
+                <button class="navbar-toggler" type="button" id="drawer">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="navbar-collapse collapse w-100" id="navbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link culture_href tag-links-btn"
+                               href="/home">{{lang.home_site.home}}</a>
+                        </li>
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{lang.home_site.about_n_faq}}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item culture_href tag-links-btn"
+                                       href="/about">{{lang.home_site.about_n_faq}}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item culture_href tag-links-btn"
+                                       href="/about/services">{{lang.home_site.services}}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item culture_href tag-links-btn"
+                                       href="/team">{{lang.home_site.team}}</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item culture_href tag-links-btn"
+                                       href="/contact">{{lang.home_site.contact}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link culture_href tag-links-btn"
+                               href="/cars">{{lang.home_site.cars}}</a>
+                        </li>
+                        <li style="display: none;" class="nav-item dropdown">
+                            <a class="nav-link culture_href tag-links-btn"
+                               href="/blog">{{lang.home_site.blog}}</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link culture_href tag-links-btn"
+                               href="/about/gallery">{{lang.home_site.gallery}}</a>
+                        </li>
+                        <li style="display: none;" class="nav-item dropdown">
+                            <a class="nav-link culture_href tag-links-btn"
+                               href="/shop">{{lang.home_site.shop}}</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link culture_href tag-links-btn"
+                               href="/calc-page">{{lang.home_site.calculator}}</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link culture_href tag-links-btn"
+                               href="/">{{lang.home_site.auction}}</a>
+                        </li>
+
+                        <li style="display: none;" class="nav-item dropdown">
+                            <a href="#full-page-search" class="nav-link h-icon" style="transform: translateY(5px);">
+                                <i class="gg-search"></i>
+                            </a>
+                        </li>
+                        <li style="display: none;" class="nav-item dropdown">
+                            <a href="/shop"
+                               class="nav-link h-icon cart_link culture_href tag-links-btn">
+                                <i class="gg-shopping-bag" style="font-size:17px"></i>
+
+                                        <span class='badge badge-warning' id='lblCartCount' style="display:none"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Main header end -->
+    <!-- Sidenav start -->
+    <nav id="sidebar" class="nav-sidebar scroll scroll--simple">
+        <!-- Close btn-->
+        <div style="display: none;">
+            <a href="/shop"><i class="gg-shopping-bag"></i></a>
+        </div>
+        <div id="dismiss">
+            <i class="fa fa-close"></i>
+        </div>
+
+        <div class="sidebar-inner">
+            <div class="sidebar-logo">
+                <a href="/home" class="culture_href">
+                    <img src="{% static '/Assets/img/logos/logo-2.png' %}" alt="sidebarlogo">
+                </a>
+            </div>
+            <div class="sidebar-navigation">
+                <!-- <h3 class="heading">Pages</h3> -->
+                <ul class="menu-list">
+                    <li>
+                        <a href="/home" class="culture_href tag-links-btn">{{lang.home_site.home}}</a>
+                    </li>
+                    <li>
+                        <a href="#" class="active pt0">{{lang.home_site.about_n_faq}}<em class="fa fa-chevron-down"></em></a>
+                        <ul>
+                            <li>
+                                <a href="/about"
+                                   class="culture_href tag-links-btn">{{lang.home_site.about_n_faq}}</a>
+                            </li>
+                            <li>
+                                <a href="/about/services"
+                                   class="culture_href tag-links-btn">{{lang.home_site.services}}</a>
+                            </li>
+                            <li>
+                                <a href="/team"
+                                   class="culture_href tag-links-btn">{{lang.home_site.team}}</a>
+                            </li>
+                            <li>
+                                <a href="/contact"
+                                   class="culture_href tag-links-btn">{{lang.home_site.contact}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/cars" class="culture_href tag-links-btn">{{lang.home_site.cars}}</a>
+                    </li>
+                    <li style="display: none;">
+                        <a href="/blog" class="culture_href tag-links-btn">{{lang.home_site.blog}}</a>
+                    </li>
+                    <li>
+                        <a href="/about/gallery"
+                           class="culture_href tag-links-btn">{{lang.home_site.gallery}}</a>
+                    </li>
+                    <li style="display: none;">
+                        <a href="/shop" class="culture_href tag-links-btn">{{lang.home_site.shop}}</a>
+                    </li>
+                    <li>
+                        <a href="/calc-page" class="culture_href tag-links-btn">{{lang.home_site.calculator}}</a>
+                    </li>
+                    <li>
+                        <a href="/" class="culture_href tag-links-btn">{{lang.home_site.auction}}</a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+            
+<div class="get-in-touch">
+    <div style="margin-bottom:20px">
+        <ul>
+            <li style="display:inline-block;margin-right:20px"><a onClick="changeLang('AZE')"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiM3M0FGMDA7IiBkPSJNMCw0MDBjMCw2MS44NTYsNTAuMTQ0LDExMiwxMTIsMTEyaDI4OGM2MS44NTYsMCwxMTItNTAuMTQ0LDExMi0xMTJ2LTU4LjY2N0gwVjQwMHoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiM4MkFGRkY7IiBkPSJNNDAwLDBIMTEyQzUwLjE0NCwwLDAsNTAuMTQ0LDAsMTEydjU4LjY2N2g1MTJWMTEyQzUxMiw1MC4xNDQsNDYxLjg1NiwwLDQwMCwweiIvPg0KPHJlY3QgeT0iMTcwLjY3IiBzdHlsZT0iZmlsbDojRkY0QjU1OyIgd2lkdGg9IjUxMiIgaGVpZ2h0PSIxNzAuNjciLz4NCjxnPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiNGNUY1RjU7IiBkPSJNMjc0LjQzLDMxMS44NzRjLTMwLjIzNywwLTU0Ljc2NS0yNC41MjgtNTQuNzY1LTU0Ljc5M2MwLTMwLjIwOSwyNC41MjgtNTQuNzkyLDU0Ljc2NS01NC43OTINCgkJYzExLjI1LDAsMjEuNjI1LDMuNDYsMzAuMjcsOS4zMTZjMS4zMjQsMC44OTcsMi44MzUtMC44NDMsMS43MjctMS45OTZjLTEyLjkyMS0xMy40MzQtMzEuMjA5LTIxLjYzLTUxLjQ4Ni0yMC45MzgNCgkJYy0zNC44MzYsMS4xODktNjMuNjc1LDI5LjExOS02NS45MDEsNjMuOTA0Yy0yLjU1LDM5Ljg0NCwyOC45OTksNzIuOTU2LDY4LjI3OSw3Mi45NTZjMTkuMzQ5LDAsMzYuNzM4LTguMDg5LDQ5LjE1Ni0yMS4wMjMNCgkJYzEuMDk3LTEuMTQzLTAuNDE3LTIuODU2LTEuNzI5LTEuOTY3QzI5Ni4wOTIsMzA4LjQxLDI4NS43LDMxMS44NzQsMjc0LjQzLDMxMS44NzR6Ii8+DQoJPHBhdGggc3R5bGU9ImZpbGw6I0Y1RjVGNTsiIGQ9Ik0zMjIuMzc1LDIyMy4zNTRsNS42ODIsMTUuOTc3bDE1LjMxNS03LjI4YzEuMTU0LTAuNTQ4LDIuMzU3LDAuNjU1LDEuODA5LDEuODA5bC03LjI4LDE1LjMxNQ0KCQlsMTUuOTc3LDUuNjgyYzEuMjAzLDAuNDI4LDEuMjAzLDIuMTMsMCwyLjU1OGwtMTUuOTc3LDUuNjgybDcuMjgsMTUuMzE1YzAuNTQ4LDEuMTU0LTAuNjU1LDIuMzU3LTEuODA5LDEuODA5bC0xNS4zMTUtNy4yOA0KCQlsLTUuNjgyLDE1Ljk3N2MtMC40MjgsMS4yMDMtMi4xMywxLjIwMy0yLjU1OCwwbC01LjY4Mi0xNS45NzdsLTE1LjMxNSw3LjI4Yy0xLjE1NCwwLjU0OC0yLjM1Ny0wLjY1NS0xLjgwOS0xLjgwOWw3LjI4LTE1LjMxNQ0KCQlsLTE1Ljk3Ny01LjY4MmMtMS4yMDMtMC40MjgtMS4yMDMtMi4xMywwLTIuNTU4bDE1Ljk3Ny01LjY4MmwtNy4yOC0xNS4zMTVjLTAuNTQ4LTEuMTU0LDAuNjU1LTIuMzU3LDEuODA5LTEuODA5bDE1LjMxNSw3LjI4DQoJCWw1LjY4Mi0xNS45NzdDMzIwLjI0NSwyMjIuMTUsMzIxLjk0NywyMjIuMTUsMzIyLjM3NSwyMjMuMzU0eiIvPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=" style="width:20px;height:20px" /></a></li>
+            <li style="display:inline-block;margin-right:20px"><a onClick="changeLang('ENG')"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiM0MTQ3OUI7IiBkPSJNNDAwLDUxMkgxMTJDNTAuMTQ0LDUxMiwwLDQ2MS44NTYsMCw0MDBWMTEyQzAsNTAuMTQ0LDUwLjE0NCwwLDExMiwwaDI4OA0KCWM2MS44NTYsMCwxMTIsNTAuMTQ0LDExMiwxMTJ2Mjg4QzUxMiw0NjEuODU2LDQ2MS44NTYsNTEyLDQwMCw1MTJ6Ii8+DQo8Zz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRjVGNUY1OyIgZD0iTTUxMiwzOTkuOTg5di0yNC41ODdsLTc5LjQxOS01Mi4wMzNINTEydi0yNi45NDhIMjk2LjQyMVY1MTJoMjYuOTQ3VjM0OC40Nkw0OTQuMyw0NjAuNDUNCgkJYzYuMDU0LTkuNDI1LDEwLjcyOC0xOS44MiwxMy43NS0zMC44OTYiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRjVGNUY1OyIgZD0iTTcuNTMxLDQ0MC40NDNjMi43MjgsNy4wNCw2LjE0MiwxMy43MzgsMTAuMTY4LDIwLjAwN2wxNzAuOTMyLTExMS45OVY1MTJoMjYuOTQ3VjI5Ni40MjFIMHYyNi45NDgNCgkJaDc5LjQxOUwwLDM3NS40MDJWNDAwYzAsNC4zMDYsMC4yNTIsOC41NTMsMC43MjUsMTIuNzMzIi8+DQoJPHBhdGggc3R5bGU9ImZpbGw6I0Y1RjVGNTsiIGQ9Ik0wLDExNS44MDd2MjAuNzkxbDc5LjQxOSw1Mi4wMzRIMHYyNi45NDdoMjE1LjU3OVYwaC0yNi45NDd2MTYzLjU0TDE3LjY5OSw1MS41NQ0KCQlDMTEuMDU2LDYxLjg5Myw2LjA3Myw3My40MDIsMy4xMTQsODUuNyIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiNGNUY1RjU7IiBkPSJNNTA0LjMyMSw3MS4xNjljLTIuNzAyLTYuODk5LTYuMDY4LTEzLjQ2Ni0xMC4wMjEtMTkuNjJMMzIzLjM2OCwxNjMuNTRWMGgtMjYuOTQ3djIxNS41NzlINTEyDQoJCXYtMjYuOTQ3aC03OS40MTlMNTEyLDEzNi41OThWMTEyYzAtNC40Ni0wLjI2OS04Ljg1OC0wLjc3Ni0xMy4xODIiLz4NCjwvZz4NCjxnPg0KCTxwb2x5Z29uIHN0eWxlPSJmaWxsOiNGRjRCNTU7IiBwb2ludHM9IjI5Ni40MjEsMCAyMTUuNTc5LDAgMjE1LjU3OSwyMTUuNTc5IDAsMjE1LjU3OSAwLDI5Ni40MjEgMjE1LjU3OSwyOTYuNDIxIDIxNS41NzksNTEyIA0KCQkyOTYuNDIxLDUxMiAyOTYuNDIxLDI5Ni40MjEgNTEyLDI5Ni40MjEgNTEyLDIxNS41NzkgMjk2LjQyMSwyMTUuNTc5IAkiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRkY0QjU1OyIgZD0iTTEzOC4zOTUsMzIzLjM2OUwwLjcyNSw0MTIuNzMzYzEuMDk0LDkuNjYzLDMuNDE0LDE4Ljk1Myw2LjgwNywyNy43MWwxODAuMzU5LTExNy4wNzVoLTQ5LjQ5Ng0KCQlMMTM4LjM5NSwzMjMuMzY5TDEzOC4zOTUsMzIzLjM2OXoiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRkY0QjU1OyIgZD0iTTM0NC40NjUsMzIzLjM2OWwxNjMuNTg2LDEwNi4xODZDNTEwLjYyLDQyMC4xMzgsNTEyLDQxMC4yMzEsNTEyLDQwMHYtMC4wMTFsLTExOC4wMzktNzYuNjIxDQoJCUwzNDQuNDY1LDMyMy4zNjlMMzQ0LjQ2NSwzMjMuMzY5eiIvPg0KCTxwYXRoIHN0eWxlPSJmaWxsOiNGRjRCNTU7IiBkPSJNMTYxLjY4NCwxODguNjMyTDMuMTE0LDg1LjdDMS4wODMsOTQuMTM2LDAsMTAyLjk0MSwwLDExMnYzLjgwN2wxMTIuMTg4LDcyLjgyNUwxNjEuNjg0LDE4OC42MzINCgkJTDE2MS42ODQsMTg4LjYzMnoiLz4NCgk8cGF0aCBzdHlsZT0iZmlsbDojRkY0QjU1OyIgZD0iTTM3Mi44NjMsMTg4LjYzMmwxMzguMzYtODkuODE0Yy0xLjEzMS05LjY0NC0zLjQ4MS0xOC45MTQtNi45MDItMjcuNjQ4TDMyMy4zNjgsMTg4LjYzMkgzNzIuODYzeiINCgkJLz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K" style="width:20px;height:20px" /></a></li>
+            <li style="display:inline-block"><a onClick="changeLang('RUS')"><img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGNUY1RjU7IiBkPSJNNDA3LjgxOCwwLjI3NkgxMDQuMTgyQzQ1Ljk3NCw0LjI5MSwwLDUyLjc3MywwLDExMnY1OC43NTloNTEyVjExMg0KCUM1MTIsNTIuNzczLDQ2Ni4wMjUsNC4yOTEsNDA3LjgxOCwwLjI3NnoiLz4NCjxwYXRoIHN0eWxlPSJmaWxsOiNGRjRCNTU7IiBkPSJNMCw0MDBjMCw1OS4yMjgsNDUuOTc1LDEwNy43MSwxMDQuMTgzLDExMS43MjRoMzAzLjYzNEM0NjYuMDI1LDUwNy43MSw1MTIsNDU5LjIyOCw1MTIsNDAwdi01OC43NTkNCglIMFY0MDB6Ii8+DQo8cmVjdCB5PSIxNzAuNzYiIHN0eWxlPSJmaWxsOiM0MTQ3OUI7IiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjE3MC40OCIvPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPC9zdmc+DQo=" style="width:20px;height:20px" /></a></li>
+        </ul>
+    </div>
+    
+    <h3 class="heading">{{lang.get_in_touch}}</h3>
+    <div class="media">
+        <i class="flaticon-phone"></i>
+        <div class="media-body">
+            <a href="tel:{{settings.Phone}}">{{settings.Phone}}</a>
+        </div>
+    </div>
+    <div class="media">
+        <i class="flaticon-mail"></i>
+        <div class="media-body">
+            <a href="mailto:{{settings.Email}}">{{settings.Email}}</a>
+        </div>
+    </div>
+    <div class="media mb-0">
+        <i class="flaticon-earth"></i>
+        <div class="media-body">
+            <a href="#">{{settings.Address}}</a>
+        </div>
+    </div>
+</div>
+<div class="get-social">
+    <h3 class="heading">{{lang.home_site.social_media}}</h3>
+
+    {% for social in social_media_accounts %}
+
+    <a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg">
+        <i class="{{social.SocialMedia.Icon}}"></i>
+    </a>
+    {% endfor %}
+
+
+</div>
+
+        </div>
+    </nav>
+
+    {% block body %}
+
+    {% endblock %}
+ 
+    <!-- Footer start -->
+    <footer class="footer overview-bgi">
+        <div class="container footer-inner">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+    <div class="footer-item clearfix">
+        <h4>{{lang.home_site.auto_trader}}</h4>
+        <div class="s-border"></div>
+        <div class="m-border"></div>
+        <div class="text">
+                <p>{% if current_lang == "ENG" %}{{about.FooterEn}}{% elif current_lang == "RUS" %}{{about.FooterRu}}{% elif current_lang == "AZE" %}{{about.FooterAz}}{% endif %}</p>
+        </div>
+    </div>
+</div>
+
+
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+    <div class="footer-item clearfix">
+        <h4>
+            {{lang.home_site.contact_info}}
+        </h4>
+        <div class="s-border"></div>
+        <div class="m-border"></div>
+        <ul class="contact-info">
+            <li>
+                <i class="flaticon-pin"></i>{{settings.Address}}
+            </li>
+            <li>
+                <a href="mailto:{{settings.Email}}"><i class="flaticon-mail"></i> {{settings.Email}}</a>
+            </li>
+            <li>
+                <a href="tel:{{settings.Phone}}"></a><i class="flaticon-phone"></i> {{settings.Phone}}
+            </li>
+        </ul>
+    </div>
+</div>
+
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-item">
+                        <h4>
+                            {{lang.home_site.useful_links}}
+                        </h4>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <ul class="links">
+                            <li>
+                                <a href="/home" class="culture_href tag-links-btn"><i
+                                        class="fa fa-angle-right"></i>{{lang.home_site.home}}</a>
+                            </li>
+                            <li>
+                                <a href="/about" class="culture_href tag-links-btn"><i
+                                        class="fa fa-angle-right"></i>{{lang.home_site.about_n_faq}}</a>
+                            </li>
+                            <li>
+                                <a href="/car" class="culture_href tag-links-btn"><i
+                                        class="fa fa-angle-right"></i>{{lang.home_site.cars}}</a>
+                            </li>
+                            <li style="display: none;">
+                                <a href="/blog" class="culture_href tag-links-btn"><i
+                                        class="fa fa-angle-right"></i>{{lang.home_site.blog}}</a>
+                            </li>
+                            <li style="display: none;">
+                                <a href="/shop" class="culture_href tag-links-btn"><i
+                                        class="fa fa-angle-right"></i>{{lang.home_site.shop}}</a>
+                            </li>
+                            <li>
+                                <a href="/contact" class="culture_href tag-links-btn"><i
+                                        class="fa fa-angle-right"></i>{{lang.home_site.contact}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p class="copy">© 2022 <a href="#">{{lang.home_site.auto_trader}}</a> {{lang.home_site.all_rights_reserved}}.</p>
+                    </div>
+
+                    <div class="col-lg-6">
+    <div class="social-list-2">
+        <ul>
+{% for social in social_media_accounts %}
+<li><a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg"><i class="{{social.SocialMedia.Icon}}"></i></a></li>
+{% endfor %}
+        </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer end -->
+    <!-- Full Page Search -->
+    <div id="full-page-search">
+        <button type="button" class="close">×</button>
+        <form action="index.html#">
+            <input type="search" value="" placeholder="" />
+            <button type="submit" class="btn btn-sm button-theme">Search</button>
+        </form>
+    </div>
+
+
+    <script src="https://autotrader.az/Assets/js/popper.min.js"></script>
+    <script src="https://autotrader.az/Assets/js/bootstrap.min.js"></script>
+    <script src="https://autotrader.az/Assets/js/bootstrap-submenu.js"></script>
+    <script src="https://autotrader.az/Assets/js/rangeslider.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.mb.YTPlayer.js"></script>
+    <script src="https://autotrader.az/Assets/js/bootstrap-select.min.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.easing.1.3.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.scrollUp.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="https://autotrader.az/Assets/js/dropzone.js"></script>
+    <script src="https://autotrader.az/Assets/js/slick.min.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.filterizr.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.countdown.js"></script>
+    <script src="https://autotrader.az/Assets/js/jquery.mousewheel.min.js"></script>
+    <script src="https://autotrader.az/Assets/js/lightgallery-all.js"></script>
+    <script src="https://autotrader.az/Assets/js/jnoty.js"></script>
+    <script src="https://autotrader.az/Assets/js/sidebar.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://autotrader.az/Assets/js/app.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="https://autotrader.az/Assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- Custom javascript -->
+
+
+    <script>
+
+        function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        let valid_languages = ["ENG","RUS","AZE"]
+        if (getCookie("lang") == undefined || !valid_languages.includes(getCookie("lang")) ) {
+            document.cookie = 'lang=; Max-Age=-99999999;path=/'; 
+            document.cookie = "lang=ENG;path=/";
+        }
+
+        function changeLang(lang) {
+        document.cookie = 'lang=; Max-Age=-99999999;path=/'; 
+        document.cookie = "lang=" + lang + ";path=/";
+        window.location.reload()
+        }
+
+        if (window.location.href.split('?').length > 1) {
+            var culture = "";
+            if (window.location.href.indexOf("culture") != -1) {
+                var ind = window.location.href.indexOf("culture");
+                var lst = window.location.href.length;
+                culture = window.location.href.substring(ind, lst);
+            }
+            //console.log(culture)
+            if (culture != "") {
+                $.each($(".culture_href"), function (index, item) {
+                    var href = $(item).attr("href")
+
+                    if (href.split('?').length > 1) {
+                        $(item).attr("href", href + "&" + culture)
+
+                    }
+                    else {
+                        $(item).attr("href", href + "?" + culture)
+
+                    }
+                })
+            }
+
+        }
+
+
+    function submitForm() {
+        const message = document.getElementById("message-text")
+        const subject = document.getElementById("message-subject")
+        const contact = document.getElementById("message-contact")
+        const fullname = document.getElementById("message-name")
+        const token = grecaptcha.getResponse()
+        
+        if (token == "") {
+            alert("{{lang.home_site.are_you_a_robot}}")
+        } else if (!message.validity.valid || !subject.validity.valid || !contact.validity.valid || !fullname.validity.valid) {
+
+            let fields = ["contact","text","subject","name"]
+            let fields_to_alert = {
+                "text":3,
+                "contact":1,
+                "subject":2,
+                "name":0
+            }
+            document.querySelectorAll(".alert.alert-danger").forEach(el=>{
+                el.style.display = "none";
+            })
+            fields.forEach(field=>{
+                if (!document.getElementById("message-"+field).validity.valid) {
+                    document.querySelectorAll(".alert.alert-danger")[fields_to_alert[field]].style.display = "block"
+                }
+            })
+        } 
+        else {
+            fetch("/post-message", {
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json",
+                "X-CSRFToken": '{{ csrf_token }}'
+            },
+            body:JSON.stringify({
+                message:message.value,
+                subject:subject.value,
+                contact:contact.value,
+                fullname:fullname.value,
+                token:token,
+            })
+            }).then(res=>res.json().then(res=>{
+                alert("Message sent successfully")
+            }))
+            grecaptcha.reset()
+        }
+    }
+
+    </script>
+
+</body>
+
+</html>

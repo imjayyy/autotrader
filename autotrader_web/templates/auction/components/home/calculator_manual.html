@@ -1,0 +1,185 @@
+<section id="calc" class="calculator bg-white py-5">
+
+    <div class="container">
+
+        <div class="row">
+            <div  class="col-sm-12 text-center">
+                <h3 class="h2 mb-4">{{lang.payment_calculator}}</h3>
+                <p class="h5 fw-normal">{{lang.payment_calculator_msg}}</p>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="bg-light py-2 px-3 mt-4 rounded-2 border shadow-sm">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="mt-4">
+                            <label for="auction" class="col-form-label">
+                                {{lang.home_site.auction_company}}<span style="color:red">*</span>
+                            </label>
+                            <select class="form-control" id="auction">
+                                <option value="def" hidden selected disabled>{{lang.choose}}</option>
+                                {% for co in auctions %}
+                                <option value="{{co.Id}}">{{co.Name}}</option>
+                                {% endfor %}
+
+                            </select>
+                            <span class="alert alert-danger error_auction"
+                                  style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.warning}}</span>
+
+                        </div>
+
+
+                        <div class="mt-4">
+                            <label for="city" class="col-form-label">{{lang.home_site.city}}<span
+                                    style="color:red">*</span></label>
+                            <select onChange="update_city()" class="form-control" id="city">
+                                <option value="def" hidden selected disabled>{{lang.choose}}</option>
+                                {% for city in cities %}
+                                <option value="{{city.Id}}">{{city.State}} - {{city.Name}}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="alert alert-danger error_city"
+                                  style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.warning}}
+                            </span>
+                        </div>
+                        <div class="mt-4">
+                            <label for="price" class="col-form-label">{{lang.home_site.cars_auction_price}}<span
+                                    style="color:red">*</span></label>
+                            <input type="number" name="name" value="" required class="form-control" id="price"
+                                   autocomplete="off"/>
+                            <span class="alert alert-danger error_carprice"
+                                  style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.warning}}</span>
+
+                        </div>
+
+
+                        <div class="mt-4">
+                            <button STYLE="border-radius:25px;max-width:100%;width:100%;background-color:#c91f3b;height:30px;color:white;font-size:15px;outline:none;border:0px;"
+                                    onClick="calculate()">{{lang.calculate}}
+                            </button>
+                        </div>
+                        <br/>
+
+                        <script>
+
+                function update_city() {
+                    console.log("UPDATE CITY")
+                    const location = document.getElementById("city").value
+                    fetch("/get_city?location="+location)
+                    .then(res=>res.json()
+                    .then(data=>{
+                        document.getElementById("state").value = data.state
+                        document.getElementById("port").value = data.port
+                    }))
+                }
+                function calculate() {
+                    const price = document.getElementById("price").value
+                    const auction = document.getElementById("auction").value
+                    const city = document.getElementById("city").value
+                    document.querySelector(".error_city").style.display = "none"
+                    document.querySelector(".error_carprice").style.display = "none"
+                    document.querySelector(".error_auction").style.display = "none"
+                    if (city == "def") {
+                        document.querySelector(".error_city").style.display = "block"
+                    } else if (auction == "def") {
+                        document.querySelector(".error_auction").style.display = "block"
+                    } else if (!document.getElementById("price").validity.valid) {
+                        document.querySelector(".error_carprice").style.display = "block"
+                    } else {
+                        fetch(`/home-calculator?auction=${auction}&price=${price}&city=${city}`)
+                        .then(res=>res.json()
+                        .then(data=>{
+                            document.querySelector(".total_fee").innerText = data.total
+                            document.querySelector(".car_price").innerText = data.bid
+                            document.querySelector(".auction_fee").innerText = data.auction_fee
+                            document.querySelector(".shipping_fee").innerText = data.shipping_fee
+                            document.querySelector(".service_fee").innerText = data.service_fee
+                            document.querySelector(".baku_fee").innerText = data.baku_fee
+                        }))
+                    }
+                }
+
+
+                        </script>
+
+                    </div>
+
+
+                    <div class="col-md-6 col-sm-12 p-0">
+
+                        <div class="bg-light p-1">
+                            <div class="row mt-4">
+                                <div class="col-8 text-start">
+                                    <small> {{lang.home_site.cars_auction_price}}</small>
+                                    <a href="javascript:;" data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="{{lang.car_auction_price_msg}}"><i class="fa fa-info-circle"></i></a>
+                                </div>
+                                <div class="col-4 text-end" style="white-space: nowrap;">
+                                    <span>$</span>
+                                    <span class="car_price">0,00</span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-8 text-start"><small>{{lang.auction_fee}}</small> <a
+                                        href="javascript:;"><i class="fa fa-info-circle"></i></a></div>
+                                <div class="col-4 text-end" style="white-space: nowrap;">
+                                    <span>$</span>
+                                    <span class="auction_fee">0,00</span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-8 text-start"><small>{{lang.shipping_fee}}</small> <a
+                                        href="javascript:;"><i class="fa fa-info-circle"></i></a></div>
+                                <div class="col-4 text-end" style="white-space: nowrap;">
+                                    <span>$</span>
+                                    <span class="shipping_fee">0,00</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mt-4">
+                                <div class="col-8 text-start"><small>{{lang.cost_of_delivery_to_baku}}</small> <a
+                                        href="javascript:;"><i class="fa fa-info-circle"></i></a></div>
+                                <div class="col-4 text-end" style="white-space: nowrap;">
+                                    <span>$</span>
+                                    <span class="baku_fee">0,00</span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-8 text-start"><small>{{lang.service_fee}}</small> <a
+                                        href="javascript:;"><i class="fa fa-info-circle"></i></a></div>
+                                <div class="col-4 text-end" style="white-space: nowrap;">
+                                    <span>$</span>
+                                    <span class="service_fee">0,00</span>
+                                </div>
+                            </div>
+
+
+                            <hr class="mx-3"/>
+
+                            <div class="row mt-4 alert alert-success mx-3">
+                                <div class="col-8 text-start h5 mb-0"><small>{{lang.final_price}}:</small>
+                                </div>
+                                <div class="col-4 text-end h5 mb-0">
+                                    <span>$</span>
+                                    <span class="total_fee">0,00</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+        <br/>
+</section>

@@ -1,0 +1,679 @@
+{% extends 'auction/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block pagecontent %}
+
+<section class="breadcrumbs bg-white px-4 z-in pb-3 ">
+  <nav aria-label="breadcrumb" class="py-3 d-none d-md-block d-lg-block">
+    <ol class="breadcrumb hide-m ">
+      <li class="breadcrumb-item">
+        <a href="/" class="text-decoration-none">{{lang.home}}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        {{lang.search}}
+      </li>
+    </ol>
+  </nav>
+  <div class="row">
+    <div class="col-lg-10 col-md-9 col-8   ">
+
+      <div class="filter-slider owl-theme px-2">
+        <h3 class=" d-md-none d-lg-none d-xl-none d-flex align-items-center">{{lang.filter_more}}</h3>
+        <a id="show-all-filters-button"
+          onClick="filterSBar()"
+          class=" item btn btn-outline-primary rounded-pill px-4 m-1 active filtrs"
+          ><i class="fa fa-list-dots"></i>{{lang.filters}}
+        </a>
+        <button onClick="filterSlider('left')"  class="filter-slider-button d-none d-md-block d-lg-block">
+        <i class="fa fa-angle-left"></i>
+        </button>
+        <div class="filter-slider-child d-none d-md-block d-lg-block">
+        <a
+          href="javascript:;"
+          onClick="applyTopFilter('buyItNow')"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.buy_it_now}} ({{buy_it_now_total}})</a
+        >
+        <a
+          href="javascript:;"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.clean_title}} (29,546)</a
+        >
+        <a
+          href="javascript:;"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.runs_and_drives}} (108,871)</a
+        >
+        <a
+          href="javascript:;"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.electric}} (532)</a
+        >
+        <a
+          href="javascript:;"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.rentals}} (1,077)</a
+        >
+        <a
+          href="javascript:;"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.classics}} (1,027)</a
+        >
+        <a
+          href="javascript:;"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.hybrid}} (4,311)</a
+        >
+        <a
+          href="javascript:;"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1"
+          >{{lang.exotic}} (497)</a
+        >
+        </div>
+        <button onClick="filterSlider('right')"  class="filter-slider-button">
+          <i class="fa fa-angle-right d-none d-md-block d-lg-block"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-4 d-none d-md-block d-lg-block">
+      <div
+        class="btn-group float-end"
+        role="group"
+        aria-label="Basic radio toggle button group"
+        id="layout-btns"
+      >
+        <input
+          onClick="changeLayout('list')"
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="btnradio1"
+          autocomplete="off"
+          checked
+        />
+        <label
+          onClick="changeLayout('list')"
+          class="btn btn-outline-primary"
+          id="list-btn"
+          for="btnradio1"
+          ><i class="fa fa-list"></i>
+          <span class="hide-m">{{lang.list}}</span></label
+        >
+        <input
+          onClick="changeLayout('grid')"
+          id="btnradio3"
+          type="radio"
+          class="btn-check"
+          autocomplete="off"
+        />
+        <label
+          onClick="changeLayout('grid')"
+          class="btn btn-outline-primary"
+          id="grid-btn"
+          for="btnradio3"
+          ><i class="fa fa-columns"></i>
+          <span class="hide-m">{{lang.grid}}</span></label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</section>
+
+<section class="border-top">
+  <div class="row">
+    <div
+      style="display: none"
+      class="col-lg-3 col-md-12 col-sm-12 t-hide"
+      id="s-bar"
+    >
+      <div class="bg-white sidebar pb-4 pt-2 px-3 ">
+        <div class="hide-d bg-primary p-3 cll mb-3">
+          <span class="float-start text-white"
+            ><i class="fa fa-list-dots"></i> {{lang.filters}}</span
+          >
+          <a
+            onClick="filterSBar()"
+            class="text-decoration-none float-end text-white c-sidebar"
+            ><i class="fa fa-times"></i
+          ></a>
+          <div class="clearfix"></div>
+        </div>
+        {% for filter in active_filters %}
+        <span
+          class="bg-primary py-1 px-3 text-white rounded-pill mt-2 me-2 mb-2 d-inline-block"
+          >{{filter}}
+          <a
+            style="cursor: pointer"
+            onClick="removeFilter('{{filter}}')"
+            class="text-white text-decoration-none"
+            >&times;</a
+          ></span
+        >
+        {% endfor %}
+        <div class="clearfix"></div>
+
+
+        <a
+          style="cursor: pointer"
+          onClick="applyFilter()"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1 filtrs text-decoration-none"
+          >{{lang.apply_filter}}</a
+        >
+
+        <a
+          style="cursor: pointer"
+          onClick="searchFunction()"
+          class="item btn btn-outline-primary rounded-pill px-4 m-1  filtrs text-decoration-none"
+          >{{lang.clear_filter}}</a
+        >
+
+        <div class="accordion" id="accordionSidebar">
+          <div class="accordion-item rounded-0 border-top-0">
+<!--            <h2 class="accordion-header" id="accordionSidebar-headingOne">-->
+<!--              <button-->
+<!--                class="accordion-button collapsed px-0 fw-bold text-dark bg-none shadow-none h5"-->
+<!--                type="button"-->
+<!--                data-bs-toggle="collapse"-->
+<!--                data-bs-target="#accordionSidebar-collapseOne"-->
+<!--                aria-expanded="false"-->
+<!--                aria-controls="accordionSidebar-collapseOne"-->
+<!--              >-->
+<!--                {{lang.saved_search}}-->
+<!--              </button>-->
+<!--            </h2>-->
+<!--            <div-->
+<!--              id="accordionSidebar-collapseOne"-->
+<!--              class="accordion-collapse collapse"-->
+<!--              aria-labelledby="accordionSidebar-headingOne"-->
+<!--            >-->
+<!--              <div class="accordion-body px-0 pt-0">-->
+<!--                <p class="text-muted line-heights opacity-50">-->
+<!--                  {{lang.save_search_msg}}-->
+<!--                </p>-->
+<!--              </div>-->
+<!--            </div>-->
+            {% include 'auction/components/search/filters.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-9 col-md-12 col-sm-12 bg-light p-3" id="full">
+      <h3 class="h3 my-2 float-start d-block">
+        {{lang.salvage_cars_for_sale}}
+        <small class="h6 fw-normal ms-2"
+          >({{total_search_results|intcomma}} {{lang.results_found}})
+        </small>
+      </h3>
+      <p style="display: none" class="float-end my-3">
+        View by <a href="javascript:;">Port</a>
+      </p>
+      <div class="clearfix"></div>
+      <div class="table-outer list-style">
+        <style>
+          .each-img-mobile {
+            min-height: 120px;max-height: 120px;min-width: 120px;max-width: 120px;
+          }
+
+          @media screen and (max-width: 395px) {
+          .each-img-mobile {
+            min-height: 100px;max-height: 100px;min-width: 100px;max-width: 100px;
+          }
+          }
+        </style>
+        <div id="vertical-layout-mobile" class="hide-d list-mobile">
+          {% for car in search_results %}
+
+          <div class="card mb-1 list-box rounded-0">
+            <div class="row g-0 d-flex justify-content-center">
+              <div class="col-4" style="display: flex;flex-direction: column;justify-content: center;">
+                <a href="/lots/{{car.lotId}}"
+                  ><img
+                    src="{{car.imageFull}}"
+                    class="img-fluid rounded-start each-img-mobile"
+                    alt="Image"
+                /></a>
+              </div>
+              <div class="col-8">
+                <div class="card-body p-2">
+                  <h5 class="card-title text-primary fw-bold float-start">
+                    {{ car.year }} {{ car.make }} {{ car.model }} {% if car.engineSize != None and car.engineSize != "" and car.engineSize != "N/A" %}| {{car.engineSize}}{% endif %}
+                  </h5>
+
+                  <div class="clearfix"></div>
+                  <p class="card-text">
+                    {{lang.odometer}}: {{ car.odometer|intcomma }} mi {{ car.odometerType }}<br />
+                    {{lang.primary_damage}}: {{car.primaryDamage}} <br />
+                    {{lang.secondary_damage}}: {{car.secondaryDamage}}<br />
+                    {{lang.sale_date}}: {{car.saledate}}
+                  </p>
+                </div>
+              </div>
+              <hr />
+              <div class="col-6 d-flex justify-content-center pb-3 ">
+                <a
+                  href="/lots/{{car.lotId}}"
+                  class="btn btn-primary w-100 rounded-pill mt-2 "
+                  >{{lang.see_details}}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+
+        <div id="grid-layout-mobile" class="grid-style-mobile">
+          {% for car in search_results %}
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card cars-boxx mt-4 position-relative">
+              <a
+                href="/lots/{{car.lotId}}"
+                class="btn btn-primary text-uppercase fw-bold rounded-pill py-2 position-absolute qv"
+                >{{lang.quick_view}}</a
+              >
+              <div
+                id="carouselExampleIndicators{{car.lotId}}"
+                class="carousel slide"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-indicators">
+                  <button
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                    data-bs-slide-to="0"
+                    class="active"
+                    aria-current="true"
+                    aria-label="Slide 1"
+                  ></button>
+                  <button
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                    data-bs-slide-to="1"
+                    aria-label="Slide 2"
+                  ></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img
+                      src="{{car.imageFull}}"
+                      class="d-block w-100"
+                      alt="Image"
+                    />
+                  </div>
+                  <div class="carousel-item">
+                    <img
+                      src="{{car.imageFull}}"
+                      class="d-block w-100"
+                      alt="Image"
+                    />
+                  </div>
+                </div>
+                <button
+                  class="carousel-control-prev bg-dark"
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                  data-bs-slide="prev"
+                >
+                  <i class="fa fa-arrow-left"></i>
+                </button>
+                <button
+                  class="carousel-control-next bg-dark"
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                  data-bs-slide="next"
+                >
+                  <i class="fa fa-arrow-right"></i>
+                </button>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a
+                    href="/lots/{{car.lotId}}"
+                    class="text-decoration-none h5 fw-bold float-start mt-1"
+                    >{{car.year}} {{car.make}} {{car.model}} {% if car.engineSize != None and car.engineSize != "" and car.engineSize != "N/A" %}| {{car.engineSize}}{% endif %}</a
+                  >
+                  <a
+                    href="javascript:;"
+                    class="text-decoration-none p-2 border rounded-circle border-primary float-end"
+                    ><i class="fa fa-heart"></i
+                  ></a>
+                </h5>
+                <div class="clearfix"></div>
+                <ul class="py-3">
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.odometer}}:</p>
+                    <b class="text-end float-end">{{ car.odometer|intcomma }} mi {{ car.odometerType }}</b>
+                    <div class="clearfix"></div>
+                  </li>
+
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.primary_damage}}:</p>
+                    <b class="text-end float-end">{{car.primaryDamage}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.title_code}}:</p>
+                    <b class="text-end float-end"
+                      >TX CERT OF TITLE-REBUILT </b
+                    >
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.location}}:</p>
+                    <b class="text-end float-end">{{car.locationName}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.sale_date}}:</p>
+                    <b class="text-end float-end">{{car.saledate}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.sale_status}}:</p>
+                    <b class="text-end float-end">On Minimum Bid</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">
+                      {{lang.damaged_salvage}}:
+                    </p>
+                    <b class="text-end float-end">Car</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="py-2">
+                    <p class="text-start float-start">{{lang.current_bid}}:</p>
+                    <b class="text-end float-end fs-5"
+                      >{% if car.BidInformation.CurrentBid != None and car.BidInformation.CurrentBid != "N/A" %}{{ car.BidInformation.CurrentBid }} {{ car.BidInformation.Currency }}{% else %}0{% endif %}</b
+                    >
+                    <div class="clearfix"></div>
+                  </li>
+                </ul>
+                <a
+                  href="/lots/{{car.lotId}}"
+                  class="btn btn-primary text-uppercase fw-bold rounded-pill w-100 py-2"
+                  >{{lang.bid_now}}</a
+                >
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+
+        <table
+          id="vertical-layout"
+          class="table table-bordered table-striped mt-2 hide-m"
+        >
+          <thead class="bg-dark text-white">
+            <tr>
+              <th class="py-3 w-110">{{lang.image}}</th>
+              <th class="py-3">
+                {{lang.lot}}
+                <a href="javascript:;" class="text-white text-decoration-none"
+                  ><i class="fa fa-sort"></i
+                ></a>
+              </th>
+              <th class="py-3">
+                {{lang.year}}
+                <a href="javascript:;" class="text-white text-decoration-none"
+                  ><i class="fa fa-sort"></i
+                ></a>
+              </th>
+              <th class="py-3">
+                {{lang.make}}
+                <a href="javascript:;" class="text-white text-decoration-none"
+                  ><i class="fa fa-sort"></i
+                ></a>
+              </th>
+              <th class="py-3">
+                {{lang.model}}
+                <a href="javascript:;" class="text-white text-decoration-none"
+                  ><i class="fa fa-sort"></i
+                ></a>
+              </th>
+              <th class="py-3">
+                {{lang.odometer}}
+                <a href="javascript:;" class="text-white text-decoration-none"
+                  ><i class="fa fa-sort"></i
+                ></a>
+              </th>
+              <th class="py-3">
+                {{lang.sale_date}}
+                <a href="javascript:;" class="text-white text-decoration-none"
+                  ><i class="fa fa-sort"></i
+                ></a>
+              </th>
+
+              <th class="py-3">
+                {{lang.current_bid}}
+                <a href="javascript:;" class="text-white text-decoration-none"
+                  ><i class="fa fa-sort"></i
+                ></a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for car in search_results %}
+            <tr>
+              <td class="position-relative p-0 align-middle w-110">
+                <a href="/lots/{{car.lotId}}">
+                  <img src="{{car.imageFull}}" alt="Car" class="img-fluid" />
+                  <a
+                    href="/lots/{{car.lotId}}"
+                    class="position-absolute p-2 bottom-0 star-0 end-0 text-white text-decoration-none text-center d-block bg-dark w-100"
+                    >{{lang.quick_view}}</a
+                  ></a>
+              </td>
+              <td class="align-middle">
+                <a href="/lots/{{car.lotId}}" class="text-decoration-none"
+                  >{{ car.lotId }}</a
+                >
+                <div class="clearfix"></div>
+              </td>
+              <td class="align-middle">{{ car.year }}</td>
+              <td class="align-middle">{{ car.make }}</td>
+              <td class="align-middle">{{ car.model }}</td>
+              <td class="align-middle"> {{ car.odometer|intcomma }} mi {{ car.odometerType }}</td>
+              <td class="align-middle">{{ car.saledate }}</td>
+              <td class="text-center align-middle">
+                {% if car.BidInformation.CurrentBid != None and car.BidInformation.CurrentBid != "N/A" %}{{ car.BidInformation.CurrentBid }} {{ car.BidInformation.Currency }}{% else %}0{% endif %}
+                <a
+                  href="/lots/{{car.lotId}}"
+                  class="btn btn-primary w-100 rounded-pill mt-2"
+                  >{{lang.see_details}}
+                </a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div id="grid-layout" class="grid-style">
+        <div class="row">
+          {% for car in search_results %}
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card cars-boxx mt-4 position-relative">
+              <a
+                href="/lots/{{car.lotId}}"
+                class="btn btn-primary text-uppercase fw-bold rounded-pill py-2 position-absolute qv"
+                >{{lang.quick_view}}</a
+              >
+              <div
+                id="carouselExampleIndicators{{car.lotId}}"
+                class="carousel slide"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-indicators">
+                  <button
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                    data-bs-slide-to="0"
+                    class="active"
+                    aria-current="true"
+                    aria-label="Slide 1"
+                  ></button>
+                  <button
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                    data-bs-slide-to="1"
+                    aria-label="Slide 2"
+                  ></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img
+                      src="{{car.imageFull}}"
+                      class="d-block w-100"
+                      alt="Image"
+                    />
+                  </div>
+                  <div class="carousel-item">
+                    <img
+                      src="{{car.imageFull}}"
+                      class="d-block w-100"
+                      alt="Image"
+                    />
+                  </div>
+                </div>
+                <button
+                  class="carousel-control-prev bg-dark"
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                  data-bs-slide="prev"
+                >
+                  <i class="fa fa-arrow-left"></i>
+                </button>
+                <button
+                  class="carousel-control-next bg-dark"
+                  type="button"
+                  data-bs-target="#carouselExampleIndicators{{car.lotId}}"
+                  data-bs-slide="next"
+                >
+                  <i class="fa fa-arrow-right"></i>
+                </button>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a
+                    href="/lots/{{car.lotId}}"
+                    class="text-decoration-none h5 fw-bold float-start mt-1"
+                    >{{car.year}} {{car.make}} {{car.model}} {% if car.engineSize != None and car.engineSize != "" and car.engineSize != "N/A" %}| {{car.engineSize}}{% endif %}</a
+                  >
+                </h5>
+                <div class="clearfix"></div>
+                <ul class="py-3">
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.odometer}}:</p>
+                    <b class="text-end float-end">{{ car.odometer|intcomma }} mi {{ car.odometerType }}</b>
+                    <div class="clearfix"></div>
+                  </li>
+
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.primary_damage}}:</p>
+                    <b class="text-end float-end">{{car.primaryDamage}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.secondary_damage}}:</p>
+                     <b class="text-end float-end">{{car.secondaryDamage}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.fuel}}:</p>
+                    <b class="text-end float-end">{{car.fuel}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.drive}}:</p>
+                    <b class="text-end float-end">{{car.drive}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+
+                  <li class="border-bottom py-2">
+                    <p class="text-start float-start">{{lang.sale_date}}:</p>
+                    <b class="text-end float-end">{{car.saledate}}</b>
+                    <div class="clearfix"></div>
+                  </li>
+                  <li class="py-2">
+                    <p class="text-start float-start">{{lang.current_bid}}:</p>
+                    <b class="text-end float-end fs-5"
+                      >{% if car.BidInformation.CurrentBid != None and car.BidInformation.CurrentBid != "N/A" %}{{ car.BidInformation.CurrentBid }} {{ car.BidInformation.Currency }}{% else %}0{% endif %}</b
+                    >
+                    <div class="clearfix"></div>
+                  </li>
+                </ul>
+                <a
+                  href="/lots/{{car.lotId}}"
+                  class="btn btn-primary text-uppercase fw-bold rounded-pill w-100 py-2"
+                  >{{lang.see_details}}</a
+                >
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+      </div>
+      <nav class="py-3" aria-label="Page navigation example">
+        <ul id="search-pagination" class="pagination justify-content-center search-pagination-main"></ul>
+      </nav>
+      <div class="bg-white border p-4 rounded-2">
+        <h3 class="h3">{{lang.search_h1}}</h3>
+        <p class="line-heights">{{lang.search_h1_msg}}</p>
+        <h3 class="h3 mt-4">{{lang.search_h2}}</h3>
+        <p class="line-heights">{{lang.search_h2_msg}}</p>
+        <h3 class="h3 mt-4">{{lang.search_h3}}</h3>
+        <p class="line-heights">{{lang.search_h3_msg}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--------------------Search List Section Code Ends Here----------------->
+
+<!-- {% include 'auction/components/registernow-section.html' %} {% include -->
+
+<script>
+  const LANG_SHOW_LESS = "{{lang.show_less}}";
+  const LANG_SHOW_MORE = "{{lang.show_more}}";
+  const TOTAL_SEARCH_RESULTS = "{{total_search_results}}";
+</script>
+
+<script src="{% static 'js/search-script.js' %}"></script>
+
+<script>
+
+/*
+
+$(function () {
+  $('[data-bs-toggle="tooltip"]').tooltip();
+});
+
+$(".owl-carousel").owlCarousel({
+  stagePadding: 0,
+  loop: false,
+  margin: 10,
+  autoWidth: true,
+  nav: true,
+  responsive: {
+    0: {
+      items: 1,
+    },
+    600: {
+      items: 3,
+    },
+    1000: {
+      items: 7,
+    },
+  },
+});
+
+*/
+
+</script>
+
+{% endblock %}

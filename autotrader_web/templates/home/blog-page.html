@@ -1,0 +1,64 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+ <!-- Sub banner start -->
+ <div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.blog}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.blog}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Blog body start -->
+<div class="blog-body content-area">
+    <div class="container">
+        <div class="row">
+            {% for post in blog %}
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-1">
+                    <div class="blog-image" style="height:250px">
+                        <img src="{% static post.Image %}" alt="blog-1" class="img-fluid bp" style="height:100%;object-fit:cover">
+                        <div class="date-box">
+                            <span>{{post.Day}}</span>
+                            <span>{{post.Month}}</span>
+                        </div>
+                        <div class="profile-user">
+                            <img src="{% static post.UserImage %}" alt="user">
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <div class="post-meta clearfix">
+                            <ul>
+                                <li>
+                                    <strong><a href="#">{{post.Username}}</a></strong>
+                                </li>
+                                <li class="float-right mr-0"><i class="fa fa-eye"></i>{{post.Count}}</li>
+                                <input type="hidden" name="name" value="405" class="blog_count" />
+                            </ul>
+                        </div>
+                        <h4>
+                                    <a href="/blog/details/{{post.Id}}" class="blog_counter" id="14">{% if current_lang == "ENG" %}{{post.TitleEn}}{% elif current_lang == "RUS" %}{{post.TitleRu}}{% elif current_lang == "AZE" %}{{post.TitleAz}}{% endif %}</a>
+                        </h4>
+        </div>
+    
+</div>
+</div>
+            {% endfor %}
+
+        </div>
+        <!-- Page navigation start 
+        <div class="pagination-box hidden-mb-45 text-center">
+            <nav aria-label="Page navigation example">
+                <div class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;&#x2D;&#x63;&#x6F;&#x6E;&#x74;&#x61;&#x69;&#x6E;&#x65;&#x72;"><ul class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;"><li class="&#x61;&#x63;&#x74;&#x69;&#x76;&#x65;"><span>&#x31;</span></li></ul></div>
+
+            </nav>
+        </div>-->
+    </div>
+</div>
+
+{% endblock %}

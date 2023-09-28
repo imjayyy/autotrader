@@ -1,0 +1,15 @@
+[Unit]
+Description=Autotrader Docker DB Service
+After=network.target
+
+[Service]
+User=autotrader-admin
+Group=autotrader-admin
+Environment="PRODUCTION_SERVER=1"
+Restart=always
+RestartSec=3s
+WorkingDirectory=/home/autotrader-admin/autotrader/autotrader.az
+ExecStart=docker compose up db
+
+[Install]
+WantedBy=multi-user.target

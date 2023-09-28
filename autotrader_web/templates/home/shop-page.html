@@ -1,0 +1,48 @@
+{% extends 'home/layout.html' %}
+{% block body %}
+
+
+<style>
+    .pagination span {
+        padding: 4px 8px !important;
+        background: #f0151f !important;
+        color: #fff !important;
+    }
+
+    .pagination a {
+        background: #fff;
+        padding: 4px 8px !important;
+        font-size: 16px !important;
+    }
+</style>
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.shop}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.shop}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Shop list start -->
+<div class="shop-list content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-4">
+                    <h4>{{lang.home_site.shop_list}}</h4>
+                </div>
+            </div>
+
+        </div>
+        <div class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;&#x2D;&#x63;&#x6F;&#x6E;&#x74;&#x61;&#x69;&#x6E;&#x65;&#x72;"><ul class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;"><li class="&#x64;&#x69;&#x73;&#x61;&#x62;&#x6C;&#x65;&#x64;&#x20;&#x50;&#x61;&#x67;&#x65;&#x64;&#x4C;&#x69;&#x73;&#x74;&#x2D;&#x73;&#x6B;&#x69;&#x70;&#x54;&#x6F;&#x50;&#x72;&#x65;&#x76;&#x69;&#x6F;&#x75;&#x73;"><a rel="&#x70;&#x72;&#x65;&#x76;"><</a></li><li class="&#x64;&#x69;&#x73;&#x61;&#x62;&#x6C;&#x65;&#x64;&#x20;&#x50;&#x61;&#x67;&#x65;&#x64;&#x4C;&#x69;&#x73;&#x74;&#x2D;&#x73;&#x6B;&#x69;&#x70;&#x54;&#x6F;&#x4E;&#x65;&#x78;&#x74;"><a rel="&#x6E;&#x65;&#x78;&#x74;">></a></li></ul></div>
+
+    </div>
+</div>
+
+
+{% endblock %}

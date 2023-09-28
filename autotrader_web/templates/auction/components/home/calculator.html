@@ -1,0 +1,137 @@
+<section class="calculator bg-white py-5">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="h2 mb-4">{{lang.payment_calculator}}</h3>
+                <p class="h5 fw-normal">{{lang.payment_calculator_msg}}</p>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="bg-light py-2 px-3 mt-4 rounded-2 border shadow-sm">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="mt-4">
+                  <label class="form-label">{{lang.lot}}#</label>
+                  <input onChange="home_calculate()" id="lot_id_home_calculator" type="text" class="form-control" placeholder="{{lang.enter_lot_or_vin}}" />
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.bid}}</label>
+                  <input onChange="home_calculate()" id="bid" type="text" class="form-control" placeholder="{{lang.bid}}" />
+                </div>                
+                <div class="mt-4">
+                  <label class="form-label">{{lang.auction}}</label>
+                  <select disabled class="form-select" aria-label="Default select example">
+                    <option data-response-prop="auction" id="auction_company" selected></option>
+                  </select>
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.from_country}}</label>
+                  <select disabled class="form-select" aria-label="Default select example">
+                    <option data-response-prop="country" id="from_country" selected></option>
+                  </select>
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.from_port}}</label>
+                  <select disabled class="form-select" aria-label="Default select example">
+                    <option data-response-prop="port" id="from_port" selected></option>
+                  </select>
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.to_country}}</label>
+                  <select onChange="home_calculate()" id="to_country" class="form-select" aria-label="Default select example">
+                    <option value="Azerbaijan" selected>Azerbaijan</option>
+                    <option value="Georgia" selected>Georgia</option>
+                </select>
+                </div>
+                <br/>
+                <!--
+                <div class="mt-4">
+                  <label class="form-label">{{lang.to_port}}</label>
+                  <select id="to_port" disabled class="form-select" aria-label="Default select example">
+                    <option selected>Baku</option>
+                  </select>
+                </div>
+                -->
+              </div>
+
+              <div class="col-md-6 col-sm-12 p-0">
+				<div class="bg-light p-1">
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.auction_fee}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="auction_fee" id="auction-fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.shipping_fee}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="shipping_fee" id="shipping-fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.service_fee}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="service_fee" id="service-fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.bid}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="bid" id="car-bid">-</b>
+						</div>
+					</div>
+                    <!--
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.cost_of_delivery_to_baku}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="baku_fee" id="cost_of_delivery_to_baku">-</b>
+						</div>
+					</div>
+                    -->
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.transfer_fee}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="transfer_fee" id="transfer_fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.insurance_fee}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="insurance_fee" id="insurance_fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.documentation_fee}}</small> <a
+							href="javascript:;" ><i class="fa fa-info-circle"></i></a></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="documentation_fee" id="documentation_fee">-</b>
+						</div>
+					</div>
+
+                <hr class="mx-3" />
+
+                <div class="row mt-4 alert alert-success mx-3">
+                  <div class="col-8 text-start h5 mb-0"><small>{{lang.final_price}}</small></div>
+                  <div class="col-4 text-end h5 mb-0"><b data-response-prop="total" id="final-price"></b></div>
+                </div>
+
+<!---
+                <div class="row mt-4">
+                  <div class="col-12"> <a href="javascript:;" class="btn btn-secondary btn-sm px-3 py-1 rounded-pill me-2"><i class="fa fa-print me-2"></i> {{lang.print}}</a> <a href="javascript:;" class="btn btn-secondary btn-sm px-3 py-1 rounded-pill"><i class="fa fa-copy me-2"></i> {{lang.copy}}</a> </div>
+                </div>
+-->
+
+              </div>
+            </div>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+</section>
+
+<!--------------------Calculator Code Ends Here----------------->

@@ -1,0 +1,157 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.services}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.services}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- services-2 start -->
+<div class="services-2 content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>{{lang.home_site.our_services}}</h1>
+        </div>
+        <div class="row">
+            {% for service in services %}
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="service-info-2">
+                    <div class="icon">
+                        <i class="{{service.ImagePath}}"></i>
+                    </div>
+                    <div class="detail">
+
+                            <h3>{% if current_lang == "ENG" %}{{service.NameEn}}{% elif current_lang == "AZE" %}{{service.NameAz}}{% elif current_lang == "AZE" %}{{service.NameAz}}{% endif %}</h3>
+                                <p>{% if current_lang == "ENG" %}{{service.AboutEn}}{% elif current_lang == "AZE" %}{{service.AboutAz}}{% elif current_lang == "AZE" %}{{service.AboutAz}}{% endif %}</p>
+                        <a tabindex="1" class="read-more">{{lang.home_site.read_more}}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- services-2 end -->
+<!-- Service center strat -->
+<div class="service-center content-area-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="service-car">
+                    <div id="carDetailsSlider" class="carousel car-details-sliders slide">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner">
+                            <div class="active item carousel-item" data-slide-number="0">
+                                <img src="{% static '/Admin/Uploads/Service/a675ccc0-0998-40eb-b89a-9d88d9935a3cCar-Auction.jpeg' %}" class="img-fluid service_img" alt="slider-car">
+                            </div>
+                        </div>
+                        <!-- main slider carousel nav controls -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 align-self-center services_more">
+                <div class="best-used-car">
+                        <h3>{{lang.home_site.participate_in_auctions}}</h3>
+                        <p>{{lang.home_site.participate_in_auctions}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service center end -->
+<!-- Contact 2 start -->
+<div class="contact-2 content-area-5">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>{{lang.home_site.service_schedule}}</h1>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-12 text-left">
+                            <div class="form-group name">
+                                <label for="message-name" class="col-form-label">{{lang.home_site.your_name_and_surname}}:<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="message-name" required>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group email">
+                                <label for="message-contact" class="col-form-label">{{lang.home_site.contact_info_phone_or_email}}:<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="message-contact" required>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group subject">
+                                <label for="message-subject" class="col-form-label">{{lang.home_site.subject}}:<span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="message-subject" required>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group message">
+                                <label for="message-text" class="col-form-label">{{lang.home_site.your_message}}:<span style="color:red">*</span></label>
+                                <textarea class="form-control" id="message-text" required></textarea>
+                                <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class='g-recaptcha capctha_div' data-sitekey='6LfCq9YgAAAAAHSho3_KTBidYE4fVtDsI6W1rras' style="margin-bottom:20px"></div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="send-btn text-center">
+                                <button type="button" onClick="submitForm()" class="btn btn-5 send_message">{{lang.home_site.send}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="contact-info-2">
+                        <div class="ci-box">
+                            <div class="icon">
+                                <i class="flaticon-phone"></i>
+                            </div>
+                            <div class="detail">
+                                <h5>{{lang.phone}}:</h5>
+                                <p><a href="tel:{{settings.Phone}}">{{settings.Phone}}</a></p>
+                            </div>
+                        </div>
+                        <div class="ci-box">
+                            <div class="icon">
+                                <i class="flaticon-mail"></i>
+                            </div>
+                            <div class="detail">
+                                <h5>{{lang.email}}:</h5>
+                                <p><a href="mailto:{{settings.Email}}">{{settings.Email}}</a></p>
+                            </div>
+                        </div>
+                        <div class="get-social">
+                            <h3 class="heading">{{lang.social_media}}</h3>
+                                {% for social in social_media_accounts %}
+                                <a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg">
+                                    <i class="{{social.SocialMedia.Icon}}"></i>
+                                </a>
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

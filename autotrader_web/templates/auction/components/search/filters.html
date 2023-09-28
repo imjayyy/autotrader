@@ -1,0 +1,50 @@
+{% for filter in search_filters %}
+{% load language_tag %}
+
+<div class="accordion-item rounded-0">
+  <h2 class="accordion-header" id="accordionSidebar-headingTwo">
+    <button
+      class="accordion-button px-0 fw-bold text-dark bg-none shadow-none h5"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#accordionSidebar-collapseTwo{{filter.id}}"
+      aria-expanded="true"
+      aria-controls="accordionSidebar-collapseTwo"
+    >
+      {{filter.name}}
+    </button>
+  </h2>
+  <div
+    id="accordionSidebar-collapseTwo{{filter.id}}"
+    class="accordion-collapse collapse show"
+    aria-labelledby="accordionSidebar-headingTwo"
+  >
+    <div class="accordion-body px-0 pt-0">
+      {% for f in filter.data %}
+        {% if f.value != None and f.total != None %}
+        <div name="{{filter.column}}-finput-div" class="form-check my-2">
+          <input
+            {% if f.active %}checked{% endif %}
+            name="{{filter.column}}-finput"
+            class="form-check-input mt-0"
+            type="checkbox"
+            data-value="{{f.value}}"
+          />
+          <label class="form-check-label d-block"
+            >{{ f.value }}
+            <small class="float-end">{{f.total}}</small></label
+          >
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="my-2">
+      <a style="cursor:pointer;" id="{{filter.column}}-showbtn" onClick="showMoreFilters('{{filter.column}}')" class="text-decoration-none more3">
+        <i class="fa fa-angle-down me-2"></i>
+        <span class="c-list-msg3" id="{{filter.column}}-message">{{lang.show_more}}</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endfor %}

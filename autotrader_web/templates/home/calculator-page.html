@@ -1,0 +1,171 @@
+{% extends 'home/layout.html' %}
+{% block body %}
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.calculator}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.calculator}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="about-car">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="auction" class="col-form-label">
+                                {{lang.home_site.auction_company}}<span style="color:red">*</span>
+                        </label>
+                        <select class="form-control" id="auction">
+                            <option value="def" hidden selected disabled>Choose</option>
+                            {% for co in auctions %}
+                            <option value="{{co.Id}}">{{co.Name}}</option>
+                            {% endfor %}
+
+                        </select>
+                        <span class="alert alert-danger error_auction"
+                              style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city" class="col-form-label">{{lang.home_site.city}}<span style="color:red">*</span></label>
+                            <select onChange="update_city()" class="form-control" id="city">
+                                <option value="def" hidden selected disabled>Choose</option>
+                                    {% for city in cities %}
+                                    <option value="{{city.Id}}">{{city.State}} - {{city.Name}}</option>
+                                    {% endfor %}
+                            </select>
+                            <span class="alert alert-danger error_city"
+                                  style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="state" class="col-form-label">{{lang.home_site.states}}</label>
+                                <input type="text" name="name" value="" id="state" class="form-control" disabled />
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="port" class="col-form-label">{{lang.home_site.port}}</label>
+                                <input type="text" name="name" value="" id="port" class="form-control" disabled />
+
+                            </div>
+                        </div>
+                        <div class="offset-md-3 col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <label for="price" class="col-form-label">{{lang.home_site.cars_auction_price}}<span style="color:red">*</span></label>
+                                <input type="number" name="name" value="" required class="form-control" id="price" autocomplete="off" />
+                                <span class="alert alert-danger error_carprice"
+                                      style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="text-align:center">
+                                <button onClick="calculate()" class="btn btn-success calculate_btn" type="button"
+                                        style="margin-top: 40px; background-color: #f0151f; border-color: #f0151f;border-radius:5px">
+                                    {{lang.home_site.calculate}}
+                                    </button>
+                                </div>
+                            </div>
+            </div>      
+
+            <script>
+
+                function update_city() {
+                    console.log("UPDATE CITY")
+                    const location = document.getElementById("city").value
+                    fetch("/get_city?location="+location)
+                    .then(res=>res.json()
+                    .then(data=>{
+                        document.getElementById("state").value = data.state
+                        document.getElementById("port").value = data.port
+                    }))
+                }
+                function calculate() {
+                    const price = document.getElementById("price").value
+                    const auction = document.getElementById("auction").value
+                    const city = document.getElementById("city").value
+                    document.querySelector(".error_city").style.display = "none"
+                    document.querySelector(".error_carprice").style.display = "none"
+                    document.querySelector(".error_auction").style.display = "none"
+                    if (city == "def") {
+                        document.querySelector(".error_city").style.display = "block"
+                    } else if (auction == "def") {
+                        document.querySelector(".error_auction").style.display = "block"
+                    } else if (!document.getElementById("price").validity.valid) {
+                        document.querySelector(".error_carprice").style.display = "block"
+                    } else { 
+                        fetch(`/home-calculator?auction=${auction}&price=${price}&city=${city}`)
+                        .then(res=>res.json()
+                        .then(data=>{
+                            document.querySelector(".total_fee").innerText = data.total
+                            document.querySelector(".car_price").innerText = data.bid
+                            document.querySelector(".auction_fee").innerText = data.auction_fee
+                            document.querySelector(".shipping_fee").innerText = data.shipping_fee
+                            document.querySelector(".service_fee").innerText = data.service_fee
+                            document.querySelector(".baku_fee").innerText = data.baku_fee
+                        }))
+                    }
+                }
+
+            </script>
+            <div class="col-lg-2 col-xl-2">
+                
+            </div>
+            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div style="text-align:center">
+                    <img id="loading-image" src="/Assets/img/load1.gif" style="display:none;width:300px" />
+
+                </div>
+                <table class="table table-bordered" style="">
+                    <thead>
+                        <tr style="background-color:linen">
+                            <th>Distribution of fees</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr style="background-color:linen">
+                            <th>Total</th>
+                            <th><span>$</span><span class="total_fee">0,00</span> </th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td>Car's Auction Price</td>
+                            <th><span>$</span><span class="car_price">0,00</span> </th>
+                        </tr>
+                        <tr>
+                            <td>Auction Fee</td>
+                            <th><span>$</span><span class="auction_fee">0,00</span> </th>
+                        </tr>
+                        <tr>
+                            <td>Shipping Fee</td>
+                            <th><span>$</span><span class="shipping_fee">0,00</span> </th>
+                        </tr>
+                        <tr>
+                            <td>Service Fee</td>
+                            <th><span>$</span><span class="service_fee">0,00</span> </th>
+                        </tr>
+                        <tr>
+                            <td>Cost of delivery to Baku</td>
+                            <th><span>$</span><span class="baku_fee">0,00</span> </th>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

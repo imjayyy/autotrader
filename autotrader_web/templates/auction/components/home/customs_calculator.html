@@ -1,0 +1,173 @@
+<script>
+  function homeCustomsCalculator() {
+  const properties = {
+    engine: "engine-capacity",
+    auto_type: "auto-type",
+    engine_type: "engine-type",
+    price: "custom_calc_price",
+    issue_date: "issue-date",
+    commerce_type: "commerce-type"
+  }
+  const data = {}
+  Object.keys(properties).forEach(k=>{
+    try {
+      data[k] = document.getElementById(properties[k]).value.toString();
+    } catch (err) {}
+  })
+    console.log(data)
+    console.log(document.getElementById('custom_calc_price'))
+    console.log(document.getElementById('custom_calc_price').value)
+  fetch("https://c2b-fbusiness.customs.gov.az/api/v1/dictionaries/calAutoDuty", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(
+      {
+        "commerceType":data.commerce_type,
+        "autoType":data.auto_type,
+        "engineType":data.engine_type,
+        "price":parseInt(data.price),
+        "engine":parseInt(data.engine),
+        "issueDate":`${data.issue_date.slice(8,10)}.${data.issue_date.slice(5,7)}.${data.issue_date.slice(0,4)}`
+      }
+    )
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    const result_fields = {
+      "import-customs-duty": "20",
+      "value_added_tax": "32",
+      "customs_fee_for_clearance": "01",
+      "vat_on_electronic": "85",
+      "electronic_customs_service": "75",
+      "excise_tax": "30",
+      "customs_fee_for_issuing_certificates": "05"
+    }
+    Object.keys(result_fields).forEach(k=>{
+      const duties = data.data.autoDuty.duties;
+      for (let i=0;i<duties.length;i++) {
+        if (duties[i].code == result_fields[k]) {
+          document.getElementById(k).innerText = duties[i].value + " AZN";
+          break;
+        }
+      }
+    })
+    document.getElementById("total_fee_customs").innerText = data.data.autoDuty.total.value + " AZN";
+  })
+}
+
+</script>
+
+<section id="customs" class="calculator bg-white py-5">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="h2 mb-4">{{lang.detailed_customs_fee_calculator}}</h3>
+                <p class="h5 fw-normal">{{lang.detailed_customs_fee_calculator_msg}}</p>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="bg-light py-2 px-3 mt-4 rounded-2 border shadow-sm">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="mt-4">
+                  <label class="form-label">{{lang.type_of_vehicle}}</label>
+                  <select id="auto-type" class="form-select" aria-label="Default select example">
+                    <option value="0">{{lang.passenger_car}}</option>
+                    <option value="1">{{lang.bus}}</option>
+                  </select>
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.engine_type}}</label>
+                  <select id="engine-type" class="form-select" aria-label="Default select example">
+                    <option value="0">{{lang.petrol}}</option>
+                    <option value="1">{{lang.diesel}}</option>
+                    <option value="2">{{lang.gas}}</option>
+                    <option value="3">{{lang.hybrid_gasoline}}</option>
+                    <option value="4">{{lang.hybrid_diesel}}</option>
+                    <option value="5">{{lang.electric}}</option>
+                  </select>
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.customs_value_of_car}}</label>
+                  <input type="number" id="custom_calc_price" class="form-control" placeholder="" />
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.engine_capacity_home_calculator}}</label>
+                  <input id="engine-capacity" type="number" class="form-control" placeholder="" />
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.date_of_issue}}</label>
+                  <input id="issue-date" type="date" class="form-control" placeholder="" />
+                </div>
+                <div class="mt-4">
+                  <label class="form-label">{{lang.about_the_country_of_origin}}</label>
+                  <select id="commerce-type" class="form-select" aria-label="Default select example">
+                    <option value="0">{{lang.country_of_origin_option1}}</option>
+                    <option value="1">{{lang.country_of_origin_option2}}</option>
+                  </select>
+                </div>
+                <div class="mt-4">
+                  <button STYLE="border-radius:25px;max-width:100%;width:100%;background-color:#c91f3b;height:30px;color:white;font-size:15px;outline:none;border:0px;" onClick="homeCustomsCalculator()">{{lang.calculate}}</button>
+                </div>
+                <br/>
+              </div>
+              <div class="col-md-6 col-sm-12 p-0">
+                  <div class="bg-light p-1">
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.import_customs_duty}}</small></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b id="import-customs-duty"> 0,00</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.value_added_tax}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b id="value_added_tax"> 0,00</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.customs_fees_for_customs_clearance_of_goods}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b id="customs_fee_for_clearance"> 0,00</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.excise_tax}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b id="excise_tax"> 0,00</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.customs_fees_for_issuing_certificates}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b id="customs_fee_for_issuing_certificates"> 0,00</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.electronic_customs_service_fee}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;">₼<b id="electronic_customs_service"> 0,00</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.VAT_on_electronic_customs_services}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b id="vat_on_electronic"> 0,00</b>
+						</div>
+					</div>
+
+          <hr class="mx-3" />
+
+          <div class="row mt-4 alert alert-success mx-3">
+            <div class="col-8 text-start h5 mb-0"><small>{{lang.total_customs_payment}}:</small></div>
+            <div class="col-4 text-end h5 mb-0">₼<b id="total_fee_customs"> 0,00</b></div>
+          </div>
+
+              </div>
+            </div>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <br/>
+</section>

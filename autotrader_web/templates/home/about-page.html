@@ -1,0 +1,103 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.about_us}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.about_us}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- About car start -->
+<div class="about-car">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="about-slider-box simple-slider">
+                    <img class="d-block w-100" src="{% static 'Admin/Uploads/About/2519f6f6-1e91-4a26-bf82-5f5957a3fecc1.png' %}" alt="about">
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="about-text">
+                    {% if current_lang == "ENG" %}
+                    <h3>{{about.TitleEn}}</h3>
+                    <p class="mb-0">{{about.ContentEn}}</p>
+                    {% elif current_lang == "AZE" %}
+                    <h3>{{about.TitleAz}}</h3>
+                    <p class="mb-0">{{about.ContentAz}}</p>
+                    {% elif current_lang == "RUS" %}
+                    <h3>{{about.TitleRu}}</h3>
+                    <p class="mb-0">{{about.ContentRu}}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About car end -->
+<div class="faq content-area-5">
+    <div class="container">
+        <div class="main-title text-center">
+            <h1>{{lang.home_site.frequently_asked_questions}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="faq-info">
+                    <div class="tab-content" id="carTabContent">
+                        <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
+                            <div id="faq" class="faq-accordion">
+                                <div class="card m-b-0">
+                                    
+                                    {% for faq in faqs %}
+                                    <div class="card-header">
+                                        <a class="card-title collapsed" data-toggle="collapse" data-parent="#faq" href="#collapse5">
+                                            {% if current_lang == "ENG" %}
+                                            {{faq.QuestionEn}}
+                                            {% elif current_lang == "AZE" %}
+                                            {{faq.QuestionAz}}
+                                            {% elif current_lang == "RUS" %}
+                                            {{faq.QuestionRu}}
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div id="collapse5" class="card-block collapse">
+                                        <div class="p-text">
+                                            {% if current_lang == "ENG" %}
+                                            {{faq.AnswerEn}}
+                                            {% elif current_lang == "AZE" %}
+                                            {{faq.AnswerAz}}
+                                            {% elif current_lang == "RUS" %}
+                                            {{faq.AnswerRu}}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Partners strat -->
+<div class="partners">
+    <div class="container">
+        <div class="slick-slider-area">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 5, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 3}}, {"breakpoint": 768,"settings":{"slidesToShow": 2}}]}'>
+            {% for partner in partners %}
+            <div class="slick-slide-item"><img src="{% static partner.LogoPath %}" alt="brand" class="img-fluid"></div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Partners end -->
+
+{% endblock %}

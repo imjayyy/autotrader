@@ -1,0 +1,92 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.blog_details}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.blog_details}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Blog body start -->
+<div class="blog-body content-area-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <!-- Blog 1 start -->
+                <div class="blog-1 blog-big mb-50">
+                    <input type="hidden" value="14" class="blog_id"/>
+                    <div class="detail">
+                    <div class="content">
+                        {% if current_lang == "ENG" %}
+                        {{blog.ContentHtmlEn | safe}}
+                        {% elif current_lang == "AZE" %}
+                        {{blog.ContentHtmlAz | safe}}
+                        {% elif current_lang == "RUS" %}
+                        {{blog.ContentHtmlRu | safe}}
+                        {% endif %}
+                    </div>
+                    <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+
+                    <!-- Recent posts start -->
+                    <div class="widget recent-posts">
+                        <h3 class="sidebar-title">{{lang.home_site.recent_cars}}</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        {% for car in recent_cars %}
+                        <div class="media mb-4">
+                            <a class="pr-3 culture_href" href="/cars/details/{{car.id}}" >
+                                <img class="media-object" src="{% static car.img %}" alt="small-car">
+                            </a>
+                            <div class="media-body align-self-center">
+                                <h5>
+                                        <a href="/cars/details/{{car.id}}" class="culture_href">{{car.brand}} {{car.model}}</a>
+                                </h5>
+                                <div class="listing-post-meta">
+                                        <span>{{car.currency_symbol}} {{car.price}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+              
+                    </div>
+                    <div class="widget recent-posts">
+                        <h3 class="sidebar-title">{{lang.home_site.recent_blogs}}</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        {% for post in recent_blogs %}
+                        <div class="media mb-4">
+                            <a class="pr-3" href="#">
+                                <img class="media-object" src="{% static post.Image %}" alt="small-car">
+                            </a>
+                            <input type="hidden" name="name" value="407" class="blog_count" />
+                            <div class="media-body align-self-center">
+                                <h5>
+                                        <a class="blog_counter" href="/blog/details/{{post.Id}}">{% if current_lang == "ENG" %}{{post.TitleEn}}{% elif current_lang == "RUS" %}{{post.TitleRu}}{% elif current_lang == "AZE" %}{{post.TitleAz}}{% endif %}</a>
+                                </h5>
+                                <div class="listing-post-meta">
+                                    <i class="fa fa-eye"></i>  {{post.Count}} | <a href="#"><i class="fa fa-calendar"></i> {{post.AddDate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Posts By Category Start -->
+                    <!-- Tags box Start -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

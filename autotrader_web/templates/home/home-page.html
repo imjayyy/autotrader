@@ -1,0 +1,820 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+    
+<div class="banner" id="banner">
+    <div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner banner-slider-inner text-center">
+
+
+                <div class="carousel-item banner-max-height item-bg">
+                    <img class="d-block w-100 h-100" style="object-fit: cover" src="https://autotrader.az/Admin/Uploads/Slider/572262b5-d4c6-4cf6-ba16-fe52f107e08dimg-1.jpg" alt="banner">
+                    <div class="carousel-content container banner-info-2 bi-2 text-l">
+                            <h2>{{lang.home_site.home_slide_1}}</h2>
+                        <a class="btn-3 btn-defaults order_btn" href="/" >
+                            {{lang.home_site.cars_in_auction}} <i class="arrow"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item banner-max-height item-bg">
+                    <img class="d-block w-100 h-100" style="object-fit: cover" src="https://autotrader.az/Admin/Uploads/Slider/713ea240-c13c-44ef-a15b-5242405ff612img-2.jpg" alt="banner">
+                    <div class="carousel-content container banner-info-2 bi-2 text-l">
+                            <h2>{{lang.home_site.home_slide_2}}</h2>
+                        <a class="btn-3 btn-defaults order_btn" href="/" >
+                            {{lang.home_site.cars_in_auction}} <i class="arrow"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item banner-max-height item-bg">
+                    <img class="d-block w-100 h-100" style="object-fit: cover" src="https://autotrader.az/Admin/Uploads/Slider/f8addf31-7205-4a28-ba56-768457e313deimg-3.jpg" alt="banner">
+                    <div class="carousel-content container banner-info-2 bi-2 text-l">
+                            <h2>{{lang.home_site.home_slide_3}}</h2>
+                        <a class="btn-3 btn-defaults order_btn" href="/" >
+                            {{lang.home_site.cars_in_auction}} <i class="arrow"></i>
+                        </a>
+                    </div>
+                </div>
+        </div>
+        <a class="carousel-control-prev none-580" href="#bannerCarousole" role="button" data-slide="prev">
+            <span class="slider-mover-left" aria-hidden="true">
+                <i class="fa fa-angle-left"></i>
+            </span>
+        </a>
+        <a class="carousel-control-next none-580" href="#bannerCarousole" role="button" data-slide="next">
+            <span class="slider-mover-right" aria-hidden="true">
+                <i class="fa fa-angle-right"></i>
+            </span>
+        </a>
+    </div>
+</div>
+<!-- Banner end -->
+<!-- Featured car start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>{{lang.home_site.cars}}</h1>
+        </div>
+        <div class="row">
+            {% for car in cars %}
+
+            <div class="col-lg-4 col-md-6">
+                <div class="car-box-3">
+                    <div class="car-thumbnail" style="height:250px">
+                        <a href="/cars/details/{{car.id}}" class="car-img culture_href">
+                                <div class="tag-2 bg-active">{{car.status}}</div>
+                            <div class="price-box">
+                                    <span class="del"><del>{{car.currency_symbol}} {{car.price}}</del></span>
+                                    <br>
+                                    <span>{{car.currency_symbol}} {{car.price_with_sale}}0</span>
+                            </div>
+                            <img class="d-block w-100" src="{% static car.img %}" alt="car" style="height:100%;object-fit:cover" loading="lazy">
+                        </a>
+                        <div class="carbox-overlap-wrapper">
+                            <div class="overlap-box">
+                                <div class="overlap-btns-area">
+                                    <a class="overlap-btn car_overview" tabindex="52" data-toggle="modal" data-target="#carOverviewModal">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <div class="car-magnify-gallery">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <h1 class="title">
+                                <a href="/cars/details/{{car.id}}" class="culture_href">{{car.brand}} - {{car.model}}</a>
+                        </h1>
+                        <ul class="custom-list">
+
+                            <li>
+                                <a href="#"> </a>
+                            </li>
+                        </ul>
+                            <ul class="facilities-list clearfix">
+                                <li>
+                                    <i class="flaticon-fuel"></i> {{car.fuel}}
+                                </li>
+                                <li>
+                                    <i class="flaticon-way"></i> {{car.distance}} km
+                                </li>
+                                <li>
+                                    <i class="flaticon-manual-transmission"></i> {{car.speedbox}}
+                                </li>
+                                <li>
+                                    <i class="flaticon-car"></i> {{car.bantype}}
+                                </li>
+                                <li>
+                                    <i class="flaticon-gear"></i> {{car.color}}
+                                </li>
+                                <li>
+                                    <i class="flaticon-calendar-1"></i> {{car.year}}
+                                </li>
+                            </ul>
+                    </div>
+
+                </div>
+            </div>
+            
+            {% endfor %}
+            <div class="col-lg-12 text-center">
+                <a href="/cars" class="btn-5 culture_href">{{lang.home_site.read_more}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured car end -->
+<!-- Service section start -->
+<div class="service-section content-area-2">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>{{lang.home_site.we_are_the_best}}</h1>
+        </div>
+        <div class="row">
+            {% for service in services %}
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="service-info-2">
+                    <div class="icon">
+                        <i class="{{service.ImagePath}}"></i>
+                    </div><h3>{% if current_lang == "ENG" %}{{service.NameEn}}{% elif current_lang == "AZE" %}{{service.NameAz}}{% elif current_lang == "AZE" %}{{service.NameAz}}{% endif %}</h3>
+                    <p>{% if current_lang == "ENG" %}{{service.AboutEn}}{% elif current_lang == "AZE" %}{{service.AboutAz}}{% elif current_lang == "AZE" %}{{service.AboutAz}}{% endif %}</p>
+            <a href="/about/services" class="read-more culture_href">
+                        {{lang.home_site.read_more}}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="col-lg-12 text-center">
+                <a href="/about/services" class="btn-5 culture_href">{{lang.home_site.read_more}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service section end -->
+<!-- Latest offers section strat -->
+<div class="latest-offers-section content-area-7">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title text-center">
+            <h1>{{lang.home_site.auction}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-sm-12">
+                <div class="row">
+                </div>
+            </div>
+            <div class="col-lg-12 text-center">
+                <a href="/cars" class="btn-5 culture_href">{{lang.home_site.read_more}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Latest offers section end -->
+<!-- Counters strat -->
+<div class="counters-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="counter-box-1">
+                    <i class="flaticon-blog"></i>
+                    <h1 class="counter">{{settings.CarCount}}</h1>
+                    <h5>{{lang.home_site.order}}<span></span></h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="counter-box-1">
+                    <i class="flaticon-user"></i>
+                    <h1 class="counter">{{settings.CustomerCount}}</h1>
+                    <h5>{{lang.home_site.customer}}<span></span></h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="counter-box-1">
+                    <i class="flaticon-car"></i>
+                    <h1 class="counter">{{settings.AuctionCount}}</h1>
+                    <h5>{{lang.home_site.auction}}<span></span></h5>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Counters end -->
+<!-- Our team start -->
+<div class="our-team content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>{{lang.team}}</h1>
+        </div>
+        <!-- Slick slider area start -->
+        <div class="slick-slider-area clearfix">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 4, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                    {% for member in team %}
+                    <div class="slick-slide-item">
+                        <div class="team-3">
+                            <div class="team-thumb" style="height:275px">
+                                <a href="/team/details/{{member.Id}}">
+                                    <img src="{% static member.Image %}" alt="agent-2" class="img-fluid" style="height:100%;object-fit:cover">
+                                </a>
+                                <div class="team-social flex-middle">
+                                    <div class="team-overlay"></div>
+                                    <div class="team-social-inner">
+                                        {% for social in member.TeamSocialMedia %}
+
+                                        <a rel="nofollow" href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}">
+                                            <i class="{{social.SocialMedia.Icon}}" aria-hidden="true"></i>
+                                        </a>
+
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-info">
+                                <h4>
+                                    <a href="/team/details/{{member.Id}}" class="culture_href">{{member.Firstname}} {{member.Lastname}}</a>
+                                </h4>
+                                <h5>{{member.Profession}}</h5>
+                                <h6>{{member.Phone}}</h6>
+                                <h6>{{member.Email}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <a href="/team" class="btn-5 culture_href">{{lang.home_site.read_more}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Our team end -->
+<!-- Testimonial 3 start -->
+<div class="testimonial-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Main title -->
+                <div class="main-title">
+                    <h1>{{lang.home_site.testimonial}}</h1>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <!-- Slick slider area start -->
+                <div class="slick-slider-area">
+                    <div class="row slick-carousel" data-slick='{"slidesToShow": 2, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 1}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                            <div class="slick-slide-item">
+                                <div class="testimonial-item-new">
+                                    <div class="author-img fix">
+                                        <div class="author-avatar">
+                                            <img src="{% static testimonial.Image %}" alt="testimonial-5">
+                                            <div class="icon">
+                                                <i class="fa fa-quote-right"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="author-content">
+                                        <h5 class="left-line pl-40">{{testimonial.Fullname}}, <span class="desig">{{testimonial.Profession}}</span></h5>
+                                    </div>
+                                    <p>{{testimonial.Comment}}</p>
+                                    <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial 3 end -->
+<!-- Blog start -->
+<div style="display: none;" class="blog content-area">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>{{lang.home_site.blog}}</h1>
+        </div>
+        <!-- Slick slider area start -->
+        <div class="slick-slider-area">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                    {% for post in blog %}
+                    <div class="slick-slide-item">
+                        <div class="blog-3">
+                            <div class="blog-image" style="height:250px">
+                                <img src="{% static post.Image %}" alt="blog" class="img-fluid bp" style="height:100%;object-fit:cover">
+                                <div class="date-box-2 db-2">{{post.AddDate}}</div>
+                                <div class="post-meta clearfix">
+                                    <span><a href="#"><i class="flaticon-user-1"></i></a>{{post.Username}}</span>
+                                    <span><a href="#"><i class="fa fa-eye"></i></a>{{post.Count}}</span>
+                                </div>
+                                <input type="hidden" name="name" value="406" class="blog_count" />
+                            </div>
+                            <div class="detail">
+                                <h3>
+                                    <a class="blog_counter" href="/blog/details/{{post.Id}}">{% if current_lang == "ENG" %}{{post.TitleEn}}{% elif current_lang == "RUS" %}{{post.TitleRu}}{% elif current_lang == "AZE" %}{{post.TitleAz}}{% endif %}</a>
+                                </h3>
+                                <div>
+                                    <a class="b-btn blog_counter" href="/blog/details/{{post.Id}}">{{lang.home_site.read_more}}</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <a href="/blog" class="btn-5 culture_href">{{lang.home_site.read_more}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog end -->
+<!-- Partners strat -->
+<div class="partners">
+    <div class="container">
+        <div class="slick-slider-area">
+            <div class="row slick-carousel" data-slick='{"slidesToShow": 5, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 3}}, {"breakpoint": 768,"settings":{"slidesToShow": 2}}]}'>
+            {% for partner in partners %}
+            <div class="slick-slide-item"><img src="{% static partner.LogoPath %}" alt="brand" class="img-fluid"></div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="map" style="margin-top:30px">
+    <div id="map" class="contact-map">
+        <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen
+                src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ2bdZhXtjMEARrZUuvmzIKg0&key=AIzaSyDjAVQ9ATTBE3B85tM2s3h29GBP55Rjfd8"></iframe>
+    </div>
+</div>
+<!-- Partners end -->
+<!-- Car Overview Modal -->
+<div class="car-model-2">
+    <div class="modal fade" id="carOverviewModal" tabindex="-1" role="dialog" aria-labelledby="carOverviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="carOverviewModalLabel">
+                        <h4></h4>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row modal-raw">
+                        <div class="col-lg-6 modal-left">
+                            <div class="item active" style="width:100%;height:100%">
+                                <img src="https://autotrader.az/Assets/img/car-11.png" style="height:100%;object-fit:contain" alt="best-car" class="img-fluid">
+                                <div class="sobuz">
+                                    <div class="price-box">
+                                        <span class="del"><del></del></span>
+                                        <br>
+                                        <span class="dell"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 modal-right">
+                            <div class="modal-right-content">
+                                <section>
+                                    <h3>Overview</h3>
+                                    <ul class="bullets">
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </section>
+                                <div class="description">
+                                    <h3>Description</h3>
+                                    <p></p>
+                                    <a href="/cars/details/1" class="btn btn-md btn-round btn-theme">Show Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="order_form">
+                    <div class="form-group">
+                        <label for="order-name" class="col-form-label">Your Name:<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="order-name" required>
+                        <span class="alert alert-danger" style="display:none;margin-top:10px;padding:10px;text-transform:none">Dont't empty this field!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-contact" class="col-form-label">Contact Info (phone or email):<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="order-contact" required>
+                        <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-text" class="col-form-label">Write detailed information about your order:<span style="color:red">*</span></label>
+                        <textarea class="form-control" id="order-text" required></textarea>
+                        <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                    </div>
+                    <div class='g-recaptcha capctha_div' data-sitekey='6LeKhH0cAAAAAIqgWDPdnLcKPa9SNWuZOdHaMl3n'></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary send_order">Send</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-xl" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="top:50px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">New Message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="message_form">
+                    <div class="form-group">
+                        <label for="message-name" class="col-form-label">Your Name:<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="message-name" required>
+                        <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-contact" class="col-form-label">Contact Info (phone or email):<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="message-contact" required>
+                        <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-subject" class="col-form-label">Subject:<span style="color:red">*</span></label>
+                        <input type="text" class="form-control" id="message-subject" required>
+                        <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Your Message:<span style="color:red">*</span></label>
+                        <textarea class="form-control" id="message-text" required></textarea>
+                        <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">Dont't empty this field!</span>
+                    </div>
+                    <div class='g-recaptcha capctha_div' data-sitekey='6LeKhH0cAAAAAIqgWDPdnLcKPa9SNWuZOdHaMl3n'></div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary send_message">Send</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
+
+<script>
+    var lang = 'en'
+    var suc_msg = 'Your order has been sent successfully! You will be contacted as soon as possible.'
+    var suc_msg1 = 'Your message has been sent successfully! You will be contacted as soon as possible.'
+    $(".carousel-item").eq(0).addClass('active')
+    $(".car_overview").click(function () {
+        var tabindex = $(this).attr("tabindex")
+        $.ajax({
+                type: "Get",
+                data: {
+                    id: tabindex
+                },
+                url: '/Home/GetCar',
+            success: function (result) {
+                console.log(result.price + "   " + result.priceWithSale)
+                    var about = "";
+                    $("#carOverviewModal").find("img").attr("src", result.mainImage);
+                    if (lang=="az")
+                    {
+                        $("#carOverviewModal").find("h4").text(result.brand.nameAz + " " + result.model.nameAz)
+
+                    }
+                    else if (lang=="en") {
+                        $("#carOverviewModal").find("h4").text(result.brand.nameEn + " " + result.model.nameEn)
+
+                    }
+                    else if (lang == "ru") {
+                        $("#carOverviewModal").find("h4").text(result.brand.nameRu + " " + result.model.nameRu)
+
+                    }
+                    if (result.priceWithSale==0) {
+                        $("#carOverviewModal").find(".dell").text(result.currency.symbol + result.price)
+                        //console.log($("#carOverviewModal").find(".del-2"))
+                    }
+                    else if (result.price != result.priceWithSale) {
+                        $("#carOverviewModal").find(".dell").text(result.currency.symbol+result.priceWithSale)
+                        $("#carOverviewModal").find(".del").find("del").text(result.currency.symbol + result.price)
+                        //console.log(result.price + "   " + result.priceWithSale)
+                    }
+                    else {
+                        $("#carOverviewModal").find(".dell").text(result.currency.symbol + result.priceWithSale)
+                        //console.log(result.priceWithSale)
+
+                    }
+                    if (lang == "az") {
+                        $("#carOverviewModal").find("ul").find("li").eq(0).text(result.brand.nameAz)
+                        $("#carOverviewModal").find("ul").find("li").eq(1).text(result.model.nameAz)
+                        $("#carOverviewModal").find("ul").find("li").eq(2).text(result.year)
+                        $("#carOverviewModal").find("ul").find("li").eq(3).text(result.banType.nameAz)
+                        $("#carOverviewModal").find("ul").find("li").eq(4).text(result.fuel.nameAz)
+                        $("#carOverviewModal").find("ul").find("li").eq(5).text(result.color.nameAz)
+                        $("#carOverviewModal").find("ul").find("li").eq(6).text(result.speedBox.nameAz)
+                        if (result.aboutAz != null) {
+                            if (result.aboutAz.length > 120) {
+                                about = result.aboutAz.substring(0, 120) + "..."
+
+                            }
+                            else {
+                                about = result.aboutAz
+
+                            }
+                        }
+                    }
+                    else if (lang=="en") {
+                        $("#carOverviewModal").find("ul").find("li").eq(0).text(result.brand.nameEn)
+                        $("#carOverviewModal").find("ul").find("li").eq(1).text(result.model.nameEn)
+                        $("#carOverviewModal").find("ul").find("li").eq(2).text(result.year)
+                        $("#carOverviewModal").find("ul").find("li").eq(3).text(result.banType.nameEn)
+                        $("#carOverviewModal").find("ul").find("li").eq(4).text(result.fuel.nameEn)
+                        $("#carOverviewModal").find("ul").find("li").eq(5).text(result.color.nameEn)
+                        $("#carOverviewModal").find("ul").find("li").eq(6).text(result.speedBox.nameEn)
+                        if (result.aboutEn != null) {
+                            if (result.aboutEn.length > 120) {
+                                about = result.aboutEn.substring(0, 120) + "..."
+
+                            }
+                            else {
+                                about = result.aboutEn
+
+                            }
+                        }
+                    }
+                    else if (lang == "ru") {
+                        $("#carOverviewModal").find("ul").find("li").eq(0).text(result.brand.nameRu)
+                        $("#carOverviewModal").find("ul").find("li").eq(1).text(result.model.nameRu)
+                        $("#carOverviewModal").find("ul").find("li").eq(2).text(result.year)
+                        $("#carOverviewModal").find("ul").find("li").eq(3).text(result.banType.nameRu)
+                        $("#carOverviewModal").find("ul").find("li").eq(4).text(result.fuel.nameRu)
+                        $("#carOverviewModal").find("ul").find("li").eq(5).text(result.color.nameRu)
+                        $("#carOverviewModal").find("ul").find("li").eq(6).text(result.speedBox.nameRu)
+                        if (result.aboutRu!=null) {
+                            if (result.aboutRu.length > 120) {
+                                about = result.aboutRu.substring(0, 120) + "..."
+
+                            }
+                            else {
+                                about = result.aboutRu
+
+                            }
+                        }
+                    }
+                    $("#carOverviewModal").find("ul").find("li").eq(8).text(result.distance + " km ")
+
+
+                    $("#carOverviewModal").find(".description").find("p").text(about)
+                    if (window.location.href.split('?').length > 1) {
+                        var culture = window.location.href.split('?')[1]
+                        $("#carOverviewModal").find(".description").find("a").attr("href", "/Car/Details/" + result.id + "?" + culture);
+
+                    }
+                    else {
+                        $("#carOverviewModal").find(".description").find("a").attr("href", "/Car/Details/" + result.id + "");
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+                })
+    })
+    
+
+
+    $(".send_message").on("click", function () {
+        var response = grecaptcha.getResponse(1);
+        // console.log(response);
+        if (response.length > 0) {
+            if ($("#message-name").val() == null || $("#message-name").val() == "" || $("#message-name").val() == " ") {
+                $("#message-name").css("border", "1px solid red")
+                $("#message-name").next().css("display", "block")
+            }
+            else {
+                var msg_name = $("#message-name").val();
+                $("#message-name").css("border", "1px solid #ced4da")
+                $("#message-name").next().css("display", "none")
+                if ($("#message-contact").val() == null || $("#message-contact").val() == "" || $("#message-contact").val() == " ") {
+                    $("#message-contact").css("border", "1px solid red")
+                    $("#message-contact").next().css("display", "block")
+                }
+                else {
+                    var msg_contact = $("#message-contact").val();
+                    $("#message-name").css("border", "1px solid #ced4da")
+                    $("#message-name").next().css("display", "none")
+                    $("#message-contact").css("border", "1px solid #ced4da")
+                    $("#message-contact").next().css("display", "none")
+                    if ($("#message-subject").val() == null || $("#message-subject").val() == "" || $("#message-subject").val() == " ") {
+                        $("#message-subject").css("border", "1px solid red")
+                        $("#message-subject").next().css("display", "block")
+                    }
+                    else {
+                        var msg_subject = $("#message-subject").val();
+                        $("#message-name").css("border", "1px solid #ced4da")
+                        $("#message-name").next().css("display", "none")
+                        $("#message-contact").css("border", "1px solid #ced4da")
+                        $("#message-contact").next().css("display", "none")
+                        $("#message-subject").css("border", "1px solid #ced4da")
+                        $("#message-subject").next().css("display", "none")
+                        if ($("#message-text").val() == null || $("#message-text").val() == "" || $("#message-text").val() == " ") {
+                            $("#message-text").css("border", "1px solid red")
+                            $("#message-text").next().css("display", "block")
+                        }
+                        else {
+                            var msg_text = $("#message-text").val();
+                            $("#message-name").css("border", "1px solid #ced4da")
+                            $("#message-name").next().css("display", "none")
+                            $("#message-contact").css("border", "1px solid #ced4da")
+                            $("#message-contact").next().css("display", "none")
+                            $("#message-subject").css("border", "1px solid #ced4da")
+                            $("#message-subject").next().css("display", "none")
+                            $("#message-text").css("border", "1px solid #ced4da")
+                            $("#message-text").next().css("display", "none")
+                            $.ajax({
+                                type: "POST",
+                                url: '/Home/AddMessage',
+                                data: {
+                                    msg_name: msg_name,
+                                    msg_contact: msg_contact,
+                                    msg_subject: msg_subject,
+                                    msg_text: msg_text
+                                },
+                                success: function (response) {
+                                    console.log(response);
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: suc_msg1,
+                                        showConfirmButton: false,
+                                        timer: 2500
+                                    })
+                                    $("#exampleModal1").modal('toggle')
+                                },
+                                error: function (response) {
+                                    console.log(response)
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            alert("Are you a robot?")
+        }
+    })
+    $(".send_order").on("click", function () {
+        var response = grecaptcha.getResponse(0);
+        if (response.length>0) {
+            if ($("#order-name").val() == null || $("#order-name").val() == "" || $("#order-name").val() == " ") {
+            $("#order-name").css("border", "1px solid red")
+            $("#order-name").next().css("display", "block")
+        }
+        else {
+            var order_name = $("#order-name").val();
+            $("#order-name").css("border", "1px solid #ced4da")
+            $("#order-name").next().css("display", "none")
+                if ($("#order-contact").val() == null || $("#order-contact").val() == "" || $("#order-contact").val() == " ") {
+                $("#order-contact").css("border", "1px solid red")
+                $("#order-contact").next().css("display", "block")
+
+            }
+            else {
+                var order_contact = $("#order-contact").val();
+                $("#order-name").css("border", "1px solid #ced4da")
+                $("#order-name").next().css("display", "none")
+                $("#order-contact").css("border", "1px solid #ced4da")
+                $("#order-contact").next().css("display", "none")
+                if ($("#order-text").val() == null || $("#order-text").val() =="" || $("#order-text").val() == " " ) {
+                    $("#order-text").css("border", "1px solid red")
+                    $("#order-text").next().css("display", "block")
+
+                }
+                else {
+                    var order_text = $("#order-text").val();
+                    $("#order-name").css("border", "1px solid #ced4da")
+                    $("#order-name").next().css("display", "none")
+                    $("#order-contact").css("border", "1px solid #ced4da")
+                    $("#order-contact").next().css("display", "none")
+                    $("#order-text").css("border", "1px solid #ced4da")
+                    $("#order-text").next().css("display", "none")
+                    $.ajax({
+                        type: "POST",
+                        url: '/Home/AddOrder',
+                        data: {
+                            order_name: order_name,
+                            order_contact: order_contact,
+                            order_text: order_text
+
+                        },
+                        success: function (response) {
+                            //console.log("success");
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: suc_msg,
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
+                            $("#exampleModal").modal('toggle')
+                        },
+                        error: function (response) {
+                            console.log(response)
+                        }
+                    })
+                }
+            }
+        }
+        }
+        else {
+            alert("Are you a robot?")
+        }
+})
+
+    //$(".send_message").on("click", function () {
+
+
+
+    //})
+    $(".blog_counter").on("click", function () {
+        var blog_id = $(this).attr("id");
+        var count = $(this).parent().parent().prev().find(".blog_count").val();
+        console.log(blog_id+"   "+count)
+        count++;
+        $.ajax({
+            type: "POST",
+            url: '/Blog/BlogCounter',
+            data: {
+                blog_id: blog_id,
+                count: count
+            },
+            success: function (result) {
+                //console.log(result)
+                if (window.location.href.split('?').length > 1) {
+                    var culture = window.location.href.split('?')[1]
+                    window.location.href = "/Blog/Details/" + blog_id + "?" + culture
+
+                }
+                else {
+                    window.location.href = "/Blog/Details/" + blog_id
+
+                }
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    })
+</script>
+
+{% endblock %}

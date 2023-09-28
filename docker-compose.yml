@@ -1,0 +1,82 @@
+version: '3'
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    volumes:
+      - type: volume
+        source: db_data
+        target: /var/opt/mssql
+    env_file:
+      - app.default.env
+    environment:
+      SERVICE_ID: db-autotrader
+    ports:
+      - '1433:1433'
+
+  web:
+    
+    build: .
+    command: python autotrader_web/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "80:8000"
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      DATABASE_HOST: db  # Use the service name as the hostname
+      DATABASE_PORT: 1433  # The port on which the database is exposed
+      RABBITS_MQ_HOST: rabbitmq
+      RABBITS_MQ_PORT: 5672
+
+    env_file:
+      - app.default.env
+
+
+  rabbitmq:
+    
+    image: rabbitmq:management
+    ports:
+      - "15672:15672" # RabbitMQ Management
+      - "5672:5672"   # RabbitMQ
+
+
+  celery:
+    
+    build: .
+    command: celery -A celery_worker worker -P eventlet --loglevel=DEBUG --logfile celery.log --concurrency=8
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      DATABASE_HOST: db  # Use the service name as the hostname
+      DATABASE_PORT: 1433  # The port on which the database is exposed
+      RABBITS_MQ_HOST: rabbitmq
+      RABBITS_MQ_PORT : 5672
+    env_file:
+      - app.default.env
+
+
+  celery-beat:
+    
+    build: .
+    command: celery -A celery_worker beat --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      DATABASE_HOST: db  # Use the service name as the hostname
+      DATABASE_PORT: 1433  # The port on which the database is exposed
+      RABBITS_MQ_HOST: rabbitmq
+      RABBITS_MQ_PORT: 5672
+    env_file:
+      - app.default.env
+
+volumes:
+  db_data:
+

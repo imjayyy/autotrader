@@ -1,0 +1,39 @@
+# .dockerignore
+
+# Ignore development and test files
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.bak
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+.env
+*.env
+# ignore venv
+env
+venv
+# Ignore version control folders and files
+.git
+.gitignore
+.gitattributes
+*.git
+*.zip
+# Ignore Docker-related files
+Dockerfile_bk
+docker-compose_bk.yml
+.dockerignore
+
+# Ignore any local configuration files
+settings_local.py
+
+# Ignore generated/static files
+/staticfiles
+/media

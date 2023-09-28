@@ -1,0 +1,108 @@
+<div class="card">
+	<div class="card-header">
+		<h5 class="h5 fw-bold my-1">{{lang.calculate_final_price_for_any_vehicle}}</h5>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-lg-5 col-md-12 col-sm-5">
+				<div class="mt-4">
+					<label class="form-label text-primary ">
+						<strong>
+							<b class="text-primary">
+								{{lang.enter_bid}}
+							</b>
+						</strong>
+
+
+
+					</label>
+					<input id="bid" onChange="car_details_calculate('{{data.lotId}}')"
+						type="text" class="form-control" value="0"/>
+				</div>
+				<div class="mt-4">
+					<label class="form-label">{{lang.vehicle_type}}</label>
+					<input type="text" class="form-control" value="{{data.vehicleType}}" disabled/>
+				</div>
+				<div class="mt-4">
+					<label class="form-label">{{lang.auction}}</label>
+					<select disabled class="form-select" aria-label="Default select example" disabled>
+						<option id="auction_company">{{data.auctionCompany}}</option>
+					</select>
+				</div>
+				<div class="mt-4">
+					<label class="form-label">{{lang.from_country}}</label>
+					<select disabled class="form-select" aria-label="Default select example">
+						<option value="{{data.saleLocation.country}}" id="from_country" selected>{{data.saleLocation.country}}</option>
+					</select>
+				</div>
+				<div class="mt-4">
+					<label class="form-label">{{lang.from_port}}</label>
+					<select disabled class="form-select" aria-label="Default select example">
+						<option value="{{data.saleLocation.port}}" id="from_port" selected>{{data.saleLocation.port}}</option>
+					</select>
+				</div>
+				<div class="mt-4">
+					<label class="form-label">{{lang.to_country}}</label>
+					<select onChange="car_details_calculate('{{data.lotId}}')" id="to_country" class="form-select"
+						aria-label="Default select example">
+						<option value="Azerbaijan" selected>{{lang.azerbaijan}}</option>
+						<option value="Georgia" >{{lang.georgia}}</option>
+					</select>
+				</div>
+				<!--
+					<div class="mt-4">
+					    <label class="form-label">{{lang.to_port}}</label>
+					    <select id="to_port" disabled class="form-select" aria-label="Default select example">
+					        <option selected>Baku</option>
+					    </select>
+					</div>
+				-->
+			</div>
+
+			<!-- RESPONSE SECTION -->
+
+			<div class="col-lg-7 col-md-12 col-sm-7">
+				<div class="bg-light p-1">
+					<div class="row mt-4 ">
+						<div class="col-8 text-start"><small>{{lang.bid}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="bid" id="car-bid">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.auction_fee}}</small></div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="auction_fee" id="auction-fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.shipping_fee}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="shipping_fee" id="shipping-fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.cost_of_delivery_to_baku}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="transfer_fee" id="transfer_fee">-</b>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.customs_fee}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="customs_fee" id="customs-fee">-</b>
+						</div>
+					</div>
+
+
+					<div class="row mt-4">
+						<div class="col-8 text-start"><small>{{lang.service_fee}}</small> </div>
+						<div class="col-4 text-end" style="white-space: nowrap;"><b data-response-prop="service_fee" id="service-fee">-</b>
+						</div>
+					</div>
+
+					<hr class="mx-3"/>
+					<div class="row mt-4 alert alert-success mx-3 px-1">
+						<div class="col-5 text-start h6 mb-0"><small>{{lang.final_price}}</small></div>
+						<div class="col-7 text-end h6 mb-0"><b data-response-prop="total" id="final-price"></b></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

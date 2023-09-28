@@ -1,0 +1,379 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+
+        <style>
+        .pagination span {
+            padding: 4px 8px !important;
+            background: #f0151f !important;
+            color: #fff !important;
+        }
+
+        .pagination a {
+            background: #fff;
+            padding: 4px 8px !important;
+            font-size: 16px !important;
+        }
+
+        .search_form {
+            position: relative;
+            top: 24px;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            transition: all 1s;
+            width: 50px;
+            height: 50px;
+            box-sizing: border-box;
+            border-radius: 25px;
+            border: 4px solid white;
+            padding: 5px;
+        }
+
+        input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 42.5px;
+            line-height: 30px;
+            outline: 0;
+            border: 0;
+            display: none;
+            font-size: 1em;
+            border-radius: 20px;
+            padding: 0 20px;
+        }
+
+        .search_icon {
+            box-sizing: border-box;
+            padding: 10px;
+            width: 42.5px;
+            height: 42.5px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 50%;
+            color: #fff;
+            text-align: center;
+            font-size: 1.2em;
+            transition: all 1s;
+            background: #f0151f;
+            border: none;
+        }
+
+        .search_form:hover {
+            width: 200px;
+            cursor: pointer;
+        }
+
+            .search_form:hover input {
+                display: block;
+            }
+
+            .search_form:hover .search_icon {
+                background: #f0151f;
+                color: white;
+            }
+    </style>
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.car_list}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home}}</a></li>
+                <li class="active">{{lang.home_site.car_list}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Featured car start -->
+<div class="featured-car content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <!-- Option bar start -->
+                <div class="option-bar clearfix">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6 col-sm-12">
+                            <div class="sorting-options2">
+                                <form action="/Car/Search" class="search_form">
+                                    <input type="hidden" class="hidden_search" />
+                                    <input type="search" name="search" placeholder="Search...">
+
+                                    <button type="submit" class="search_icon"><i class="fa fa-search" style="vertical-align:super"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-sm-12">
+                            <div class="sorting-options float-right">
+                                <a href="/cars" class="change-view-btn float-right culture_href"><i class="fa fa-th-list"></i></a>
+                                <a href="/cars?view=grid" class="change-view-btn float-right culture_href"><i class="fa fa-th-large"></i></a>
+                            </div>
+                            <div class="sorting-options-3 float-right">
+                                <select class="selectpicker search-fields" name="default-order">
+                                            <option value="3">On Way </option>
+                                            <option value="4">Auction</option>
+                                            <option value="5">For Sale</option>
+                                            <option value="6">Sold</option>
+                                            <option value="7">Rent</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% for car in cars %}
+
+                <div class="car-box-2">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-pad">
+                            <div class="car-thumbnail" style="height:250px">
+                                <a href="/cars/details/{{car.id}}" class="car-img culture_href">
+                                        <div class="for">{{car.status}}</div>
+                                <div class="price-box">
+                                        <span></span>
+                                </div>
+                                    <img class="d-block w-100" src="{% static car.img %}" alt="" style="height:100%;object-fit:cover">
+                                </a>
+                                <div class="carbox-overlap-wrapper">
+                                    <div class="overlap-box">
+                                        <div class="overlap-btns-area">
+                                            <a class="overlap-btn car_overview" tabindex="59" data-toggle="modal" data-target="#carOverviewModal">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <div class="car-magnify-gallery">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-pad align-self-center">
+                            <div class="detail">
+                                <h3 class="title">
+                                        <a href="/cars/details/{{car.id}}" class="culture_href">{{car.brand}} {{car.model}}</a>
+                                </h3>
+                            <ul class="facilities-list clearfix">
+                                <li>
+                                    <i class="flaticon-way"></i> {{car.distance}} km
+                                </li>
+                                    <li>
+                                        <i class="flaticon-manual-transmission"></i> {{car.speedbox}}
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-calendar-1"></i> {{car.year}}
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-fuel"></i> {{car.fuel}}
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-car"></i> {{car.bantype}}
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-gear"></i> {{car.color}}
+                                    </li>
+
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <ul class="pagination">
+                    <li><a href="{% if left_right_btns.left != None %}/cars?page={{left_right_btns.left}}{% else %}#{% endif %}"><</a></li>
+                    {% for page in pages %}
+                        {% if page.page == current_page %}
+                        <span class="active">{{page.page}}</span>
+                        {% else %}
+                        <li><a href="{{page.url}}">{{page.page}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="{% if left_right_btns.right != None %}/cars?page={{left_right_btns.right}}{% else %}#{% endif %}">></a></li>
+                </ul>
+
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-right">
+                    <!-- Advanced search start -->
+                    <script>
+                        function applyFilter() {
+                            const filters = ["brand","model","year","bantype","speedbox"]
+                            let params = "";
+                            filters.forEach(fil=>{
+                                let temp = document.getElementById("filters-"+fil)
+                                if (temp.value != "def") {
+                                    params += fil + "=" + temp.value + "&";
+                                }
+                            })
+                            params = params.slice(0, -1);
+                            window.location = "/cars?" + params
+
+                        }
+                    </script>
+                    <div class="widget advanced-search2">
+                        <h3 class="sidebar-title">{{lang.home_site.filtering}}</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <form method="GET">
+                            <div class="form-group">
+                                <select id="filters-brand" class="selectpicker search-fields" name="brand">
+                                    <option selected value="def">Brand</option>
+                                    {% for brand in brands %}
+                                    <option value="{{brand.Id}}">{% if current_lang == "ENG" %}{{brand.NameEn}}{% elif current_lang == "RUS" %}{{brand.NameRu}}{% elif current_lang == "AZE" %}{{brand.NameAz}}{% endif %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="filters-model" class="selectpicker search-fields" name="model">
+                                    <option selected  value="def">Model</option>
+                                    {% for model in models %}
+                                    <option value="{{model.Id}}">{% if current_lang == "ENG" %}{{model.NameEn}}{% elif current_lang == "RUS" %}{{model.NameRu}}{% elif current_lang == "AZE" %}{{model.NameAz}}{% endif %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="filters-year" class="selectpicker search-fields" name="year">
+                                    <option selected value="def">Year</option>
+                                    {% for year in years %}
+                                    <option value="{{year.Year}}">{{year.Year}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="filters-speedbox" class="selectpicker search-fields" name="bantype">
+                                    <option selected value="def">Speed box</option>
+                                    {% for model in speedbox %}
+                                    <option value="{{model.Id}}">{% if current_lang == "ENG" %}{{model.NameEn}}{% elif current_lang == "RUS" %}{{model.NameRu}}{% elif current_lang == "AZE" %}{{model.NameAz}}{% endif %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="filters-bantype" class="selectpicker search-fields" name="bantype">
+                                    <option selected value="def">Ban type</option>
+                                    {% for model in bantype %}
+                                    <option value="{{model.Id}}">{% if current_lang == "ENG" %}{{model.NameEn}}{% elif current_lang == "RUS" %}{{model.NameRu}}{% elif current_lang == "AZE" %}{{model.NameAz}}{% endif %}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="range-slider clearfix">
+                                <label>Price</label>
+                                <div data-min="0" data-max="150000" data-min-name="min_price" data-max-name="max_price" data-unit="AZN" class="range-slider-ui ui-slider" aria-disabled="false"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                        <button class="search-button btn" onClick="applyFilter()">{{lang.home_site.search}}</button>
+
+                    </div>
+                    <!-- Recent posts start -->
+                    <div class="widget recent-posts">
+                        <h3 class="sidebar-title">{{lang.home_site.recent_blogs}}</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        {% for post in recent_blogs %}
+                        <div class="media mb-4">
+                            <a class="pr-3" href="#">
+                                <img class="media-object" src="{% static post.Image %}" alt="small-car">
+                            </a>
+                            <input type="hidden" name="name" value="407" class="blog_count" />
+                            <div class="media-body align-self-center">
+                                <h5>
+                                        <a class="blog_counter" href="/blog/details/{{post.Id}}">{% if current_lang == "ENG" %}{{post.TitleEn}}{% elif current_lang == "RUS" %}{{post.TitleRu}}{% elif current_lang == "AZE" %}{{post.TitleAz}}{% endif %}</a>
+                                </h5>
+                                <div class="listing-post-meta">
+                                    <i class="fa fa-eye"></i>  {{post.Count}} | <a href="#"><i class="fa fa-calendar"></i> {{post.AddDate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Posts By Category Start -->
+                    <!-- Question start -->
+                    <div class="widget question widget-3">
+                        <h5 class="sidebar-title">{{lang.home_site.get_a_question}}</h5>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="flaticon-pin"></i>{{settings.Address}}
+                            </li>
+                            <li>
+                                <i class="flaticon-mail"></i>{{settings.Email}}
+                            </li>
+                            <li>
+                                <i class="flaticon-phone"></i>{{settings.Phone}}
+                            </li>
+                        </ul>
+                        <div class="social-list clearfix">
+                            <ul>
+                            {% for social in social_media_accounts %}
+                            <li><a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg"><i class="{{social.SocialMedia.Icon}}"></i></a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured car start -->
+<div class="car-model-2">
+    <div class="modal fade" id="carOverviewModal" tabindex="-1" role="dialog" aria-labelledby="carOverviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="carOverviewModalLabel">
+                        <h4></h4>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row modal-raw">
+                        <div class="col-lg-6 modal-left">
+                            <div class="item active" style="width:100%;height:100%">
+                                <img src="/Assets/img/car-11.png" style="height:100%;object-fit:contain" alt="best-car" class="img-fluid">
+                                <div class="sobuz">
+                                    <div class="price-box">
+                                        <span class="del"><del></del></span>
+                                        <br>
+                                        <span class="dell"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 modal-right">
+                            <div class="modal-right-content">
+                                <section>
+                                    <h3>Overview</h3>
+                                    <ul class="bullets">
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </section>
+                                <div class="description">
+                                    <h3>Description</h3>
+                                    <p></p>
+                                    <a href="/cars/details/1" class="btn btn-md btn-round btn-theme ">Show Detail</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

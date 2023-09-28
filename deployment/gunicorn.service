@@ -1,0 +1,15 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=autotrader-admin
+Group=autotrader-admin
+Environment="PRODUCTION_SERVER=1"
+Restart=always
+RestartSec=3s
+WorkingDirectory=/home/autotrader-admin/autotrader/autotrader.az/autotrader_web
+ExecStart=/home/autotrader-admin/autotrader/venv/bin/gunicorn --config /home/autotrader-admin/autotrader/autotrader.az/deployment/gunicorn_conf.py autotrader.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

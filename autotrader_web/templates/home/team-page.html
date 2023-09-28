@@ -1,0 +1,61 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+  <!-- Sub banner start -->
+  <div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.team}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.team}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Our team start -->
+<div class="our-team content-area">
+    <div class="container">
+        <div class="row">
+            {% for member in teams %}
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="row team-2">
+                    <div class="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-pad">
+                        <div class="photo" style="height:250px">
+                            <img src="{% static member.Image %}" alt="team-2" class="img-fluid" style="height:100%;object-fit:cover">
+                            <ul class="social-list clearfix">
+                                {% for social in member.TeamSocialMedia %}
+                                <li><a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg"><i class="{{social.SocialMedia.Icon}}"></i></a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12 col-pad align-self-center">
+                        <div class="detail">
+                            <h4>
+                                <a href="/team/details/{{member.Id}}" class="culture_href">{{member.Firstname}} {{member.Lastname}}</a>
+                            </h4>
+                            <h5>{{member.Profession}}</h5>
+                            <div class="contact">
+                                <ul>
+                                    <li>
+                                        <a href="mailto:{{member.Email}}"><i class="flaticon-mail"></i>{{member.Email}}</a> 
+                                    </li>
+                                    <li>
+                                        <a href="tel:{{member.Phone}}"><i class="flaticon-phone"></i>{{member.Phone}}</a> 
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Our team end -->
+{% endblock %}

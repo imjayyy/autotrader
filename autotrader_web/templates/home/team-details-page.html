@@ -1,0 +1,161 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.team_member}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.team_member}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Agent page start -->
+<div class="agent-page content-area-5">
+    <div class="container">
+        <!-- Heading -->
+        <h1 class="heading-2">{{lang.home_site.team_details}}</h1>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row team-2 mb-50">
+                    <div class="col-xl-4 col-lg-5 col-md-5 col-sm-12 col-pad">
+                        <div class="photo">
+                            <img src="{% static team.Image %}" alt="team-2" class="img-fluid">
+                            <ul class="social-list clearfix">
+                                {% for social in team.TeamSocialMedia %}
+                                <li><a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg"><i class="{{social.SocialMedia.Icon}}"></i></a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-7 col-md-7 col-sm-12 col-pad align-self-center bg">
+                        <div class="detail">
+                            <h4>
+                                <a href="/team/details/{{team.Id}}" class="culture_href">{{team.Firstname}} {{team.Lastname}}</a>
+                            </h4>
+                            <h5>{{team.Profession}}</h5>
+                            <div class="contact">
+                                <ul>
+                                    <li>
+                                        <i class="flaticon-pin"></i><a tabindex="-1">{{team.Address}}</a>
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-mail"></i><a href="mailto:{{team.Email}}">{{team.Email}}</a>
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-phone"></i><a href="tel:{{team.Phone}}">{{team.Phone}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="agent-biography mb-50">
+                    <h3 class="heading-2">{{lang.home_site.biography}}</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="sidebar-right">
+                    <!-- Contact 2 start -->
+                    <div class="contact-2 widget widget-3">
+                        <h3 class="sidebar-title">{{lang.home_site.contact}}</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <form action="#" method="GET" enctype="multipart/form-data">
+                            <div class="rowo">
+                                <div class="form-group name">
+                                    <label for="message-name" class="col-form-label">{{lang.home_site.your_name_and_surname}}:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" id="message-name" required>
+                                    <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                                </div>
+                                <div class="form-group email">
+                                    <label for="message-contact" class="col-form-label">{{lang.home_site.contact_info_phone_or_email}}:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" id="message-contact" required>
+                                    <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                                </div>
+                                <div class="form-group subject">
+                                    <label for="message-subject" class="col-form-label">{{lang.home_site.subject}}:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" id="message-subject" required>
+                                    <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                                </div>
+                                <div class="form-group message">
+                                    <label for="message-text" class="col-form-label">{{lang.home_site.your_message}}:<span style="color:red">*</span></label>
+                                    <textarea class="form-control" id="message-text" required></textarea>
+                                    <span class="alert alert-danger" style="display: none; margin-top: 10px; padding: 10px; text-transform: none">{{lang.home_site.dont_empty_this_field}}</span>
+                                </div>
+                                <div class="form-group">
+                                    <div class='g-recaptcha capctha_div' data-sitekey='6LfCq9YgAAAAAHSho3_KTBidYE4fVtDsI6W1rras' style="margin-bottom:20px"></div>
+                                </div>
+
+                                <div class="send-btn text-center">
+                                    <button type="button" onClick="submitForm()" class="btn btn-5 send_message">{{lang.home_site.send}}</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Related car start -->
+        <div class="related-car">
+            <h3 class="heading-2">{{lang.home_site.recent_cars}}</h3>
+            <!-- Slick slider area start -->
+            <div class="slick-slider-area clearfix">
+                <div class="row slick-carousel" data-slick='{"slidesToShow": 2, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                        {% for car in recent_cars %}
+                        <div class="slick-slide-item">
+                            <div class="car-box-4 car-photo-1" style="background-image:url('{% static car.img %}')">
+                                    <div class="tag-2 bg-active">{{car.status}}</div>
+                                    <div class="ling-section">
+                                        <h3>
+                                            <a href="/cars/details/{{car.id}}" class="culture_href">{{car.brand}} {{car.model}}</a>
+                                        </h3>
+                                        <ul class="facilities-list clearfix">
+                                            <li>
+                                                <strong>{{lang.home_site.fuel_type}}:</strong> {{car.fuel}}
+                                            </li>
+                                            <li>
+                                                <strong>{{lang.home_site.speedbox}}:</strong> {{car.speedbox}}
+                                            </li>
+                                            <li>
+                                                <strong>{{lang.home_site.mileage}}:</strong> {{car.distance}}
+                                            </li>
+                                            <li>
+                                                <strong>{{lang.home_site.color}}:</strong> {{car.color}}
+                                            </li>
+                                            <li>
+                                                <strong>{{lang.home_site.year}}:</strong> {{car.year}}
+                                            </li>
+                                            <li>
+                                                <strong>{{lang.home_site.ban_type}}:</strong> {{car.bantype}}
+                                            </li>
+                                        </ul>
+                                        <a href="/cars/details/{{car.id}}" class="read-more-btn culture_href">{{lang.home_site.read_more}}</a>
+                                    </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                </div>
+                <div class="slick-prev slick-arrow-buton">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="slick-next slick-arrow-buton">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

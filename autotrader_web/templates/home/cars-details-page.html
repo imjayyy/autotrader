@@ -1,0 +1,402 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+    
+<script src="/Assets/js/jssor.slider-28.1.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    window.jssor_1_slider_init = function () {
+
+        var jssor_1_SlideshowTransitions = [
+            { $Duration: 800, x: 0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: -0.3, $SlideOut: true, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: -0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: 0.3, $SlideOut: true, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: 0.3, $During: { $Top: [0.3, 0.7] }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: -0.3, $SlideOut: true, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: -0.3, $During: { $Top: [0.3, 0.7] }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: 0.3, $SlideOut: true, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: 0.3, $Cols: 2, $During: { $Left: [0.3, 0.7] }, $ChessMode: { $Column: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: 0.3, $Cols: 2, $SlideOut: true, $ChessMode: { $Column: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: 0.3, $Rows: 2, $During: { $Top: [0.3, 0.7] }, $ChessMode: { $Row: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: 0.3, $Rows: 2, $SlideOut: true, $ChessMode: { $Row: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: 0.3, $Cols: 2, $During: { $Top: [0.3, 0.7] }, $ChessMode: { $Column: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, y: -0.3, $Cols: 2, $SlideOut: true, $ChessMode: { $Column: 12 }, $Easing: { $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: 0.3, $Rows: 2, $During: { $Left: [0.3, 0.7] }, $ChessMode: { $Row: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: -0.3, $Rows: 2, $SlideOut: true, $ChessMode: { $Row: 3 }, $Easing: { $Left: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: 0.3, y: 0.3, $Cols: 2, $Rows: 2, $During: { $Left: [0.3, 0.7], $Top: [0.3, 0.7] }, $ChessMode: { $Column: 3, $Row: 12 }, $Easing: { $Left: $Jease$.$InCubic, $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, x: 0.3, y: 0.3, $Cols: 2, $Rows: 2, $During: { $Left: [0.3, 0.7], $Top: [0.3, 0.7] }, $SlideOut: true, $ChessMode: { $Column: 3, $Row: 12 }, $Easing: { $Left: $Jease$.$InCubic, $Top: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, $Delay: 20, $Clip: 3, $Assembly: 260, $Easing: { $Clip: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, $Delay: 20, $Clip: 3, $SlideOut: true, $Assembly: 260, $Easing: { $Clip: $Jease$.$OutCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, $Delay: 20, $Clip: 12, $Assembly: 260, $Easing: { $Clip: $Jease$.$InCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 },
+            { $Duration: 800, $Delay: 20, $Clip: 12, $SlideOut: true, $Assembly: 260, $Easing: { $Clip: $Jease$.$OutCubic, $Opacity: $Jease$.$Linear }, $Opacity: 2 }
+        ];
+
+        var jssor_1_options = {
+            $AutoPlay: false,
+            $SlideshowOptions: {
+                $Class: $JssorSlideshowRunner$,
+                $Transitions: jssor_1_SlideshowTransitions,
+                $TransitionsOrder: 1
+            },
+            $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$
+            },
+            $ThumbnailNavigatorOptions: {
+                $Class: $JssorThumbnailNavigator$,
+                $SpacingX: 5,
+                $SpacingY: 5
+            }
+        };
+
+        var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+        /*#region responsive code begin*/
+
+        var MAX_WIDTH = 980;
+
+        function ScaleSlider() {
+            var containerElement = jssor_1_slider.$Elmt.parentNode;
+            var containerWidth = containerElement.clientWidth;
+
+            if (containerWidth) {
+
+                var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                jssor_1_slider.$ScaleWidth(expectedWidth);
+            }
+            else {
+                window.setTimeout(ScaleSlider, 30);
+            }
+        }
+
+        ScaleSlider();
+
+        $Jssor$.$AddEvent(window, "load", ScaleSlider);
+        $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+        $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+        /*#endregion responsive code end*/
+    };
+</script>
+<style>
+        /*jssor slider loading skin spin css*/
+        .jssorl-009-spin img {
+            animation-name: jssorl-009-spin;
+            animation-duration: 1.6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes jssorl-009-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /*jssor slider arrow skin 106 css*/
+        .jssora106 {display:block;position:absolute;cursor:pointer;}
+        .jssora106 .c {fill:#fff;opacity:.3;}
+        .jssora106 .a {fill:none;stroke:#000;stroke-width:350;stroke-miterlimit:10;}
+        .jssora106:hover .c {opacity:.5;}
+        .jssora106:hover .a {opacity:.8;}
+        .jssora106.jssora106dn .c {opacity:.2;}
+        .jssora106.jssora106dn .a {opacity:1;}
+        .jssora106.jssora106ds {opacity:.3;pointer-events:none;}
+
+        /*jssor slider thumbnail skin 101 css*/
+        .jssort101 .p {position: absolute;top:0;left:0;box-sizing:border-box;background:#000;}
+        .jssort101 .p .cv {position:relative;top:0;left:0;width:100%;height:100%;border:2px solid #000;box-sizing:border-box;z-index:1;}
+        .jssort101 .a {fill:none;stroke:#fff;stroke-width:400;stroke-miterlimit:10;visibility:hidden;}
+        .jssort101 .p:hover .cv, .jssort101 .p.pdn .cv {border:none;border-color:transparent;}
+        .jssort101 .p:hover{padding:2px;}
+        .jssort101 .p:hover .cv {background-color:rgba(0,0,0,6);opacity:.35;}
+        .jssort101 .p:hover.pdn{padding:0;}
+        .jssort101 .p:hover.pdn .cv {border:2px solid #fff;background:none;opacity:.35;}
+        .jssort101 .pav .cv {border-color:#fff;opacity:.35;}
+        .jssort101 .pav .a, .jssort101 .p:hover .a {visibility:visible;}
+        .jssort101 .t {position:absolute;top:0;left:0;width:100%;height:100%;border:none;opacity:.6;object-fit:cover}
+        .jssort101 .pav .t, .jssort101 .p:hover .t{opacity:1;}
+</style>
+
+
+
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.car_details}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.car_details}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Car details page start -->
+<div class="car-details-page content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-xs-12">
+                <div class="car-details-section">
+                    <style>
+                        .cardetails-main {
+                            max-width: 100%;
+                            width: 100%;
+                            height: auto;
+                        }
+                        .cardetails-imgflex {
+                            display: flex;
+                            flex-direction: row;
+                            max-width: 100%;
+                            width: 100%;
+                            overflow-x: scroll;
+                        }
+                        .cardetails-eachimg {
+                            max-width: 100%;
+                            width: 100%;
+                            height: 50px;
+                            object-fit: cover;
+                            border-top:3px solid black;
+                            border-right:3px solid black;
+                            cursor: pointer;
+                        }
+                    </style>
+                    <div style="max-width:300px;width:500px;background-color:transparent;position:absolute;padding:30px;">
+                        <div style="padding:20px;background-color:rgba(0,0,0,0.2);border:3px solid rgba(255,255,255, 0.5); border-radius:10px;max-width:100%;width:100%;">
+                            <p style="font-size:25px;font-weight:300;color:white;margin:0px;">{{car.brand}} {{car.model}}</p>
+                            <p style="font-size:15px;font-weight:300;color:white;margin:0px;margin-top:10px;">{{car.currency_symbol}} {{car.price}}</p>
+                        </div>
+                    </div>
+                    <img id="cardetails-main" src="{% static car.imgs.0.src %}" class="cardetails-main">
+                    <div class="cardetails-imgflex">
+                    {% for image in car.imgs %}
+                        <img onClick="changeMainPic('{% static image.src %}')" src="{% static image.src %}" class="cardetails-eachimg">
+                    {% endfor %}
+                    </div>
+                    
+                    <script>
+                        function changeMainPic(src) {
+                            document.getElementById("cardetails-main").setAttribute("src", src)
+                            document.querySelectorAll(".cardetails-eachimg").forEach(el=>{
+                                
+                                if (el.src == src) {
+                                    el.style.filter = "brightness(100%)";
+                                } else {
+                                    el.style.filter = "brightness(50%)";
+                                }
+                            })
+                        }
+
+                        changeMainPic('{% static car.imgs.0.src %}')
+                    </script>
+                    <br/><br/>
+                                       <!-- Advanced search start -->
+                                       <div class="widget-2 advanced-search bg-grea-2 as-2">
+                                        <h3 class="sidebar-title">{{lang.home_site.overview}}</h3>
+                                        <div class="s-border"></div>
+                                        <div class="m-border"></div>
+                                        <ul>
+                                        <li>
+                                            <span>{{lang.home_site.brand}}</span>{{car.brand}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.model}}</span>{{car.model}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.ban_type}}</span>{{car.bantype}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.year}}</span>{{car.year}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.status}}</span>{{car.status}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.mileage}}</span>{{car.distance}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.color}}</span>{{car.color}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.speedbox}}</span>{{car.speedbox}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.location}}</span>{{car.location}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.fuel_type}}</span>{{car.fuel}}
+                                        </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Description start -->
+                                    <div class="Description mb-50">
+                                        <h3 class="heading-2">{{lang.home_site.description}}</h3>
+                                            <p></p>
+                                    </div>
+                                    <!-- Inside car start -->
+                                    <div class="inside-car mb-50">
+                                        <h3 class="heading-2">{{lang.home_site.video}}</h3>
+                
+                                        <iframe src="https://www.youtube.com/embed/dkrFZSWyklU" allowfullscreen=""></iframe>
+                                    </div>
+                                    <!-- location start -->
+                                    <div class="location mb-50">
+                                        <div class="map">
+                                            <h3 class="heading-2">{{lang.home_site.location}}</h3>
+                                            <div id="map" class="contact-map">
+                                                <iframe width="100%" height="100%" style="border:0" loading="lazy" allowfullscreen
+                                                        src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ2bdZhXtjMEARrZUuvmzIKg0&key=AIzaSyDjAVQ9ATTBE3B85tM2s3h29GBP55Rjfd8"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="sidebar-right">
+                                    <!-- Advanced search start -->
+                                    <div class="widget advanced-search d-none-992">
+                                        <h3 class="sidebar-title">{{lang.home_site.overview}}</h3>
+                                        <div class="s-border"></div>
+                                        <div class="m-border"></div>
+                                        <ul>                                          <li>
+                                            <span>{{lang.home_site.brand}}</span>{{car.brand}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.model}}</span>{{car.model}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.ban_type}}</span>{{car.bantype}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.year}}</span>{{car.year}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.status}}</span>{{car.status}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.mileage}}</span>{{car.distance}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.color}}</span>{{car.color}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.speedbox}}</span>{{car.speedbox}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.location}}</span>{{car.location}}
+                                        </li>
+                                        <li>
+                                            <span>{{lang.home_site.fuel_type}}</span>{{car.fuel}}
+                                        </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Question start -->
+                                    <div class="widget question">
+                                        <h5 class="sidebar-title">{{lang.home_site.get_a_question}}</h5>
+                                        <div class="s-border"></div>
+                                        <div class="m-border"></div>
+                                        <ul class="contact-info">
+                                            <li>
+                                                <a href="#"><i class="flaticon-pin"></i>{{settings.Address}}</a>
+                                            </li>
+                                            <li>
+                                                <a href="mailto:{{settings.Email}}"><i class="flaticon-mail"></i>{{settings.Email}}</a>
+                                            </li>
+                                            <li>
+                                                <a href="tel:{{settings.Phone}}"><i class="flaticon-phone"></i>{{settings.Phone}}</a>
+                                            </li>
+                                        </ul>
+                                        <div class="social-list clearfix">
+                                            <ul>
+                                                {% for social in social_media_accounts %}
+                                                <li><a href="{{social.AccountLink}}" class="{{social.SocialMedia.Name}}-bg"><i class="{{social.SocialMedia.Icon}}"></i></a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Related cars start -->
+                        <div class="related-cars">
+                            <h3 class="heading-2">{{lang.home_site.similar_cars}}</h3>
+                            <div class="slick-slider-area clearfix">
+                                <div class="row slick-carousel" data-slick='{"slidesToShow": 3, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                                    
+                                {% for car in related_cars %}
+                                <div class="slick-slide-item">
+                                    <div class="car-box-3">
+                                        <div class="car-thumbnail">
+                                            <a href="/cars/details/{{car.id}}" class="car-img culture_href">
+                                                    <div class="tag-2 bg-active">{{car.status}}</div>
+                                                <div class="price-box">
+                                                </div>
+                                                <img class="d-block w-100" src="{% static car.img %}" alt="car">
+                                            </a>
+                                            <div class="carbox-overlap-wrapper">
+                                                <div class="overlap-box">
+                                                    <div class="overlap-btns-area">
+                                                        <a class="overlap-btn" data-toggle="modal" data-target="#carOverviewModal">
+                                                            <i class="fa fa-eye-slash"></i>
+                                                        </a>
+                                                        <div class="car-magnify-gallery">
+        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="detail">
+                                            <h1 class="title">
+                                                    <a href="/cars/details/{{car.id}} " class="culture_href">{{car.brand}} - {{car.model}}</a>
+                                            </h1>
+                                            <ul class="custom-list">
+        
+                                                <li>
+                                                    <a href="#"> </a>
+                                                </li>
+                                            </ul>
+                                            <ul class="facilities-list clearfix">
+                                                    <li>
+                                                        <i class="flaticon-fuel"></i> {{car.fuel}}
+                                                    </li>
+                                                    <li>
+                                                        <i class="flaticon-way"></i> {{car.distance}}
+                                                    </li>
+                                                    <li>
+                                                        <i class="flaticon-manual-transmission"></i> {{car.speedbox}}
+                                                    </li>
+                                                    <li>
+                                                        <i class="flaticon-car"></i> {{car.bantype}}
+                                                    </li>
+                                                    <li>
+                                                        <i class="flaticon-gear"></i> {{car.color}}
+                                                    </li>
+                                                    <li>
+                                                        <i class="flaticon-calendar-1"></i> {{car.year}}
+                                                    </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Related cars end -->
+                    </div>
+                </div>
+                <!-- Car details page end -->
+                <script type="text/javascript">
+                    jssor_1_slider_init();
+                </script>
+                <script>
+                
+                    $(".carousel-item").eq(0).addClass('active')
+                    $(".list-inline-item").eq(0).addClass('active')
+                
+                </script>
+
+{% endblock %}
+

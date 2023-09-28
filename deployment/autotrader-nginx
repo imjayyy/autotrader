@@ -1,0 +1,12 @@
+server {
+    listen 80;
+    server_name 67.207.76.239;
+
+    location /static/ {
+        alias /home/autotrader-admin/autotrader/autotrader.az/autotrader_web/production-static/;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/autotrader-admin/autotrader/autotrader.az/deployment/autotrader-main.sock;
+    }
+}

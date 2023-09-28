@@ -1,0 +1,379 @@
+{% extends 'auction/base.html' %}
+{% load static %}
+
+{% block pagecontent %}
+
+<script src="{% static 'js/update_price.js' %}"></script>
+
+<section class="banner py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center text-white">
+                <h1 class="h1 fw-bold">{{lang.find_your_next_auction}}</h1>
+                <h2 class="fw-light h4 py-2">{{lang.choose_from_over}}</h2>
+            </div>
+        </div>
+        <div class="bg-dark rounded my-4">
+            <div class="row">
+                <div class="col-sm-4 my-3">
+                    <select id="home_makes_select" onChange="updateModelsHome()" class="form-select form-select-lg">
+                        <option data-filter-name="" name="make" selected>{{lang.all_makes}}</option>
+                        <optgroup label="Popular Makes">
+                            {% for make in popularMakes %}
+                            <option name="make" data-filter-name="{{make.make}}">{{make.make}}</option>
+                            {% endfor %}
+                        </optgroup>
+                        <optgroup label="All Makes">
+                            {% for make in allMakes %}
+                            <option name="make" data-filter-name="{{make.make}}">{{make.make}}</option>
+                            {% endfor %}
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="col-sm-4 my-3">
+                    <select class="form-select form-select-lg">
+                        <option data-filter-name="" name="model" selected>{{lang.all_models}}</option>
+                        {% for make in allModels %}
+                        <option name="model" data-filter-make="{{make.make}}" data-filter-name="{{make.model}}">
+                            {{make.model}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <script>
+            function updateModelsHome() {
+              document.getElementsByName("model").forEach(el=>{
+                  if (el.getAttribute("data-filter-make") != document.getElementById("home_makes_select").value) {
+                    el.style.display = "none";
+                  } else {
+                    el.style.display = "";
+                  }
+                })
+              if (document.getElementById("home_makes_select").value == "All Makes") {
+                document.getElementsByName("model")[0].selected = true;
+              }
+            }
+
+            updateModelsHome();
+
+
+
+                </script>
+                <div class="col-sm-4 my-3">
+                    <select class="form-select form-select-lg">
+                        <option data-filter-name="" name="locationName" selected>{{lang.all_locations}}</option>
+                        {% for location in allLocations %}
+                        <option name="locationName" data-filter-name="{{location.locationName}}">
+                            {{location.locationName}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <select class="form-select form-select-lg">
+                        <option selected>{{lang.from_year}}</option>
+                        {% for year in allYears %}
+                        <option name="fromYear" data-filter-name="{{year.year}}">{{year.year}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3">
+                    <select class="form-select form-select-lg">
+                        <option selected>{{lang.to_year}}</option>
+                        {% for year in allYears %}
+                        <option name="toYear" data-filter-name="{{year.year}}">{{year.year}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-3"><a onClick="homePageSearch()"
+                                              class="btn btn-primary btn-lg text-uppercase w-100"><i
+                        class="fa fa-search"></i> {{lang.search}}</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--------------------Banner Section Code Ends Here----------------->
+
+<section class="browse bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="h1 text-center">{{lang.browse_popular}}</h1>
+                <div class="row">
+                    {% for car in cars %}
+                    <div class="col-md-4">
+                        <div class="card rounded-2 shadow-sm mt-4 cars-box">
+                            <a href="/lots/{{car.details.id}}" class="text-decoration-none position-relative">
+                                <img src="{{car.details.imageFull}}" class="card-img-top" alt="Image" />
+                                <small class="bg-warning py-2 px-4 text-dark fw-bold position-absolute d-inline-block start-0 end-0">
+                                    <i class="fa fa-clock"></i> {{car.details.saledate}} | {{car.details.BidInformation.CurrentBid}} {{car.details.BidInformation.Currency}}
+                                </small>
+                            </a>
+                            <div class="card-body">
+                                <a href="/lots/{{car.details.id}}" class="card-title h6 text-decoration-none mb-2 d-inline-block">
+                                    {{car.details.year}} {{car.details.make}} {{car.details.model}}
+                                </a>
+                                <p class="card-text">Location: {{car.details.locationName}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--PC-->
+
+            <div class="col-lg-6 col-md-12 col-sm-12 p-0 hide-m">
+                <div class="row">
+                    {% for car in cars %}
+                    {% if car.details.lotId != cars.0.details.lotId %}
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card rounded-2 shadow-sm mt-4 cars-box"><a href="/lots/{{car.details.lotId}}"
+                                                                               class="text-decoration-none position-relative"><img
+                                src="{{car.details.LotImages.0.ImageFull}}" class="card-img-top home-carimage-small"
+                                alt="Image"/><small
+                                class="bg-warning py-2 px-4 text-dark fw-bold position-absolute d-inline-block start-0 end-0"><i
+                                class="fa fa-clock"></i> {{car.details.saledate}} |
+                            {{car.details.BidInformation.CurrentBid}}
+                            {{car.details.BidInformation.Currency}}</small></a>
+                            <div class="card-body"><a href="/lots/{{car.details.lotId}}"
+                                                      class="card-title h6 text-decoration-none mb-2 d-inline-block">{{car.details.year}}
+                                {{car.details.make}} {{car.details.model}}</a>
+                                <p class="card-text">{{lang.location}}: {{car.details.locationName}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--------------------Browse Section Code Ends Here----------------->
+
+<section id="homefilter-container" class="auction-list bg-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="h3 text-center">{{lang.view_full_auto_auction_inventory}}</h1>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
+                <h5 class="h5">{{lang.popular_makes}}</h5>
+            </div>
+
+            <div id="homefilter-make-parent" class="homefilter-parentgrid">
+
+                {% for car in allMakes %}
+                {% if car.make != None and car.total != None %}
+                <div name="homefilter-make" class="col-lg-3 col-md-3 col-sm-6 mt-3"><a
+                        href="/search?q=&make={{car.make}}"
+                        class="text-decoration-none">{{car.make}}
+                    <small class="text-muted">{{car.total}}</small></a></div>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+            <a id="homefilter-make-showmore"
+               style="margin-top:20px;cursor: pointer;{% if allMakes|length <= 24 %}display:none;{% endif %}"
+               onClick="showMoreFilters('homefilter-make')"></a>
+<!--            <div class="col-lg-12 col-md-12 col-sm-12 mt-5">-->
+<!--                <h5 class="h5">{{lang.vehicle_type}}</h5>-->
+<!--            </div>-->
+<!--            <div id="homefilter-vehicleType-parent" class="homefilter-parentgrid">-->
+
+<!--                {% for car in vehicleTypes %}-->
+<!--                {% if car.vehicleType != None and car.total != None %}-->
+<!--                <div name="homefilter-vehicleType" class="col-lg-3 col-md-3 col-sm-6 mt-3"><a-->
+<!--                        href="/search?q=&vehicleType={{car.vehicleType}}" class="text-decoration-none">{{car.vehicleType}}-->
+<!--                    <small class="text-muted">{{car.total}}</small></a></div>-->
+<!--                {% endif %}-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+            <a id="homefilter-vehicleType-showmore"
+               style="margin-top:20px;cursor: pointer;{% if vehicleTypes|length <= 24 %}display:none;{% endif %}"
+               onClick="showMoreFilters('homefilter-vehicleType')">{{lang.show_more}}</a>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
+                <h5 class="h5">{{lang.body_style}}</h5>
+            </div>
+            <div id="homefilter-bodyStyle-parent" class="homefilter-parentgrid">
+
+                {% for car in bodyStyles %}
+                {% if car.bodyStyle != None and car.total != None %}
+                <div name="homefilter-bodyStyle" class="col-lg-3 col-md-3 col-sm-6 mt-3"><a
+                        href="/search?q=&bodyStyle={{car.bodyStyle}}" class="text-decoration-none">{{car.bodyStyle}}
+                    <small
+                            class="text-muted">{{car.total}}</small></a></div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <a id="homefilter-bodyStyle-showmore"
+               style="margin-top:20px;cursor: pointer;{% if bodyStyles|length <= 24 %}display:none;{% endif %}"
+               onClick="showMoreFilters('homefilter-bodyStyle')">{{lang.show_more}}</a>
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
+                <h5 class="h5">{{lang.damage_type}}</h5>
+            </div>
+            <div id="homefilter-primaryDamage-parent" class="homefilter-parentgrid">
+                {% for car in primaryDamage %}
+                {% if car.primaryDamage != None and car.total != None %}
+                <div name="homefilter-primaryDamage" class="col-lg-3 col-md-3 col-sm-6 mt-3"><a
+                        href="/search?q=&primaryDamage={{car.primaryDamage}}" class="text-decoration-none">{{car.primaryDamage}}
+                    <small class="text-muted">{{car.total}}</small></a></div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <a id="homefilter-primaryDamage-showmore"
+               style="margin-top:20px;cursor: pointer;{% if primaryDamage|length <= 24 %}display:none;{% endif %}"
+               onClick="showMoreFilters('homefilter-primaryDamage')">{{lang.show_more}}</a>
+
+        </div>
+    </div>
+</section>
+
+<!--------------------Auction List Code Ends Here----------------->
+<!--
+<section class="registration bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-7 col-sm-12">
+                <h3 class="h2 fw-normal mt-4">{{lang.quick_registration}}</h3>
+                <ul class="pt-2">
+                    <li class="my-4"><i class="fa fa-check-circle float-start me-2 text-primary"></i>
+                        <p class="fs-5 fw-light d-block overflow-hidden">{{lang.access_to_over_182}}</p>
+                    </li>
+                    <li class="my-4"><i class="fa fa-check-circle float-start me-2 text-primary"></i>
+                        <p class="fs-5 fw-light d-block overflow-hidden">{{lang.best_prices}}</p>
+                    </li>
+                    <li class="my-4"><i class="fa fa-check-circle float-start me-2 text-primary"></i>
+                        <p class="fs-5 fw-light d-block overflow-hidden">{{lang.easy_Bidding_buying_shipping}}</p>
+                    </li>
+                    <li class="my-4"><i class="fa fa-check-circle float-start me-2 text-primary"></i>
+                        <p class="fs-5 fw-light d-block overflow-hidden">{{lang.customer_satisfaction_rate}}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-12 col-sm-12 hide-t"></div>
+            <div class="col-lg-4 col-md-5 col-sm-12">
+                <div class="py-2 bg-white border shadow-sm px-1 form-s">
+                    <div class="row">
+                        <div class="col-6 hide-m"><a href="javascript:;"
+                                                     class="btn btn-light border-primary text-primary rounded-pill w-100 shadow-sm my-3 fw-bold"><i
+                                class="fab fa-facebook"></i> {{lang.continue_with_facebook}}</a></div>
+                        <div class="col-6 hide-m"><a href="javascript:;"
+                                                     class="btn btn-light border-primary text-primary rounded-pill w-100 shadow-sm my-3 fw-bold"><i
+                                class="fab fa-google"></i> {{lang.continue_with_google}}</a></div>
+                        <div class="col-12 text-center"><small class="text-uppercase or text-muted d-block mt-2 mb-4">{{lang.or_continue_with}}</small>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <input type="text" class="form-control py-2" placeholder="{{lang.first_name}}"/>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-4">
+                                <input type="text" class="form-control py-2" placeholder="{{lang.last_name}}"/>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="input-group mb-3"><span class="input-group-text" id="basic-addon1">+92</span>
+                                <input type="text" class="form-control py-2" placeholder="03438485818"
+                                       aria-label="Username" aria-describedby="basic-addon1"/>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-4">
+                                <input type="text" class="form-control py-2" placeholder="{{lang.email}}"/>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <p>{{lang.by_clicking_you_agree}}</p>
+                            <a href="javascript:;" class="mt-1 d-inline-block text-decoration-none">{{lang.terms_and_conditions}}</a>
+                            <a href="javascript:;"
+                               class="btn btn-warning rounded-pill py-2 px-4 text-uppercase fw-bold w-100 fs-6 my-3">{{lang.register_now}}</a>
+                            <a href="javascript:;" class="mt-1 d-inline-block text-decoration-none">{{lang.already_a_member}}</a>
+                            <a href="javascript:;" class="mt-1 d-inline-block text-decoration-none">{{lang.sign_in}}</a><br/>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+-->
+<!--------------------Registration Code Ends Here----------------->
+
+<section class="buy-ship bg-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="h2 mb-4">{{lang.how_to_buy_and_ship_your_vehicle}}</h3>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/buy2.png' %}"
+                                                                          alt="Buy Image" width="77"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 1</strong> <b>{{lang.find_your_vehicle_at_auction}}</b>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/check.png' %}"
+                                                                          alt="Buy Image" width="40"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 2</strong>
+                <b>{{lang.check_vin}}</b>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/contract.png' %}"
+                                                                          alt="Buy Image" width="50"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 3</strong> <b>{{lang.sign_a_contract}}</b>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/buy6.png' %}"
+                                                                          alt="Buy Image" width="50"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 4</strong> <b>{{lang.bidding_at_auction}}</b>
+            </div>
+            <div class="col-lg-12 mt-5 hide-m">
+                <hr/>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/buy3.png' %}"
+                                                                          alt="Buy Image" width="70"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 5</strong> <b>{{lang.payment_for_auction}}</b>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/buy4.png' %}"
+                                                                          alt="Buy Image" width="50"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 7</strong> <b>{{lang.ocean_shipping_to}}</b>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/buy7.png' %}"
+                                                                          alt="Buy Image" width="85"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 6</strong> <b>{{lang.ground_shipping}}</b>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 text-center mt-5"><img src="{% static 'images/buy8.png' %}"
+                                                                          alt="Buy Image" width="65"/> <strong
+                    class="text-muted text-uppercase d-block mb-2 mt-3">{{lang.step}} 8</strong> <b>{{lang.customs_clearance}}</b>
+            </div>
+        </div>
+    </div>
+    <br/>
+</section>
+
+<!--------------------Buy Ship Code Ends Here----------------->
+
+
+
+
+{% include 'auction/components/home/calculator_manual.html' %}
+{% include 'auction/components/home/customs_calculator.html' %}
+
+<!--{% include 'auction/components/contactinfo-section.html' %}-->
+
+<script>
+    const LANG_SHOW_MORE = "{{lang.show_more}}";
+    const LANG_SHOW_LESS = "{{lang.show_less}}"
+
+
+
+</script>
+<script src="{% static 'js/home-script.js' %}"></script>
+
+{% endblock %}

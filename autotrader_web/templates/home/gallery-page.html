@@ -1,0 +1,99 @@
+{% extends 'home/layout.html' %}
+{% load static %}
+{% block body %}
+<style>
+    .pagination span {
+        padding: 4px 8px !important;
+        background: #f0151f !important;
+        color: #fff !important;
+    }
+
+    .pagination a {
+        background: #fff;
+        padding: 4px 8px !important;
+        font-size: 16px !important;
+        text-decoration:none !important;
+    }
+    .pagination-container{
+        width:100%;
+        text-align:center;
+    }
+    .nav-pills .nav-link.active {
+        background-color: #f0151f;
+    }
+    .nav-pills .nav-link{
+        color:black;
+    }
+    .gallery_navs{
+        border:none;
+        padding:15px;
+        justify-content:center;
+    }
+</style>
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container breadcrumb-area">
+        <div class="breadcrumb-areas">
+            <h1>{{lang.home_site.gallery}}</h1>
+            <ul class="breadcrumbs">
+                <li><a href="/home" class="culture_href">{{lang.home_site.home}}</a></li>
+                <li class="active">{{lang.home_site.gallery}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Photo gallery start -->
+<div class="photo-gallery content-area-13">
+    <div class="container">
+        <!-- Main title -->
+        <ul class="nav nav-tabs gallery_navs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">{{lang.home_site.images}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">{{lang.home_site.videos}}</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane container active" id="home">
+                <div class="row">
+                    {% for img in gallery %}
+                    {% if img.Type == 1 %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 filtr-item">
+                        <div class="portfolio-item">
+                            <a href="{% static img.ImagePath %}" title="">
+                                <img src="{% static img.ImagePath %}" alt="gallery-photo" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+<!--
+                    <div class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;&#x2D;&#x63;&#x6F;&#x6E;&#x74;&#x61;&#x69;&#x6E;&#x65;&#x72;"><ul class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;"><li class="&#x61;&#x63;&#x74;&#x69;&#x76;&#x65;"><span>&#x31;</span></li><li><a href="&#x2F;&#x41;&#x62;&#x6F;&#x75;&#x74;&#x2F;&#x47;&#x61;&#x6C;&#x6C;&#x65;&#x72;&#x79;&#x3F;&#x70;&#x61;&#x67;&#x65;&#x3D;&#x32;">&#x32;</a></li><li class="&#x50;&#x61;&#x67;&#x65;&#x64;&#x4C;&#x69;&#x73;&#x74;&#x2D;&#x73;&#x6B;&#x69;&#x70;&#x54;&#x6F;&#x4E;&#x65;&#x78;&#x74;"><a href="&#x2F;&#x41;&#x62;&#x6F;&#x75;&#x74;&#x2F;&#x47;&#x61;&#x6C;&#x6C;&#x65;&#x72;&#x79;&#x3F;&#x70;&#x61;&#x67;&#x65;&#x3D;&#x32;" rel="&#x6E;&#x65;&#x78;&#x74;">></a></li></ul></div>
+-->
+                    </div>
+            </div>
+            <div class="tab-pane container fade" id="menu1">
+                <div class="row">
+                    {% for vid in gallery %}
+                    {% if vid.Type == 2 %}
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="portfolio-item">
+                            <iframe src="{{vid.VideoLink}}" allowfullscreen="" width="100%" height="250px"></iframe>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+<!--
+                    <div class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;&#x2D;&#x63;&#x6F;&#x6E;&#x74;&#x61;&#x69;&#x6E;&#x65;&#x72;"><ul class="&#x70;&#x61;&#x67;&#x69;&#x6E;&#x61;&#x74;&#x69;&#x6F;&#x6E;"><li class="&#x61;&#x63;&#x74;&#x69;&#x76;&#x65;"><span>&#x31;</span></li></ul></div>
+-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

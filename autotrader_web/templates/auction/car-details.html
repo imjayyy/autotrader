@@ -1,0 +1,356 @@
+{% extends 'auction/base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block pagecontent %}
+
+<section class="breadcrumbs bg-white px-4 z-in pb-3 nbs">
+    <nav aria-label="breadcrumb" class="pt-3">
+        <ol class="breadcrumb hide-m">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">{{lang.home}}</a></li>
+            <li class="breadcrumb-item"><a href="/search?q=" class="text-decoration-none">{{lang.search}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{data.year}} {{data.make}} {{data.model}}
+            </li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-lg-10 col-md-9 col-8">
+            <h2 class="h2 fw-bold text-uppercase">{{data.year}} {{data.make}} {{data.model}} </h2>
+            <p>{{lang.lot}} # <b>{{data.lotId}}</b> &nbsp; | &nbsp; {{lang.sale_location}}: <a href="javascript:;">{{data.saleLocation.name}}
+                - {{data.saleLocation.state}}</a> &nbsp; | &nbsp; {{lang.sale_date}}: <b>{{data.saleDate}}</b></p>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</section>
+
+<!--------------------Breadcumb Section Code Ends Here----------------->
+
+<section class="border-top car-detail">
+
+
+
+    <div class="row">
+
+
+
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+
+                <div id="cardetails-items" class="carousel-inner">
+                    {% for img in data.images %}
+                    <div data-img-id="{{img.id}}" name="carimage-items"
+                         class="carousel-item {% if img.thumbnail == data.images.0.thumbnail %}active{% endif %}">
+                        <img src="{{img.thumbnail}}" class="d-block w-100" alt="...">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <div id="cardetails-thumbnail-imgs" class="cardetails-thumbnail-imgs">
+                {% for img in data.images %}
+                <button onClick="changeActiveThumbnail('{{img.id}}')"><img name="carimage-item-thumbnails"
+                                                                           src="{{img.thumbnail}}"></button>
+                {% endfor %}
+            </div>
+            
+            {% include 'auction/components/car_details/calculator.html' %}
+
+        </div>
+        <div class="col-lg-7 col-md-6 col-sm-12 p-0">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="h5 fw-bold my-1">{{lang.lot}} # {{data.lotId}} {{lang.details}}</h5>
+                        </div>
+                        <div class="card-body">
+                            {% for row in data.details_array %}
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div class="mt-0">{{row.key}}:</div>
+                                <div><strong>{{row.value}}</strong></div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="h5 fw-bold my-1">{{lang.car_about}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p style="line-height: 1.5; text-decoration: none;" >
+                                Avtomobil
+                                <b class="text-primary">
+								{{data.saleDate}}
+							    </b>
+                                tarixdə  hərraca çıxarılacaq. Avtomobilin hərracında iştirak etmək və ya avtomobil haqqında daha ətraflı məlumat almaq istəyirsinizsə bizə yazın. Qiymət təklifi bölməsinə hərracda təklif etmək istədiyiniz məbləği qeyd etməklə siz avtomobilin bütün xərclərini detallı şəkildə görə bilərsiniz. Avtomobilin gömrük xərclərini daha detallı görmək üçün səhifədəki
+                                <a style="text-decoration: none;" href="#calc">
+                                   <strong>{{lang.customs_nav}}</strong>
+                                </a> bölməsinə daxil olun.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="h5 fw-bold my-1">{{lang.sale_information}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div class="mt-0">{{lang.current_bid}}:</div>
+                                <div><strong>{% if data.currentBid == "N/A" or data.currentBid == None %}0{% else %}{{data.currentBid}}{% endif %} {% if data.currency != "N/A" %}{{data.currency}}{% endif %}</strong></div>
+                            </div>
+
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div class="mt-0">{{lang.location}}:</div>
+                                <div><strong><a>{{data.saleLocation.name}} - {{data.saleLocation.state}}</a></strong></div>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div class="mt-0">{{lang.sale_date}}:</div>
+                                <div><strong>{{data.saleDate}}</strong></div>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div class="mt-0">{{lang.time_left}}:</div>
+                                <div>
+                                    <strong>
+                                        <b class="text-primary">
+                                            {% if data.timeLeft.d != None and not data.timeLeft.time_crossed %}
+                                            {{data.timeLeft.d}}d {{data.timeLeft.h}}h {{data.timeLeft.m}}m
+                                            {% elif data.timeLeft.time_crossed %}
+                                            {{lang.no_longer_available_for_bidding}}
+                                            {% endif %}
+                                        </b>
+
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div class="mt-0">{{lang.sale_status}}:</div>
+                                <div><strong>{{data.saleStatus}} </strong></div>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom py-2">
+                                <div class="mt-0">{{lang.row}}:</div>
+                                <div><strong>{{data.lane}} / {{data.item}} / {{data.gridRow}}</strong></div>
+                            </div>
+                            <div class="d-flex justify-content-between  py-2">
+                                <div class="mt-0">{{lang.last_updated}}:</div>
+                                <div><strong>{{data.lastUpdatedAt}}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="h5 fw-bold my-1">{{lang.send_message}} </a></h5>
+                        </div>
+                        <div class="card-body px-0">
+                            <div class="row">
+                                <!--
+                                <div class="col-6 mb-3">
+                                  <select class="form-select" aria-label="Default select example">
+                                    <option selected="">SMS</option>
+                                    <option value="1">Email</option>
+                                  </select>
+                                </div>
+                                <div class="col-6 mb-3">
+                                  <select class="form-select" aria-label="Default select example">
+                                    <option selected="">Daily</option>
+                                    <option value="1">Weekly</option>
+                                  </select>
+                                </div>
+                                -->
+                                <strong id="ordernow-message"></strong>
+                                <div class="col-6 mb-3">
+                                    <input id="ordernow-first_name" required type="text" class="form-control"
+                                           placeholder="{{lang.first_name}}"/>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <input id="ordernow-last_name" required type="text" class="form-control"
+                                           placeholder="{{lang.last_name}}"/>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <div class="input-group">
+                                        <!--<span class="input-group-text" id="basic-addon5">+92</span>-->
+                                        <input required id="ordernow-phone" type="text" class="form-control py-2"
+                                               placeholder="{{lang.phone}}" aria-label="Username"
+                                               aria-describedby="basic-addon1"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <input required id="ordernow-email" type="email" class="form-control py-2"
+                                           placeholder="{{lang.email}}" aria-label="email"
+                                           aria-describedby="basic-addon1"/>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <textarea id="ordernow-message-content" type="email" class="form-control py-2"
+                                           placeholder="{{lang.message}}" aria-label="email"
+                                           aria-describedby="basic-addon1" ></textarea>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <div class='g-recaptcha capctha_div' data-sitekey='6LfCq9YgAAAAAHSho3_KTBidYE4fVtDsI6W1rras'></div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="alert alert-info" onClick="orderNowFunction()"><a
+                                            class="btn btn-outline-primary fw-bold text-uppercase w-100 rounded-pill">{{lang.send}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+
+
+                    function orderNowFunction() {
+                        if (confirm("{{lang.home_site.confirm_to_continue}}") == true) {
+                            const first_name = document.getElementById("ordernow-first_name");
+                            const last_name = document.getElementById("ordernow-last_name");
+                            const email = document.getElementById("ordernow-email");
+                            const phone = document.getElementById("ordernow-phone");
+                            const message = document.getElementById("ordernow-message-content");
+                            const token = grecaptcha.getResponse()
+
+                            if (token == "") {
+                                alert("{{lang.home_site.are_you_a_robot}}")
+                            } else {
+                                if (!phone.checkValidity() && !email.checkValidity()) {
+                                document.getElementById("ordernow-message").innerText = "Either the phone number or the email is required"
+                                document.getElementById("ordernow-message").style.marginBottom = "15px";
+                                } else if (!email.checkValidity() && phone.value[0] != "+") {
+                                    document.getElementById("ordernow-message").innerText = "Phone number should be in international format"
+                                    document.getElementById("ordernow-message").style.marginBottom = "15px";
+                                } else {
+                                    fetch('/order_now?`', {
+                                        method:'POST',
+                                        body: JSON.stringify({
+                                            token:token,
+                                            email:email.value,
+                                            phone:phone.value,
+                                            first_name:first_name.value,
+                                            last_name:last_name.value,
+                                            message:message.value,
+                                            lotid:'{{data.lotId}}'
+                                        }),
+                                        headers:{
+                                            "Content-Type": "application/json",
+                                            "X-CSRFToken": '{{ csrf_token }}'
+                                        },
+                                    })
+                                        .then(res => {
+                                            if (res.status == 200) {
+                                                document.getElementById("ordernow-message").innerText = "Success"
+                                                document.getElementById("ordernow-message").style.marginBottom = "15px";
+                                            } else if (res.status == 400) {
+                                                document.getElementById("ordernow-message").innerText = "Either the phone number or the email is required"
+                                                document.getElementById("ordernow-message").style.marginBottom = "15px";
+                                            } else {
+                                                document.getElementById("ordernow-message").innerText = "An error occured"
+                                                document.getElementById("ordernow-message").style.marginBottom = "15px";
+                                            }
+                                        })
+                                }
+                            }
+                            grecaptcha.reset()
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="calc">
+    {% include 'auction/components/home/customs_calculator.html' %}
+</section>
+
+
+
+<!--------------------Car Details Section Code Ends Here----------------->
+
+<section class="similar-cars px-5 my-5">
+    {% if cars|length > 0 %}
+    <h4 class="h4  text-primary">{{lang.similar_vehicles}}</h4>
+    {% endif %}
+    <div class="cardetails-similarvehicles">
+        {% for car in cars %}
+        <div class="item">
+            <div class="card cars-boxx mt-4 position-relative">
+
+                <div id="carouselExampleControls{{car.lotId}}" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for img in car.images %}
+
+                        <div class="carousel-item {% if img.Id == 0 %}active{% endif %}">
+                            <img style="object-fit:cover;min-height:300px;max-height:300px;" src="{{img.ImageFull}}"
+                                 class="d-block w-100" alt="...">
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+                    <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleControls{{car.lotId}}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleControls{{car.lotId}}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="/lots/{{car.lotId}}"
+                                              class="text-decoration-none h5 fw-bold float-start mt-1">{{car.year}}
+                        {{car.make}} {{car.model}} {% if car.engineSize != None %}| {{car.engineSize}}{% endif %}</a> <a
+                            href="javascript:;"
+                            class="text-decoration-none p-2 border rounded-circle border-primary float-end"><i
+                            class="fa fa-heart"></i></a></h5>
+                    <div class="clearfix"></div>
+                    <ul class="py-3">
+                        <li class="border-bottom py-2">
+                            <p class="text-start float-start">{{lang.odometer}}:</p>
+                            <b class="text-end float-end">{{car.odometer}} {{car.odometerType}}</b>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li class="border-bottom py-2">
+                            <p class="text-start float-start">{{lang.location}}:</p>
+                            <b class="text-end float-end">{{car.locationName}}</b>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li class="border-bottom py-2">
+                            <p class="text-start float-start">{{lang.sale_date}}:</p>
+                            <b class="text-end float-end">{% if car.saledate is not None %}{{car.saledate}}{% endif %}</b>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li class="py-2">
+                            <p class="text-start float-start">{{lang.current_bid}}:</p>
+                            <b class="text-end float-end fs-5">{{car.BidInformation.CurrentBid}} {% if car.BidInformation.CurrentBid != None and car.BidInformation.CurrentBid != None %}{{car.BidInformation.Currency}}{% endif %}</b>
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
+                    <a href="/lots/{{car.lotId}}" class="btn btn-primary text-uppercase fw-bold rounded-pill w-100 py-2">{{lang.view_vehicle}}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!--------------------Simillar Cars Section Code Ends Here----------------->
+
+
+<script src="{% static 'js/car-details-script.js' %}"></script>
+<script src="{% static 'js/home-script.js' %}"></script>
+{% endblock %}
