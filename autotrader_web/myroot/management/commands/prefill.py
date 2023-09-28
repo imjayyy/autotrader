@@ -60,3 +60,4 @@ class Command(BaseCommand):
             update_model_from_csv(f'myroot/data/{x.get("data")}', x.get("model"))
 
         self.stdout.write(self.style.SUCCESS(f'Prefilled Models'))
+
