@@ -63,7 +63,6 @@ class HomeView(TemplateView):
         for car in range(len(context["cars"])):
             cars_with_count.append({"count": car, "details": context["cars"][car]})
         context["cars"] = cars_with_count
-        print('------------------------------------------------------------random_lots------------------------------------------------------------', str(context["cars"][0]['details']) )
 
         return context
 

@@ -3,12 +3,13 @@ from autotrader_web.service.utils import update_model_from_csv
 from car_details.models import *
 from auction.models import *
 from myroot.models import *
-
+import os
 
 class Command(BaseCommand):
     help = 'Prefill data'
 
     def handle(self, *args, **options):
+        print(os.getcwd())
         model_dict = [
             # car_details data
             {"data": "car.csv", "model": Car},
@@ -57,7 +58,7 @@ class Command(BaseCommand):
         ]
 
         for x in model_dict:
-            update_model_from_csv(f'myroot/data/{x.get("data")}', x.get("model"))
+            update_model_from_csv(f'autotrader_web/myroot/data/{x.get("data")}', x.get("model"))
 
         self.stdout.write(self.style.SUCCESS(f'Prefilled Models'))
 
