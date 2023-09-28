@@ -146,3 +146,4 @@ docker-compose.override.yml
 /autotrader_web/production-static/
 
 .DS_Store
+
