@@ -14,11 +14,14 @@ sys.path.append(
     )
 )
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEBUG = not bool(os.environ.get("PRODUCTION_SERVER", 0))
-if DEBUG:
-    dotenv.load_dotenv(os.path.join(BASE_DIR, "..", "app.default.env"))
-else:
-    dotenv.load_dotenv(os.path.join(BASE_DIR, "..", ".env.production"))
+# DEBUG = not bool(os.environ.get("PRODUCTION_SERVER", 0))
+# if DEBUG:
+#     dotenv.load_dotenv(os.path.join(BASE_DIR, "..", "app.default.env"))
+# else:
+#     dotenv.load_dotenv(os.path.join(BASE_DIR, "..", ".env.production"))
+
+dotenv.load_dotenv(os.path.join(BASE_DIR, "..", "app.default.env"))
+
 
 sys.path.append(os.path.join(BASE_DIR, "..", "autotrader_scraper"))
 # SECURITY WARNING: keep the secret key used in production secret!
