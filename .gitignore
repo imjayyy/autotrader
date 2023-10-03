@@ -9,7 +9,7 @@ autotrader_web/static/Admin
 autotrader_web/static/Assets
 autotrader_web/static/images
 
-# Backup files #
+# Backup files #    
 *.bak
 
 # If you are using PyCharm #
