@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     "auction.apps.AuctionConfig",
     "myroot.apps.MyrootConfig",
     "rest_framework",
-    "django_celery_beat",
+    # "django_celery_beat",
+        'import_export',
+
 ]
 
 MIDDLEWARE = [

@@ -31,8 +31,6 @@ class ShippingAuctionFee(models.Model):
 
 
 
-class ShippingAuctionFeeAdmin(ExportActionMixin, admin.ModelAdmin):
-    list_display = [ 'Id',  'AuctionShippingId',  'UserTypesId',  'CitiesId',  'Fee', ]
-admin.site.register(ShippingAuctionFee,ShippingAuctionFeeAdmin)
+
 
     
