@@ -31,8 +31,8 @@ os.environ[
     "ONLY_IMPORT_TASKS_FROM_CELERY"
 ] = "YES"  # this is to stop celery worker on setting up django (since we only need the worker file to import the tasks and not run the worker)
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", ["127.0.0.1"])
-ALLOWED_HOSTS = ALLOWED_HOSTS.split(" ") if isinstance(ALLOWED_HOSTS, str) else ALLOWED_HOSTS
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", ["127.0.0.1"])
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
