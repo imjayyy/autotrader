@@ -6,7 +6,7 @@ from django.urls import path
 
 from car_details.models import LotData
 # from celery_worker import *
-
+from .process_data import Db_updater
 from myroot.management.commands.prefill import Command
 
 class MyrootAdminSite(admin.AdminSite):
@@ -14,7 +14,7 @@ class MyrootAdminSite(admin.AdminSite):
 
     def get_urls(self):
         return [
-            # path('run-scraper/', self.run_scraper),
+            path('run-scraper/', self.run_scraper),
             # path('run-copart-scraper/', self.run_scraper),
             # path('run-iaai-scraper/', self.run_scraper),
             # path('open-calculator/', self.run_scraper),
@@ -23,7 +23,8 @@ class MyrootAdminSite(admin.AdminSite):
         ] + super().get_urls()
 
     def run_scraper(self, request):
-        pass
+        Db_updater().update_all()
+        return HttpResponseRedirect('/admin')
 
 #     def run_copart_scraper(self, request):
 #         scrape_auctions_task_copart.delay()

@@ -22,7 +22,7 @@ def save_to_db():
       print("connected to DB" )
       # try:
       # Read data from the JSON file
-      with open("response.json", 'r') as json_file:
+      with open("response2.json", 'r') as json_file:
           data = json.load(json_file)['result']
       
       
@@ -91,38 +91,39 @@ def save_to_db():
           connection.close()
       
 
-# save_to_db()
+def fetch_data():
+  url = "https://api.copart-iaai-api.com/api/v2/get-cars"
+  headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Accept": "application/json",
+      "Api-Version": "V2",
+  }
 
-url = "https://api.copart-iaai-api.com/api/v1/buy-now-cars"
-headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Accept": "application/json",
-    "Api-Version": "V1",
-}
+  # Define the query parameters
+  params = {
+      "make": "BMW",
+      "year_from" : 2014,
+      "page": "1",
+      "per_page": "80",
+      "api_token": api_token,
+  }
 
-# Define the query parameters
-params = {
-    "make": "BMW",
-    "page": "1",
-    "per_page": "80",
-    "api_token": api_token,
-}
+  data = {}
 
-data = {}
+  response = requests.post(url, headers=headers, params=params)
 
-# response = requests.post(url, headers=headers, params=params)
+  if response.status_code == 200:
+      # Request was successful
 
-# if response.status_code == 200:
-#     # Request was successful
-
-#     response_data = response.json()
-#     save_to_db( response_data['result'] )
-#     # Save response to a JSON file
-#     with open("response.json", "w") as json_file:
-#         json.dump(response_data, json_file, indent=4)
-# else:
-#     # Request failed
-#     print(f"Request failed with status code {response.status_code}: {response.text}")
+      response_data = response.json()
+      # save_to_db( response_data['result'] )
+      # Save response to a JSON file
+      with open("response2.json", "w") as json_file:
+          json.dump(response_data, json_file, indent=4)
+  else:
+      # Request failed
+      print(f"Request failed with status code {response.status_code}: {response.text}")
 
 
 
+save_to_db()

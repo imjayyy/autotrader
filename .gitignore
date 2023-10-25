@@ -12,6 +12,11 @@ autotrader_web/static/images
 # Backup files #    
 *.bak
 
+# Ignore Django migration files
+/migrations/
+*.pyc
+__pycache__/
+
 # If you are using PyCharm #
 # User-specific stuff
 .idea/**/workspace.xml

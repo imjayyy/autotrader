@@ -4,6 +4,11 @@ import sys
 import dotenv
 from celery.schedules import crontab
 import mimetypes
+import warnings
+
+# Ignore RuntimeWarnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+
 mimetypes.add_type("text/css", ".css", True)
 sys.path.append(
     os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "../")

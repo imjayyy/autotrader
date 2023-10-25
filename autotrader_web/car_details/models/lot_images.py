@@ -1,11 +1,11 @@
 from django.db import models
 from django.apps import apps
 from django.contrib import admin
-
+# from .lot_data import LotData
 
 class LotImages(models.Model):
     Id = models.BigAutoField(primary_key=True)
-    LotId = models.BigIntegerField()
+    LotId = models.ForeignKey('LotData', on_delete=models.CASCADE)
     ImageFull = models.TextField()
 
     class Meta:

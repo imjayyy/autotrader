@@ -7,7 +7,7 @@ from django.contrib import admin
 
 class LotData(models.Model):
     id = models.BigAutoField(primary_key=True)
-    lotId = models.BigIntegerField(unique=True)
+    lotId = models.BigIntegerField(unique=True,default=0)
     year = models.BigIntegerField(null=True)
     make = models.CharField(max_length=255, null=True)
     modelGroup = models.CharField(max_length=255, null=True)
