@@ -20,6 +20,8 @@ from myroot.views import *
 from car_details.views import *
 from myroot.admin import *
 from home.views import *
+from django.urls import re_path
+
 
 admin.site.__class__ = MyrootAdminSite
 

@@ -1,0 +1,19 @@
+{% extends "admin/index.html" %}
+{% load i18n admin_urls %}
+{% block content %}
+
+
+
+<head>
+    <script>
+        var socket = new WebSocket("ws://127.0.0.1:8000/ws/run-scraper/logs/");
+        socket.onmessage = function(e) {
+            var log = document.getElementById("log");
+            log.innerHTML += e.data + "<br>";
+        };
+    </script>
+</head>
+<div id="log"></div>
+
+{{block.super}}
+{% endblock %}

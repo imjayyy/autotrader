@@ -40,19 +40,19 @@ class LotData(models.Model):
     def BidInformation(self):
         bid_info = BidInformation.objects.filter(LotId=self.lotId)
         if len(bid_info) <=0:
-            return BidInformation(LotId=self.id)
+            return BidInformation(LotId=self)
         return bid_info[0]
     
     @property
     def SaleInformation(self):
-        sale_info = SaleInformation.objects.filter(LotId=self.lotId)
+        sale_info = SaleInformation.objects.filter(LotId=self)
         if len(sale_info) <=0:
-            return SaleInformation(LotId=self.id)
+            return SaleInformation(LotId=self)
         return sale_info[0]
 
     @property
     def LotImages(self):
-        return LotImages.objects.filter(LotId=self.lotId)
+        return LotImages.objects.filter(LotId=self)
 
     class Meta:
         db_table = 'LotData'

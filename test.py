@@ -1,6 +1,6 @@
 import requests, json
 import pyodbc
-from datetime import datetime
+from datetime import datetime, timedelta
 # Replace with your API token
 api_token = "6394dc91ece3542af402645dc9f2aa1b2c2dec923b24cf3d249373228a019684"
 
@@ -99,15 +99,25 @@ def fetch_data():
       "Api-Version": "V2",
   }
 
+  today = datetime.now()
+  previous_day = today - timedelta(days=1)
+  three_weeks_from_today = today + timedelta(weeks=3)
+  previous_day_str = previous_day.strftime("%Y-%m-%d")
+  three_weeks_from_today_str = three_weeks_from_today.strftime("%Y-%m-%d")
+  current_year = datetime.now().year
+
+  # Subtract 10 years
+  result_year = current_year - 10
   # Define the query parameters
   params = {
       "make": "BMW",
-      "year_from" : 2014,
+      "year_from" : str(result_year),
       "page": "1",
       "per_page": "80",
+      'auction_date_from': previous_day_str,
+      'auction_date_to': three_weeks_from_today_str,
       "api_token": api_token,
   }
-
   data = {}
 
   response = requests.post(url, headers=headers, params=params)
@@ -126,4 +136,5 @@ def fetch_data():
 
 
 
-save_to_db()
+# save_to_db()
+fetch_data()

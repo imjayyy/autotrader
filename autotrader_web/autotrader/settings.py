@@ -52,8 +52,9 @@ INSTALLED_APPS = [
     "auction.apps.AuctionConfig",
     "myroot.apps.MyrootConfig",
     "rest_framework",
-    # "django_celery_beat",
-        'import_export',
+    'channels',
+    "django_celery_beat",
+    'import_export',
 
 ]
 
@@ -89,6 +90,14 @@ TEMPLATES = [
     },
 ]
 WSGI_APPLICATION = "autotrader.wsgi.application"
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -207,6 +216,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 """ Celery Settings Start """
 
+
 RABBITS_MQ_HOST = os.getenv('RABBITS_MQ_HOST', 'localhost')
 RABBITS_MQ_PORT = os.getenv('RABBITS_MQ_PORT', '5672')
 
@@ -215,6 +225,14 @@ CELERY_RESULT_BACKEND = f"rpc://guest:guest@{RABBITS_MQ_HOST}:{RABBITS_MQ_PORT}/
 CELERY_WORKER_CONCURRENCY = 8
 CELERY_WORKER_MAX_TASKS_PER_CHILD = 1
 CRAWL_PAGES = 1
+# CELERY_BEAT_SCHEDULE = {
+#     'daily-db-update': {
+#         'task': 'myroot.tasks.daily_db_update',
+#         'schedule': crontab(minute=0, hour=0),  # Midnight daily
+#     },
+# }
+
+
 CELERY_BEAT_SCHEDULE = {
     "run_copart_spider_task": {
         "task": "celery_worker.scrape_auctions_task_copart",
@@ -225,6 +243,12 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=0) #utc
     },
 }
+        
+    # 'prefill': {
+    #     'task': 'myroot.tasks.prefill',
+    #     'schedule': crontab(minute=0, hour=0),  # Midnight daily
+    # },
+
 
 """ Celery Settings End """
 

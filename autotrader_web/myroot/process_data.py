@@ -5,12 +5,8 @@ from car_details.models.lot_images import LotImages
 from car_details.models.sale_information import SaleInformation
 from car_details.models.brand import Brand
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
-with open("response2.json", 'r') as json_file:
-    data = json.load(json_file)['result']
-
-item = data[1]
 
 
 api_token = "6394dc91ece3542af402645dc9f2aa1b2c2dec923b24cf3d249373228a019684"
@@ -112,46 +108,67 @@ class Db_updater():
             LOT_IMAGES_INSTANCE.save()
 
 
-    def get_data_from_api(self, make:str):
+    def get_data_from_api(self, make:str, con):
         url = "https://api.copart-iaai-api.com/api/v2/get-cars"
         headers = {
             "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "application/json",
             "Api-Version": "V2",
         }
+
+        today = datetime.now()
+        previous_day = today - timedelta(days=2 )
+        three_weeks_from_today = today + timedelta(weeks=3)
+        previous_day_str = previous_day.strftime("%Y-%m-%d")
+        three_weeks_from_today_str = three_weeks_from_today.strftime("%Y-%m-%d")
+        current_year = (datetime.now().year)
+
+        # Subtract 10 years
+        result_year = current_year - 10
         # Define the query parameters
         params = {
             "make": make,
-            "year_from" : 2014,
+            "year_from" : str(result_year),
+            'year_to': str(current_year),
             "page": "1",
             "per_page": "80",
+            'auction_date_from': previous_day_str,
+            'auction_date_to': three_weeks_from_today_str,
             "api_token": api_token,
         }
 
         response = requests.post(url, headers=headers, params=params)
 
         if response.status_code == 200:
-            # Request was successful
-            LotData.objects.filter(make=make).delete()
-            response_data = response.json()
-            data = response_data['result']
-            for item in data:
-                try:
-                    self.process_data(item)
-                    self.save_data()
-                except Exception as e:
-                    print(e, item)
+            try:
+                # Request was successful
+                LotData.objects.filter(make=make).delete()
+                response_data = response.json()
 
+                pages = response_data["pagination"]["total_pages"]
+                con.send( f"found {pages} pages for the make {make}, total {response_data['pagination']['total']} cars")
+                for page in range (1, pages+1):
+                    params['page'] = page
+                    response = requests.post(url, headers=headers, params=params)
+                    response_data = response.json()
+                    data = response_data['result']
+                    for item in data:
+                        try:
+                            self.process_data(item)
+                            self.save_data()
+                        except Exception as e:
+                            con.send(str(e) + ' ' + str(make) + ' ' + 'In item')
+            except Exception as e:
+                con.send( str(e) + ' ' + str(make) )
             # save_to_db( response_data['result'] )
             # Save response to a JSON file
             # with open("response2.json", "w") as json_file:
             #     json.dump(response_data, json_file, indent=4)
         else:
             # Request failed
-            print(f"Request failed with status code {response.status_code}: {response.text}")
+            con.send(f"Request failed with status code {response.status_code}: {response.text}")
 
-    def update_all(self):
+    def update_all(self, con):
         brands = Brand.objects.filter()
-
         for brand in brands:
-            self.get_data_from_api(brand.NameEn)
+            self.get_data_from_api(brand.NameEn, con)
