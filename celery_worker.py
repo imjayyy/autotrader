@@ -13,7 +13,7 @@ from autotrader_web.myroot.process_data import Db_updater
 if os.getenv("SCRAPY_DEBUG") != "YES":
     sys.path.append(
         os.path.join(
-            os.path.abspath(os.getcwd()), "./autotrader_scraper/autotrader_scraper"
+            os.path.abspath(os.getcwd()), "./autotrader_web/autotrader_web"
         )
     )
     os.environ["DJANGO_SETTINGS_MODULE"] = "autotrader.settings"
@@ -37,18 +37,20 @@ if os.getenv("SCRAPY_DEBUG") != "YES":
 
         # Using Subprocess will avoid ReactorAlreadyRunning Exception
 
-        cwd = os.path.abspath("autotrader_scraper/")
+        cwd = os.path.abspath("autotrader_web/")
+        cwd = os.chdir(os.path.join(os.path.abspath(os.getcwd()), "autotrader_web"))
+        print(cwd)
         Db_updater().update_all()
         
-        subprocess.Popen(['scrapy', 'crawl', 'auction_spider_copart'], cwd=cwd)
+        # subprocess.Popen(['scrapy', 'crawl', 'auction_spider_copart'], cwd=cwd)
 
 
 
     @app.task
     def scrape_auctions_task(*args, **kwargs):
         # Using Subprocess will avoid ReactorAlreadyRunning Exception
-
-        cwd = os.path.abspath("autotrader_scraper/")
+        # sys.path.append(
+        cwd = os.path.abspath("autotrader_web/")
         subprocess.Popen(['scrapy', 'crawl', 'merged_auction_spider'], cwd=cwd)
 
 
