@@ -33,7 +33,12 @@ class AuctionCalculatorService:
     def calculate_by_lotid(self, lotid, bid, to_country):
         lot = LotData.objects.get(lotId=lotid)
         auction_company_id = lot.auctionCompanyId
-        city_id = Cities.objects.filter(Name__icontains=lot.locationName)
+        if ' - ' in lot.locationName:
+            loc = lot.locationName.split(' - ')
+            city_id = Cities.objects.filter(Name__icontains=loc[1])
+        else:
+            city_id = Cities.objects.filter(Name__icontains=lot.locationName)[0]
+        # city_id = Cities.objects.filter(Name__icontains=lot.locationName)
         self.calculate(auction_company_id, bid, city_id[0].Id, to_country)
         try:
             self.set_customs_fee(lot)
@@ -110,10 +115,16 @@ class AuctionCalculatorService:
                 0].Id
             shipping_fee = 0
 
-            if ShippingAuctionFee.objects.filter(AuctionShippingId=shipping_auction, CitiesId=city_id,
-                                                 UserTypesId=user_types_id).exists():
+            # print('Heyyyyyyyyyyyyyyyyyy')
+            # shipping_auction = 9
+            if ShippingAuctionFee.objects.filter(AuctionShippingId=shipping_auction, CitiesId=city_id, UserTypesId=user_types_id).exists():
                 shipping_fee = ShippingAuctionFee.objects.filter(AuctionShippingId=shipping_auction, CitiesId=city_id,
                                                                  UserTypesId=user_types_id)[0].Fee
+
+            elif ShippingAuctionFee.objects.filter(AuctionShippingId=shipping_auction, CitiesId=city_id, UserTypesId=user_types_id).exists():
+                shipping_fee = ShippingAuctionFee.objects.filter(AuctionShippingId=shipping_auction, CitiesId=city_id,
+                                                                 UserTypesId=user_types_id)[0].Fee
+
 
             if to_country == "Azerbaijan":
                 self.TransferFee = baku_fee

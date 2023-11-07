@@ -91,18 +91,44 @@ class CarDetailsView(TemplateView):
                     "m": None,
                     "time_crossed": False
                 }
+            print(lot_data_model.locationName, '-----------------------------------------------')
 
             try:
-                city = Cities.objects.filter(Name__icontains=lot_data_model.locationName)[0]
+                if ' - ' in lot_data_model.locationName:
+                    loc = lot_data_model.locationName.split(' - ')
+                    city = Cities.objects.filter(Name__icontains=loc[1])[0]
+                else:
+                    city = Cities.objects.filter(Name__icontains=lot_data_model.locationName)[0]
                 location_city = city.Name
                 location_state = city.State
                 location_port = city.Port
                 country = city.Country
             except Exception as e:
-                location_city = "N/A"
-                location_state = "N/A"
-                country = "N/A"
-                location_port = "N/A"
+                if ' - ' in lot_data_model.locationName:
+                    loc = lot_data_model.locationName.split(' - ')
+                    city = Cities()
+                    city.Name = loc[1]
+                    city.State = loc[0]
+                    city.Port = loc[0]
+                    city.Country = 'US'
+                    city.save()
+                    location_city = city.Name
+                    location_state = city.State
+                    location_port = city.Port
+                    country = city.Country
+                else:
+                    location_city = "N/A"
+                    location_state = "N/A"
+                    country = "N/A"
+                    location_port = "N/A"
+            # city = Cities.objects.filter(Name__icontains=lot_data_model.locationName)[0]
+            # location_city = city.Name
+            # location_state = city.State
+            # location_port = city.Port
+            # country = city.Country
+
+
+
 
             try:
                 large_image = final_images[0]["full"] if len(final_images) >= 1 else None

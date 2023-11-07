@@ -26,6 +26,8 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["lang"] = languages[self.request.lang]
+        print(self.request.lang)
+
         context["allMakes"] = LotData.objects.values("make").annotate(total=Count('make')).order_by('make')
         context["allModels"] = LotData.objects.raw("""SELECT DISTINCT a.model, b.make, 1 AS id
                                                         FROM (

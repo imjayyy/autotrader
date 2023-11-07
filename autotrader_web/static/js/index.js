@@ -68,9 +68,10 @@ if (
   getCookie("lang") == undefined ||
   !valid_languages.includes(getCookie("lang"))
 ) {
-  console.log("HAHAHH")
+
   document.cookie = "lang=; Max-Age=-99999999;path=/;";
-  document.cookie = "lang=ENG;path=/;";
+  document.cookie = "lang=AZE;path=/;";
+  window.location.reload();
 }
 document.getElementById("active_lang").innerText = getCookie("lang");
 
@@ -109,6 +110,7 @@ const car_details_calculate = async (lot_id) => {
     try {
       const el = document.getElementById(id);
       const prop = el.getAttribute("data-response-prop")
+      console.log(prop, 'prop -------------------------------')
       if (Object.keys(response).includes(prop)) {
         let value = response[prop];
         if (value == null) {

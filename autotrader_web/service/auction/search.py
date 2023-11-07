@@ -1,4 +1,4 @@
-from car_details.models import LotData
+from car_details.models import LotData, BidInformation, SaleInformation
 from django.db.models import F, Q, Func
 import random
 from django.db.models import Count, Value
@@ -294,65 +294,69 @@ class AuctionSearchService:
 
     def get_popular_lots(self):
         popular_lots_filters_names = ['id', "saledate", "year", "model", "make", "secondaryDamage", "primaryDamage", 'imageFull']
+        current_year = datetime.datetime.now().year
+
+        # Create an array for the last 7 years
+        last_7_years = [str(current_year - i) for i in range(7)]
         popular_lots_filters = [
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
-             "make__icontains": "BMW", "model__icontains": "528", "year": ["2013", "2014", "2015", "2016"],
+             "make__icontains": "BMW", "model__icontains": "528", "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
-             "make__icontains": "BMW", "model__icontains": "530", "year": ["2017", "2018", "2019", "2020", "2021"],
+             "make__icontains": "BMW", "model__icontains": "530", "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
-             "make__icontains": "BMW", "model__icontains": "328", "year": ["2013", "2014", "2015", "2016"],
+             "make__icontains": "BMW", "model__icontains": "328", "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "BMW", "model__icontains": "330",
-             "year": ["2016", "2017", "2018", "2019", "2020", "2021"], "secondaryDamage": "Minor Dent/Scratches",
+             "year": last_7_years, "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
-             "make__icontains": "Hydai", "model__icontains": "elantra", "year": ["2012", "2013", "2014", "2015"],
+             "make__icontains": "Hydai", "model__icontains": "elantra", "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
-             "make__icontains": "chevrolet", "model__icontains": "cruze", "year": ["2012", "2013", "2014", "2015"],
+             "make__icontains": "chevrolet", "model__icontains": "cruze", "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
-             "make__icontains": "toyota", "model__icontains": "prius", "year": ["2007", "2008", "2009"],
+             "make__icontains": "toyota", "model__icontains": "prius", "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
-             "make__icontains": "mercedes", "model__icontains": "e 300", "year": ["2016", "2017", "2018", "2019"],
+             "make__icontains": "mercedes", "model__icontains": "e 300", "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "kia", "model__icontains": "optima",
-             "year": ["2013", "2014", "2015", "2016", "2017", "2018"], "secondaryDamage": "Minor Dent/Scratches",
+             "year": last_7_years, "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "chevrolet", "model__icontains": "malibu",
-             "year": ["2016", "2017", "2018", "2019", "2020", "2021"], "secondaryDamage": "Minor Dent/Scratches",
+             "year": last_7_years, "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "hyundai", "model__icontains": "accent",
-             "year": ["2015", "2016", "2017", "2018", "2019", "2020", "2021"],
+             "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "kia", "model__icontains": "forte",
-             "year": ["2014", "2015", "2016", "2017", "2018", "2019", "2020"],
+             "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "toyota", "model__icontains": "camry",
-             "year": ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"],
+             "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "toyota", "model__icontains": "corolla",
-             "year": ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"],
+             "year": last_7_years,
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
         ]
@@ -381,7 +385,12 @@ class AuctionSearchService:
         for x in range(0, 5):
             try:
                 index = random.randint(0, (len(lots) - 1))
-                random_lots.append(lots[index])
+                choosen_car = lots[index]
+                details = {}
+                details = SaleInformation.objects.filter(LotId = choosen_car)[0].__dict__
+                details['BidInformation'] = BidInformation.objects.filter(LotId = choosen_car)[0].__dict__
+                choosen_car.details = details
+                random_lots.append(choosen_car.__dict__)
                 lots.pop(index)
             except Exception as e:
                 pass

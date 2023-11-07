@@ -23,7 +23,8 @@ class Db_updater():
         if len(item["active_bidding"]) > 0:
             if item['active_bidding'][0]["sale_date"] :
                 dt = datetime.utcfromtimestamp(int(item["active_bidding"][0]["sale_date"]) / 1000).strftime('%Y-%m-%d %H:%M:%S')   
-        loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
+        # loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
+        loc = item.get("location")
         self.loddata_data = {
             "lotId": int(item["lot_number"]),
             "year": item["year"],
@@ -59,7 +60,7 @@ class Db_updater():
             "LotId": item["lot_number"],
             "BidStatus": None,
             "SaleStatus": None,
-            "CurrentBid": item["active_bidding"][0]['current_bid']  if len(item["active_bidding"]) > 0 else None,
+            "CurrentBid": item["active_bidding"][0]['current_bid']  if len(item["active_bidding"]) > 0 else 0,
             "Currency": "USD",
         }
 
@@ -109,7 +110,7 @@ class Db_updater():
 
 
     def get_data_from_api(self, make:str, con):
-        url = "https://api.copart-iaai-api.com/api/v2/get-cars"
+        url = "https://copart-iaai-api.com/api/v2/get-cars"
         headers = {
             "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "application/json",
@@ -132,7 +133,7 @@ class Db_updater():
             'year_to': str(current_year),
             "page": "1",
             "per_page": "80",
-            'auction_date_from': previous_day_str,
+            'auction_date_from': today,
             'auction_date_to': three_weeks_from_today_str,
             "api_token": api_token,
         }
@@ -172,3 +173,5 @@ class Db_updater():
         brands = Brand.objects.filter()
         for brand in brands:
             self.get_data_from_api(brand.NameEn, con)
+
+
