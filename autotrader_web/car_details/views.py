@@ -104,19 +104,20 @@ class CarDetailsView(TemplateView):
                 location_port = city.Port
                 country = city.Country
             except Exception as e:
-                if ' - ' in lot_data_model.locationName:
-                    loc = lot_data_model.locationName.split(' - ')
-                    city = Cities()
-                    city.Name = loc[1]
-                    city.State = loc[0]
-                    city.Port = loc[0]
-                    city.Country = 'US'
-                    city.save()
-                    location_city = city.Name
-                    location_state = city.State
-                    location_port = city.Port
-                    country = city.Country
-                else:
+                try:
+                    if ' - ' in lot_data_model.locationName:
+                        loc = lot_data_model.locationName.split(' - ')
+                        city = Cities()
+                        city.Name = loc[1]
+                        city.State = loc[0]
+                        city.Port = loc[0]
+                        city.Country = 'US'
+                        city.save()
+                        location_city = city.Name
+                        location_state = city.State
+                        location_port = city.Port
+                        country = city.Country
+                except:
                     location_city = "N/A"
                     location_state = "N/A"
                     country = "N/A"

@@ -124,7 +124,7 @@ class AuctionCalculatorService:
             elif ShippingAuctionFee.objects.filter(AuctionShippingId=shipping_auction, CitiesId=city_id, UserTypesId=user_types_id).exists():
                 shipping_fee = ShippingAuctionFee.objects.filter(AuctionShippingId=shipping_auction, CitiesId=city_id,
                                                                  UserTypesId=user_types_id)[0].Fee
-
+    
 
             if to_country == "Azerbaijan":
                 self.TransferFee = baku_fee
