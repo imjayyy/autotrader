@@ -18,95 +18,110 @@ class Db_updater():
 
 
     def process_data(self, item):
+        self.data_needed = True
         item["lot_number"] = int(item["lot_number"])
         dt = None
         if len(item["active_bidding"]) > 0:
             if item['active_bidding'][0]["sale_date"] :
                 dt = datetime.utcfromtimestamp(int(item["active_bidding"][0]["sale_date"]) / 1000).strftime('%Y-%m-%d %H:%M:%S')   
+                dt_obj = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S')
+                current_utc_datetime = datetime.utcnow()
+                if dt_obj >= current_utc_datetime:  
+                    self.data_needed = False
+            else:
+                self.data_needed = False
+        else:
+            self.data_needed = False
         # loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
         loc = item.get("location")
-        self.loddata_data = {
-            "lotId": int(item["lot_number"]),
-            "year": item["year"],
-            "make": item["make"],
-            "modelGroup": "",
-            "model": item["model"],
-            "bodyStyle": item["body_style"],
-            "color": item["color"],
-            "primaryDamage": item["primary_damage"],
-            "vin": item["vin"],
-            "odometer": item["odometer"],
-            "engineSize": item["engine_type"],
-            "locationName": loc,
-            "vehicleType": item["vehicle_type"],
-            "imageFull": item["car_photo"]['photo'][0] if len(item["car_photo"]['photo']) > 0 else None,
-            "imageThumb": item["car_photo"]['photo'][0] if len(item["car_photo"]['photo']) > 0 else None,
-            "vinHash": '',
-            "saledate": dt ,
-            "searchTerm": str(item["make"]) + " " + str(item["model"]) + " " + str(item["body_style"]), 
-            "dateCreated": datetime.now(),
-            "transmission": item["transmission"],
-            "keys": item["car_keys"],
-            "cylinders": item["cylinders"],
-            "drive": item["drive"],
-            "fuel": item["fuel"],
-            "secondaryDamage": item["secondary_damage"],
-            "odometerType": "Actual",
-            "auctionCompanyId": 1 if item["auction_name"] ==  "COPART" else 2,
-            "buyItNow": 1 if item["buy_now_car"] else 0,
-        }
+        if '-' not in loc:
+            self.data_needed = False
 
-        self.bid_information_data = {
-            "LotId": item["lot_number"],
-            "BidStatus": None,
-            "SaleStatus": None,
-            "CurrentBid": item["active_bidding"][0]['current_bid']  if len(item["active_bidding"]) > 0 else 0,
-            "Currency": "USD",
-        }
+        if self.data_needed:
+            self.loddata_data = {
+                "lotId": int(item["lot_number"]),
+                "year": item["year"],
+                "make": item["make"],
+                "modelGroup": "",
+                "model": item["model"],
+                "bodyStyle": item["body_style"],
+                "color": item["color"],
+                "primaryDamage": item["primary_damage"],
+                "vin": item["vin"],
+                "odometer": item["odometer"],
+                "engineSize": item["engine_type"],
+                "locationName": loc,
+                "vehicleType": item["vehicle_type"],
+                "imageFull": item["car_photo"]['photo'][0] if len(item["car_photo"]['photo']) > 0 else None,
+                "imageThumb": item["car_photo"]['photo'][0] if len(item["car_photo"]['photo']) > 0 else None,
+                "vinHash": '',
+                "saledate": dt ,
+                "searchTerm": str(item["make"]) + " " + str(item["model"]) + " " + str(item["body_style"]), 
+                "dateCreated": datetime.now(),
+                "transmission": item["transmission"],
+                "keys": item["car_keys"],
+                "cylinders": item["cylinders"],
+                "drive": item["drive"],
+                "fuel": item["fuel"],
+                "secondaryDamage": item["secondary_damage"],
+                "odometerType": "Actual",
+                "auctionCompanyId": 1 if item["auction_name"] ==  "COPART" else 2,
+                "buyItNow": 1 if item["buy_now_car"] else 0,
+            }
 
-        self.saleInformation_data = {
-            "LotId": item["lot_number"],
-            "Lane": None,
-            "Item": None,
-            "Grid": None,        
-            # "Lane": item["Lane"],
-            # "Item": item["Item"],
-            # "Grid": item["Grid"],
-            "LastUpdated": datetime.now(),
-        }
+            self.bid_information_data = {
+                "LotId": item["lot_number"],
+                "BidStatus": None,
+                "SaleStatus": None,
+                "CurrentBid": item["active_bidding"][0]['current_bid']  if len(item["active_bidding"]) > 0 else 0,
+                "Currency": "USD",
+            }
 
-        self.lot_images_data = []
+            self.saleInformation_data = {
+                "LotId": item["lot_number"],
+                "Lane": None,
+                "Item": None,
+                "Grid": None,        
+                # "Lane": item["Lane"],
+                # "Item": item["Item"],
+                # "Grid": item["Grid"],
+                "LastUpdated": datetime.now(),
+            }
 
-        for image in item["car_photo"]['photo']:
-            temp_data = {"LotId": item["lot_number"], "ImageFull": image}
-            self.lot_images_data.append(temp_data)
+            self.lot_images_data = []
+
+            for image in item["car_photo"]['photo']:
+                temp_data = {"LotId": item["lot_number"], "ImageFull": image}
+                self.lot_images_data.append(temp_data)
+
 
     def save_data(self):
         # print(**self.loddata_data)
-        lot_data_instance = LotData()
-        for field, value in self.loddata_data.items():
-            setattr(lot_data_instance, field, value)
-        lot_data_instance.save()
+        if self.data_needed:
+            lot_data_instance = LotData()
+            for field, value in self.loddata_data.items():
+                setattr(lot_data_instance, field, value)
+            lot_data_instance.save()
 
-        bid_information_instance = BidInformation()
-        self.bid_information_data['LotId'] = lot_data_instance
-        for field, value in self.bid_information_data.items():
-            setattr(bid_information_instance, field, value)
-        bid_information_instance.save()
+            bid_information_instance = BidInformation()
+            self.bid_information_data['LotId'] = lot_data_instance
+            for field, value in self.bid_information_data.items():
+                setattr(bid_information_instance, field, value)
+            bid_information_instance.save()
 
 
-        sale_information_instance = SaleInformation()
-        self.saleInformation_data['LotId'] = lot_data_instance
-        for field, value in self.saleInformation_data.items():
-            setattr(sale_information_instance, field, value)
-        sale_information_instance.save()
+            sale_information_instance = SaleInformation()
+            self.saleInformation_data['LotId'] = lot_data_instance
+            for field, value in self.saleInformation_data.items():
+                setattr(sale_information_instance, field, value)
+            sale_information_instance.save()
 
-        for image_data in self.lot_images_data:
-            LOT_IMAGES_INSTANCE = LotImages()
-            image_data['LotId'] = lot_data_instance
-            for field, value in image_data.items():
-                setattr(LOT_IMAGES_INSTANCE, field, value)
-            LOT_IMAGES_INSTANCE.save()
+            for image_data in self.lot_images_data:
+                LOT_IMAGES_INSTANCE = LotImages()
+                image_data['LotId'] = lot_data_instance
+                for field, value in image_data.items():
+                    setattr(LOT_IMAGES_INSTANCE, field, value)
+                LOT_IMAGES_INSTANCE.save()
 
 
     def get_data_from_api(self, make:str, con):
