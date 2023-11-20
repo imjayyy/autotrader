@@ -53,7 +53,7 @@
         }
       }
     })
-    document.getElementById("total_fee_customs").innerText = data.data.autoDuty.total.value + " AZN";
+    document.getElementById("total_fee_customs").innerText = parseInt(document.getElementById('custom_calc_price').value) + data.data.autoDuty.total.value + " AZN";
   })
 }
 

@@ -24,14 +24,14 @@ class Db_updater():
         if len(item["active_bidding"]) > 0:
             if item['active_bidding'][0]["sale_date"] :
                 dt = datetime.utcfromtimestamp(int(item["active_bidding"][0]["sale_date"]) / 1000).strftime('%Y-%m-%d %H:%M:%S')   
-                dt_obj = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S')
-                current_utc_datetime = datetime.utcnow()
-                if dt_obj >= current_utc_datetime:  
-                    self.data_needed = False
-            else:
-                self.data_needed = False
-        else:
-            self.data_needed = False
+        #       dt_obj = datetime.strptime(dt, '%Y-%m-%d %H:%M:%S')
+        #         current_utc_datetime = datetime.utcnow()
+        #         if dt_obj >= current_utc_datetime:  
+        #             self.data_needed = False
+        #     else:
+        #         self.data_needed = False
+        # else:
+        #     self.data_needed = False
         # loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
         loc = item.get("location")
         if '-' not in loc:
@@ -163,9 +163,9 @@ class Db_updater():
 
                 pages = response_data["pagination"]["total_pages"]
                 con.send( f"found {pages} pages for the make {make}, total {response_data['pagination']['total']} cars")
-                for page in range (1, pages+1):
+                for page in range (1, int(pages)+1):
                     params['page'] = page
-                    response = requests.post(url, headers=headers, params=params)
+                    response = requests.post(url, headers=headers, params=params)   
                     response_data = response.json()
                     data = response_data['result']
                     for item in data:
