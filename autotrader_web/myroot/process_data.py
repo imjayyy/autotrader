@@ -77,6 +77,9 @@ class Db_updater():
                 "Currency": "USD",
             }
 
+            if self.bid_information_data['CurrentBid'] == None:
+                self.bid_information_data['CurrentBid'] = 0
+
             self.saleInformation_data = {
                 "LotId": item["lot_number"],
                 "Lane": None,
