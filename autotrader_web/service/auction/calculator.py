@@ -172,7 +172,7 @@ class AuctionCalculatorService:
                 "insurance_fee": self.InsuranceFee,
                 "documentation_fee": self.DocumentationFee,
                 "customs_fee": self.CustomsFee,
-                "total": self.Total + self.BakuFee + self.CustomsFee
+                "total": self.Total + self.CustomsFee
             }
             return response
         else:
