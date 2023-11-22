@@ -95,7 +95,7 @@ class AuctionCalculatorService:
 
             user = UserTypes.objects.get(Id=user_types_id)
             auction = AuctionCompany.objects.get(Id=auction_id)
-            ship_id = ShippingCompany.objects.filter(Chosen=1)[0].Id
+            ship_id = ShippingCompany.objects.filter(Chosen=1)[0].Name
 
             service_fee = user.ServiceFee
             baku_fee = float(user.ToBakuFee)
