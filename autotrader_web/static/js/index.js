@@ -105,12 +105,12 @@ const car_details_calculate = async (lot_id) => {
   const bid = document.getElementById("bid").value
   const to_country = document.getElementById("to_country").value
   const response = await auction_calculate(lot_id, bid, to_country);
-  console.log(response)
+
   response_elements.forEach(id=>{
     try {
       const el = document.getElementById(id);
       const prop = el.getAttribute("data-response-prop")
-      console.log(prop, 'prop -------------------------------')
+
       if (Object.keys(response).includes(prop)) {
         let value = response[prop];
         if (value == null) {

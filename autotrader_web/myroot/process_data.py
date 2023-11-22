@@ -128,7 +128,7 @@ class Db_updater():
 
 
     def get_data_from_api(self, make:str, con):
-        url = "https://copart-iaai-api.com/api/v2/get-cars"
+        url = "https://copart-iaai-api.com/api/v2/get-active-lots"
         headers = {
             "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "application/json",
