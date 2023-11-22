@@ -122,12 +122,17 @@ class CarDetailsView(TemplateView):
             #         location_state = "N/A"
             #         country = "N/A"
             #         location_port = "N/A"
-            city = Cities.objects.get_or_create(Name__icontains=lot_data_model.locationName)[0]
-            location_city = city.Name
-            location_state = city.State
-            location_port = city.Port
-            country = city.Country
-
+            try:
+                city = Cities.objects.filter(Name__icontains=lot_data_model.locationName)[0]
+                location_city = city.Name
+                location_state = city.State
+                location_port = city.Port
+                country = city.Country
+            except:
+                location_city = lot_data_model.locationName
+                location_state = "N/A"
+                country = "N/A"
+                location_port = "N/A"
 
 
 
