@@ -160,6 +160,7 @@ class CarDetailsView(TemplateView):
                 ],
                 "exists": True,
                 "lotId": lot_data_model.lotId,
+                "locationName" : lot_data_model.locationName,
                 "vehicleType": lot_data_model.vehicleType,
                 "year": lot_data_model.year, "make": lot_data_model.make, "modelGroup": lot_data_model.modelGroup,
                 "model": lot_data_model.model, "bodyStyle": lot_data_model.bodyStyle, "color": lot_data_model.color,
