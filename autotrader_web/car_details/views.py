@@ -130,9 +130,9 @@ class CarDetailsView(TemplateView):
                 country = city.Country
             except:
                 location_city = lot_data_model.locationName
-                location_state = "N/A"
-                country = "N/A"
-                location_port = "N/A"
+                location_state = ""
+                country = ""
+                location_port = ""
 
 
 
