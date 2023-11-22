@@ -133,7 +133,7 @@ class AuctionCalculatorService:
 
             total_shipping_fee = float(shipping_fee) + float(marja)
             total_fee = float(self.TransferFee) + float(bid) + float(total_shipping_fee) + float(
-                total_auction_fee) + float(service_fee)
+                total_auction_fee) + float(service_fee) + float(baku_fee)
             print(float(self.TransferFee) , float(bid) , float(total_shipping_fee) , float(
                 total_auction_fee) , float(service_fee))
 
@@ -172,7 +172,7 @@ class AuctionCalculatorService:
                 "insurance_fee": self.InsuranceFee,
                 "documentation_fee": self.DocumentationFee,
                 "customs_fee": self.CustomsFee,
-                "total": self.Total + self.CustomsFee
+                "total": self.Total 
             }
             return response
         else:
