@@ -34,7 +34,7 @@ class Db_updater():
         #     self.data_needed = False
         # loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
         loc = item.get("location")
-        if '-' not in loc:
+        if ' - ' not in loc:
             self.data_needed = False
 
         if self.data_needed:
