@@ -7,6 +7,7 @@ from datetime import timedelta
 from car_details.models import DamageType
 from auction.models import AuctionCompany
 import re
+from random import sample
 
 
 class AuctionSearchService:
@@ -360,39 +361,49 @@ class AuctionSearchService:
              "secondaryDamage": "Minor Dent/Scratches",
              "primaryDamage": "Rear end"},
         ]
-        lots = LotData.objects.all()
-        for filter_name in popular_lots_filters_names:
-            for input_filter in popular_lots_filters:
-                apply_filter = {}
-                for k in input_filter.keys():
-                    if filter_name in k:
-                        apply_filter[k] = input_filter[k]
-                if filter_name == "year":
-                    year_query = ""
-                    for year in input_filter["year"]:
-                        year_query += f"Q(year__contains={year}) | "
-                    year_query = year_query[0:(len(year_query) - 2)]
-                    new_lots = lots.filter(eval(year_query))
-                else:
-                    new_lots = lots.filter(**apply_filter)
-                if len(new_lots) >= 5:
-                    lots = new_lots
-        lots = [l for l in lots]
-        lots.extend((LotData.objects.filter(fuel__icontains="hybrid", saledate__gte=datetime.datetime.now(),
-                                            saledate__lte=datetime.datetime.now() + timedelta(days=3))))
 
-        random_lots = []
-        for x in range(0, 5):
-            try:
-                index = random.randint(0, (len(lots) - 1))
-                choosen_car = lots[index]
-                details = {}
-                details = SaleInformation.objects.filter(LotId = choosen_car)[0].__dict__
-                details['BidInformation'] = BidInformation.objects.filter(LotId = choosen_car)[0].__dict__
-                choosen_car.details = details
-                random_lots.append(choosen_car.__dict__)
-                lots.pop(index)
-            except Exception as e:
-                pass
+        query_filters = Q()
+        for filter_set in popular_lots_filters:
+            query_filters |= Q(**filter_set)
+
+        # Apply the combined filter to your model
+        filtered_data = LotData.objects.filter(query_filters)
+
+        # Get 5 random records from the filtered data
+        random_lots = sample(list(filtered_data), min(5, filtered_data.count()))
+        # lots = LotData.objects.all()
+        # for filter_name in popular_lots_filters_names:
+        #     for input_filter in popular_lots_filters:
+        #         apply_filter = {}
+        #         for k in input_filter.keys():
+        #             if filter_name in k:
+        #                 apply_filter[k] = input_filter[k]
+        #         if filter_name == "year":
+        #             year_query = ""
+        #             for year in input_filter["year"]:
+        #                 year_query += f"Q(year__contains={year}) | "
+        #             year_query = year_query[0:(len(year_query) - 2)]
+        #             new_lots = lots.filter(eval(year_query))
+        #         else:
+        #             new_lots = lots.filter(**apply_filter)
+        #         if len(new_lots) >= 5:
+        #             lots = new_lots
+        # lots = [l for l in lots]
+        # lots.extend((LotData.objects.filter(fuel__icontains="hybrid", saledate__gte=datetime.datetime.now(),
+        #                                     saledate__lte=datetime.datetime.now() + timedelta(days=3))))
+
+        # random_lots = []
+        # for x in range(0, 5):
+        #     try:
+        #         index = random.randint(0, (len(lots) - 1))
+        #         choosen_car = lots[index]
+        #         details = {}
+        #         details = SaleInformation.objects.filter(LotId = choosen_car)[0].__dict__
+        #         details['BidInformation'] = BidInformation.objects.filter(LotId = choosen_car)[0].__dict__
+        #         choosen_car.details = details
+        #         random_lots.append(choosen_car.__dict__)
+        #         lots.pop(index)
+        #     except Exception as e:
+        #         pass
 
         return random_lots
