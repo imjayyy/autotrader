@@ -24,7 +24,8 @@ class Command(BaseCommand):
         #             break  # End the streaming when the process is done
 
         # stream_function_output()
-        Db_updater().update_all
+        parent_conn, child_conn = Pipe()
+        Db_updater().update_all(child_conn)
         # print(os.getcwd())
         # model_dict = [
         #     # car_details data
