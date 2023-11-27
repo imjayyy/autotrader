@@ -394,18 +394,18 @@ class AuctionSearchService:
         # lots.extend((LotData.objects.filter(fuel__icontains="hybrid", saledate__gte=datetime.datetime.now(),
         #                                     saledate__lte=datetime.datetime.now() + timedelta(days=3))))
 
-        # random_lots = []
-        # for x in range(0, 5):
-        #     try:
-        #         index = random.randint(0, (len(lots) - 1))
-        #         choosen_car = lots[index]
-        #         details = {}
-        #         details = SaleInformation.objects.filter(LotId = choosen_car)[0].__dict__
-        #         details['BidInformation'] = BidInformation.objects.filter(LotId = choosen_car)[0].__dict__
-        #         choosen_car.details = details
-        #         random_lots.append(choosen_car.__dict__)
-        #         lots.pop(index)
-        #     except Exception as e:
-        #         pass
+        new_random_lots = []
+        for x in range(len(random_lots)):
+            try:
+                index = random.randint(0, (len(random_lots) - 1))
+                choosen_car = random_lots[index]
+                details = {}
+                details = SaleInformation.objects.filter(LotId = choosen_car)[0].__dict__
+                details['BidInformation'] = BidInformation.objects.filter(LotId = choosen_car)[0].__dict__
+                choosen_car.details = details
+                new_random_lots.append(choosen_car.__dict__)
+                random_lots.pop(index)
+            except Exception as e:
+                pass
 
         return random_lots
