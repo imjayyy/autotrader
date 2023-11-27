@@ -397,15 +397,14 @@ class AuctionSearchService:
         new_random_lots = []
         for x in range(len(random_lots)):
             try:
-                index = random.randint(0, (len(random_lots) - 1))
-                choosen_car = random_lots[index]
+                choosen_car = random_lots[x]
                 details = {}
                 details = SaleInformation.objects.filter(LotId = choosen_car)[0].__dict__
                 details['BidInformation'] = BidInformation.objects.filter(LotId = choosen_car)[0].__dict__
                 choosen_car.details = details
                 new_random_lots.append(choosen_car.__dict__)
-                random_lots.pop(index)
+                # random_lots.pop(index)
             except Exception as e:
                 pass
 
-        return random_lots
+        return new_random_lots
