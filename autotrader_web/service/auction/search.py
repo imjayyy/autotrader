@@ -299,6 +299,8 @@ class AuctionSearchService:
 
         # Create an array for the last 7 years
         last_7_years = [str(current_year - i) for i in range(7)]
+        last_7_years = [int(i) for i in last_7_years]
+
         popular_lots_filters = [
             {"saledate__gte": datetime.datetime.now(), "saledate__lte": datetime.datetime.now() + timedelta(days=3),
              "make__icontains": "BMW", "model__icontains": "528", "year": last_7_years,
