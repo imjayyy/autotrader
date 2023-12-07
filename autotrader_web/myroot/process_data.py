@@ -4,12 +4,27 @@ from car_details.models.bid_information import BidInformation
 from car_details.models.lot_images import LotImages
 from car_details.models.sale_information import SaleInformation
 from car_details.models.brand import Brand
-
+import re
 from datetime import datetime, timedelta
 
 
 
 api_token = "6394dc91ece3542af402645dc9f2aa1b2c2dec923b24cf3d249373228a019684"
+
+def format_location(location):
+    # Remove any extra spaces and normalize the format
+    location = re.sub(r'\s+', ' ', location).strip()
+
+    # Check if the location matches the desired format
+    match = re.match(r'^([A-Z]{2})\s*-\s*(.*)$', location)
+    if match:
+        state, city = match.groups()
+        return f'{state} - {city}'
+
+    # If the format is not recognized, return None
+    return None
+
+
 
 class Db_updater():
     def __init__(self) -> None:
@@ -33,9 +48,10 @@ class Db_updater():
         # else:
         #     self.data_needed = False
         # loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
-        loc = item.get("location")
-        # if ' - ' not in loc:
-        #     self.data_needed = False
+        loc = format_location(item.get("location"))
+        if loc == None:
+            self.data_needed = False
+
 
         if self.data_needed:
             self.loddata_data = {
@@ -165,7 +181,7 @@ class Db_updater():
                 response_data = response.json()
 
                 pages = response_data["pagination"]["total_pages"]
-                con.send( f"found {pages} pages for the make {make}, total {response_data['pagination']['total']} cars")
+                print( f"found {pages} pages for the make {make}, total {response_data['pagination']['total']} cars")
                 for page in range (1, int(pages)+1):
                     params['page'] = page
                     response = requests.post(url, headers=headers, params=params)   
@@ -177,15 +193,16 @@ class Db_updater():
                             self.save_data()
                         except Exception as e:
                             con.send(str(e) + ' ' + str(make) + ' ' + 'In item')
+                            print(str(e) + ' ' + str(make) + ' ' + 'In item')
             except Exception as e:
-                con.send( str(e) + ' ' + str(make) )
+                print( str(e) + ' ' + str(make) )
             # save_to_db( response_data['result'] )
             # Save response to a JSON file
             # with open("response2.json", "w") as json_file:
             #     json.dump(response_data, json_file, indent=4)
         else:
             # Request failed
-            con.send(f"Request failed with status code {response.status_code}: {response.text}")
+            print(f"Request failed with status code {response.status_code}: {response.text}")
 
     def update_all(self, con):
         brands = Brand.objects.filter()

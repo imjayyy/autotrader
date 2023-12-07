@@ -406,5 +406,5 @@ class AuctionSearchService:
                 # random_lots.pop(index)
             except Exception as e:
                 pass
-
+        print("filtered_data", list(filtered_data))
         return new_random_lots

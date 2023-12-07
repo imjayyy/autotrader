@@ -25,5 +25,8 @@ class Cities(models.Model):
 
 class CitiesAdmin(ExportActionMixin, admin.ModelAdmin):
     list_display = [ 'Id',  'Name',  'Port',  'State',  'Country', ]
+    search_fields = ['Name'] 
+    list_filter = ('Country', 'State',)  # Add fields you want to filter on
+
 admin.site.register(Cities,CitiesAdmin)
 

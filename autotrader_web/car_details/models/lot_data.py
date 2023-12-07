@@ -60,5 +60,7 @@ class LotData(models.Model):
 
 class LotDataAdmin(admin.ModelAdmin):
     list_display = [ 'id' , 'year', 'make', 'model', 'bodyStyle', 'locationName']
+    search_fields = ['make', 'model', 'year', 'locationName', 'auctionCompanyId' ] 
+    list_filter = ('year', 'auctionCompanyId', 'locationName' )  # Add fields you want to filter on
 
 admin.site.register(LotData, LotDataAdmin)

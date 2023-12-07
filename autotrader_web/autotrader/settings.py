@@ -39,6 +39,9 @@ os.environ[
 # ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", ["127.0.0.1"])
 ALLOWED_HOSTS = ['*']
 
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240 # higher than the count of fields
+
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

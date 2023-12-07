@@ -122,8 +122,9 @@ class CarDetailsView(TemplateView):
             #         location_state = "N/A"
             #         country = "N/A"
             #         location_port = "N/A"
+            print(lot_data_model.locationName.split(' - ')[1])
             try:
-                city = Cities.objects.filter(Name__icontains=lot_data_model.locationName)[0]
+                city = Cities.objects.filter(Name__icontains=lot_data_model.locationName.split(' - ')[1])[0]
                 location_city = city.Name
                 location_state = city.State
                 location_port = city.Port
