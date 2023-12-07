@@ -40,7 +40,7 @@ class HomeView(TemplateView):
                                                             FROM LotData
                                                         ) b ON a.model = b.model;""")
         context["allLocations"] = LotData.objects.values("locationName").annotate(total=Count('locationName'))
-        context["allYears"] = LotData.objects.values("year").annotate(total=Count('year'))
+        context["allYears"] = LotData.objects.values("year").annotate(total=Count('year')).order_by('-year')
         context["popularMakes"] = LotData.objects.values("make").annotate(total=Count('model')).order_by('total').order_by('make')
         context["vehicleTypes"] = LotData.objects.values("vehicleType").annotate(total=Count('vehicleType'))
         context["bodyStyles"] = LotData.objects.values("bodyStyle").annotate(total=Count('bodyStyle'))
