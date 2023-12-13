@@ -13,6 +13,8 @@ api_token = "6394dc91ece3542af402645dc9f2aa1b2c2dec923b24cf3d249373228a019684"
 
 def format_location(location):
     # Remove any extra spaces and normalize the format
+    if location == None:
+        return None
     location = re.sub(r'\s+', ' ', location).strip()
 
     # Check if the location matches the desired format
