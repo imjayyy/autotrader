@@ -50,6 +50,14 @@ class Db_updater():
         # else:
         #     self.data_needed = False
         # loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
+        if item["auction_name"] ==  "COPART":
+            auction_id = 1
+        elif item["auction_name"] ==  "IAAI":
+            auction_id = 2
+        else:
+            auction_id = 0
+            self.data_needed = False
+
         loc = format_location(item.get("location"))
         if loc == None:
             self.data_needed = False
@@ -83,7 +91,7 @@ class Db_updater():
                 "fuel": item["fuel"],
                 "secondaryDamage": item["secondary_damage"],
                 "odometerType": "Actual",
-                "auctionCompanyId": 1 if item["auction_name"] ==  "COPART" else 2,
+                "auctionCompanyId": auction_id,
                 "buyItNow": 1 if item["buy_now_car"] else 0,
             }
 

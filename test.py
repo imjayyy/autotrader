@@ -137,4 +137,47 @@ def fetch_data():
 
 
 # save_to_db()
-fetch_data()
+# fetch_data()
+
+# url = "https://copart-iaai-api.com/api/v2/get-active-lots"
+# headers = {
+#     "Content-Type": "application/x-www-form-urlencoded",
+#     "Accept": "application/json",
+#     "Api-Version": "V2",
+# }
+
+# today = datetime.now()
+# previous_day = today - timedelta(days=2 )
+# three_weeks_from_today = today + timedelta(weeks=3)
+# previous_day_str = previous_day.strftime("%Y-%m-%d")
+# three_weeks_from_today_str = three_weeks_from_today.strftime("%Y-%m-%d")
+# current_year = (datetime.now().year)
+
+# # Subtract 10 years
+# result_year = current_year - 10
+# # Define the query parameters
+# params = {
+#     "make": 'BMW',
+#     "year_from" : str(result_year),
+#     'year_to': str(current_year),
+#     "page": "1",
+#     "per_page": "80",
+#     'auction_date_from': today,
+#     'auction_date_to': three_weeks_from_today_str,
+#     "api_token": api_token,
+# }
+
+# response = requests.post(url, headers=headers, params=params)
+
+# response_data = response.json()
+# data = response_data['result']
+
+# with open("response2.json", "w") as json_file:
+#     json.dump(response_data, json_file, indent=4)
+
+with open("response2.json", 'r') as json_file:
+    data = json.load(json_file)['result']
+
+
+for d in data:
+  print(d['auction_name'])
