@@ -91,8 +91,6 @@ class CarDetailsView(TemplateView):
                     "m": None,
                     "time_crossed": False
                 }
-            print(lot_data_model.locationName, '-----------------------------------------------')
-
             # try:
             #     if ' - ' in lot_data_model.locationName:
             #         loc = lot_data_model.locationName.split(' - ')
