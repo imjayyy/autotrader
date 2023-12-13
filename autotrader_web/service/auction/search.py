@@ -149,14 +149,14 @@ class AuctionSearchService:
                 for x in query_dict.getlist(i):
                     active_filters.append(x.upper())
         for i in self.custom_filters:
-            if i.get("column") in query_dict.keys() and i.get("column") != "buyItNow":
-                for x in query_dict.getlist(i.get("column")):
-                    fil = x.upper()
-                    if i.get("column") == "fromYear":
-                        fil = "From Year: " + fil
-                    if i.get("column") == "toYear":
-                        fil = "To Year: " + fil
-                    active_filters.append(fil)
+            # if i.get("column") in query_dict.keys() and i.get("column") != "buyItNow":
+            for x in query_dict.getlist(i.get("column")):
+                fil = x.upper()
+                if i.get("column") == "fromYear":
+                    fil = "From Year: " + fil
+                if i.get("column") == "toYear":
+                    fil = "To Year: " + fil
+                active_filters.append(fil)
 
         return active_filters
 
@@ -372,7 +372,7 @@ class AuctionSearchService:
         filtered_data = LotData.objects.filter(query_filters)
 
         # Get 5 random records from the filtered data
-        random_lots = sample(list(filtered_data), min(6, filtered_data.count()))
+        random_lots = sample(list(filtered_data), min(5, filtered_data.count()))
         # lots = LotData.objects.all()
         # for filter_name in popular_lots_filters_names:
         #     for input_filter in popular_lots_filters:

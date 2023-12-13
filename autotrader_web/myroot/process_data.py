@@ -52,11 +52,10 @@ class Db_updater():
         # loc = loc = item["location"].split(' - ')[1].lower() if item.get("location") and ' - ' in item["location"] else item.get("location")
         if item["auction_name"] ==  "COPART":
             auction_id = 1
-        elif item["auction_name"] ==  "IAAI":
+        else:   
             auction_id = 2
-        else:
-            auction_id = 0
-            self.data_needed = False
+            # self.data_needed = False
+            # print(item["auction_name"])
 
         loc = format_location(item.get("location"))
         if loc == None:

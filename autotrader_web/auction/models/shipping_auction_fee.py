@@ -29,8 +29,3 @@ class ShippingAuctionFee(models.Model):
     class Meta:
         db_table = 'ShippingAuctionFees'
 
-
-
-
-
-    

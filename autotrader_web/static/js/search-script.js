@@ -131,7 +131,16 @@ function applyFilter(remove="") {
   query_params.forEach((param) => {
     params += `${param.name}=${param.value}&`;
   });
+  
+  if (window.location.href.includes("&buyItNow=1")) {
+    params += `${'buyItNow'}=${'1'}&`;
+
+  }
+ 
+  
   params = params.slice(0, -1);
+
+  
 
   window.location = "/search?" + params;
 }
@@ -254,5 +263,6 @@ function applyTopFilter(name) {
     if (!filters.includes("buyItNow=1")) {
         url += "&buyItNow=1"
     }
-    window.location = url
+    let new_url = url.replace('q=', 'q=&')
+    window.location = new_url
 }

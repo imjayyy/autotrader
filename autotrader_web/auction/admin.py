@@ -11,6 +11,8 @@ from .resources import ShippingAuctionFeeResource
 class ShippingAuctionFeeAdmin(ImportMixin, admin.ModelAdmin):
     resource_class = ShippingAuctionFeeResource
     list_display = [ 'Id',  'AuctionShippingId',  'UserTypesId',  'CitiesId',  'Fee', ]
+    search_fields = ['CitiesId'] 
+    list_filter = ('AuctionShippingId', )  # Add fields you want to filter on
 
     # Define the admin action
     def import_data_from_csv(self, request, queryset):
