@@ -380,7 +380,7 @@ class AuctionSearchService:
         filtered_data = LotData.objects.filter(query_filters)
 
         # Get 5 random records from the filtered data
-        random_lots = sample(list(filtered_data), min(5, filtered_data.count()))
+        random_lots = sample(list(filtered_data), min(6, filtered_data.count()))
         # lots = LotData.objects.all()
         # for filter_name in popular_lots_filters_names:
         #     for input_filter in popular_lots_filters:
