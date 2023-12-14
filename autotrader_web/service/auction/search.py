@@ -307,7 +307,7 @@ class AuctionSearchService:
         today = now.date()
 
         # Create a new datetime object with the minimum time (00:00:00)
-        min_time_today = datetime.combine(today, datetime.datetime.min.time())
+        min_time_today = datetime.datetime.combine(today, datetime.datetime.min.time())
 
         popular_lots_filters = [
             {"saledate__gte": min_time_today, "saledate__lte": datetime.datetime.now() + timedelta(days=3),
