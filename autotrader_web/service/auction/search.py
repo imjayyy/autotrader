@@ -301,13 +301,13 @@ class AuctionSearchService:
         last_7_years = [str(current_year - i) for i in range(7)]
         last_7_years = [int(i) for i in last_7_years]
 
-        now = datetime.now()
+        now = datetime.datetime.now()
 
         # Extract the date
         today = now.date()
 
         # Create a new datetime object with the minimum time (00:00:00)
-        min_time_today = datetime.combine(today, datetime.min.time())
+        min_time_today = datetime.combine(today, datetime.datetime.min.time())
 
         popular_lots_filters = [
             {"saledate__gte": min_time_today, "saledate__lte": datetime.datetime.now() + timedelta(days=3),
