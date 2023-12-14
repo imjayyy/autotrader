@@ -39,9 +39,12 @@ class AuctionCalculatorService:
         else:
             city_id = Cities.objects.filter(Name__icontains=lot.locationName)[0]
         # city_id = Cities.objects.filter(Name__icontains=lot.locationName)
+        
         self.calculate(auction_company_id, bid, city_id[0].Id, to_country)
         try:
             self.set_customs_fee(lot)
+            print("CustomsFee --------------------> ", (self.CustomsFee) )
+
         except Exception as e:
             print(f"Customs Fee Calculation Error: {e}")
 
@@ -130,10 +133,9 @@ class AuctionCalculatorService:
                 self.TransferFee = baku_fee
             else:
                 self.TransferFee = 0
-
             total_shipping_fee = float(shipping_fee) + float(marja)
             total_fee = float(self.TransferFee) + float(bid) + float(total_shipping_fee) + float(
-                total_auction_fee) + float(service_fee) + float(self.CustomsFee)
+                total_auction_fee) + float(service_fee)
             print(float(self.TransferFee) , float(bid) , float(total_shipping_fee) , float(
                 total_auction_fee) , float(service_fee))
 
@@ -172,7 +174,7 @@ class AuctionCalculatorService:
                 "insurance_fee": self.InsuranceFee,
                 "documentation_fee": self.DocumentationFee,
                 "customs_fee": self.CustomsFee,
-                "total": self.Total 
+                "total": self.Total + self.CustomsFee
             }
             return response
         else:
