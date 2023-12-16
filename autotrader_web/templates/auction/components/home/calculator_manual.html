@@ -37,7 +37,7 @@
                             <select onChange="update_city()" class="form-control" id="city">
                                 <option value="def" hidden selected disabled>{{lang.choose}}</option>
                                 {% for city in cities %}
-                                <option value="{{city.Id}}">{{city.State}} - {{city.Name}}</option>
+                                <option value="{{city.Id}}">{{city.Name}}</option>
                                 {% endfor %}
                             </select>
                             <span class="alert alert-danger error_city"

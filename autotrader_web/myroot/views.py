@@ -39,13 +39,13 @@ class HomeView(TemplateView):
                                                             SELECT model, make
                                                             FROM LotData
                                                         ) b ON a.model = b.model;""")
-        context["allLocations"] = LotData.objects.values("locationName").annotate(total=Count('locationName'))
+        context["allLocations"] = LotData.objects.values("locationName").annotate(total=Count('locationName')).order_by('locationName')
         context["allYears"] = LotData.objects.values("year").annotate(total=Count('year')).order_by('-year')
         context["popularMakes"] = LotData.objects.values("make").annotate(total=Count('model')).order_by('total').order_by('make')
         context["vehicleTypes"] = LotData.objects.values("vehicleType").annotate(total=Count('vehicleType'))
         context["bodyStyles"] = LotData.objects.values("bodyStyle").annotate(total=Count('bodyStyle'))
         context["primaryDamage"] = LotData.objects.values("primaryDamage").annotate(total=Count('primaryDamage'))
-        context["cities"] = Cities.objects.filter(Country="US")
+        context["cities"] = Cities.objects.filter(Country="US").order_by('Name')
         context["auctions"] = AuctionCompany.objects.all()
         auction_lots_service = AuctionSearchService()
         context["cars"] = auction_lots_service.get_popular_lots()

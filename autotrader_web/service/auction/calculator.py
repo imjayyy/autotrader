@@ -160,6 +160,8 @@ class AuctionCalculatorService:
 
     def json(self):
         if self.Calculated:
+            if self.CustomsFee == None:
+                self.CustomsFee = 0
             response = {
                 "bid": self.Bid,
                 "baku_fee": self.BakuFee,
