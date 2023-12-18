@@ -2,6 +2,7 @@ from django.db import models
 from django.apps import apps
 from django.contrib import admin
 from import_export.admin import ExportActionMixin
+from import_export.admin import ImportExportModelAdmin
 
 
 class Cities(models.Model):
@@ -23,10 +24,12 @@ class Cities(models.Model):
         return self.Name
 
 
-class CitiesAdmin(ExportActionMixin, admin.ModelAdmin):
+class CitiesAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = [ 'Id',  'Name',  'Port',  'State',  'Country', ]
     search_fields = ['Name'] 
     list_filter = ('Country', 'State',)  # Add fields you want to filter on
+
+
 
 admin.site.register(Cities,CitiesAdmin)
 

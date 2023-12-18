@@ -73,17 +73,38 @@
                     </select>
                 </div>
                 <script>
+            // function updateModelsHome() {
+            //   document.getElementsByName("model").forEach(el=>{
+            //       if (el.getAttribute("data-filter-make") != document.getElementById("home_makes_select").value) {
+            //         el.style.display = "none";
+            //       } else {
+            //         el.style.display = "";
+            //       }
+            //     })
+            //   if (document.getElementById("home_makes_select").value == "All Makes") {
+            //     document.getElementsByName("model")[0].selected = true;
+            //   }
+            // }
+
+            // updateModelsHome();
+
             function updateModelsHome() {
-              document.getElementsByName("model").forEach(el=>{
-                  if (el.getAttribute("data-filter-make") != document.getElementById("home_makes_select").value) {
-                    el.style.display = "none";
-                  } else {
-                    el.style.display = "";
-                  }
-                })
-              if (document.getElementById("home_makes_select").value == "All Makes") {
+            var homeMakesSelect = document.getElementById("home_makes_select");
+            var selectedMake = homeMakesSelect.value;
+
+            document.getElementsByName("model").forEach(function (el) {
+                var filterMake = el.getAttribute("data-filter-make");
+
+                if (filterMake !== selectedMake && selectedMake !== "All Makes") {
+                el.style.display = "none";
+                } else {
+                el.style.display = "";
+                }
+            });
+
+            if (selectedMake === "All Makes") {
                 document.getElementsByName("model")[0].selected = true;
-              }
+            }
             }
 
             updateModelsHome();
