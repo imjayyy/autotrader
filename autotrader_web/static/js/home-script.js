@@ -16,7 +16,7 @@ function homePageSearch() {
     params_string += `${param.filterType}=${param.filterName}&`;
   });
   params_string = params_string.slice(0, -1);
-  window.location = window.location.href + "search?" + params_string;
+  window.location = 'autotrader.az/' + "search?" + params_string;
 }
 
 function setup() {
