@@ -1015,7 +1015,7 @@ languages = {
         "complete_order": "Complete Order",
         "order_placed": "Order Placed",
         "search": "Axtar",
-        "all_makes": "Marka",
+        "all_makes": "Marka AZ",
         "all_models": "Model",
         "all_locations": "Şəhər",
         "from_year": "İl (min.)",
