@@ -3,7 +3,7 @@ from django.apps import apps
 from django.contrib import admin
 from import_export.admin import ExportActionMixin
 from import_export.admin import ImportExportModelAdmin
-
+from import_export import resources
 
 class Cities(models.Model):
     Id = models.BigAutoField(primary_key=True)
@@ -24,7 +24,14 @@ class Cities(models.Model):
         return self.Name
 
 
+class CitiesAdminResource(resources.ModelResource):
+    class Meta:
+         model = Cities
+         import_id_fields = ['Id']
+
 class CitiesAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = CitiesAdminResource
+
     list_display = [ 'Id',  'Name',  'Port',  'State',  'Country', ]
     search_fields = ['Name'] 
     list_filter = ('Country', 'State',)  # Add fields you want to filter on
