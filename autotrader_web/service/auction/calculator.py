@@ -35,7 +35,7 @@ class AuctionCalculatorService:
         auction_company_id = lot.auctionCompanyId
         if ' - ' in lot.locationName:
             loc = lot.locationName.split(' - ')
-            city_id = Cities.objects.filter(Name__icontains=loc[1])
+            city_id = Cities.objects.filter(Name=loc[1])
         else:
             city_id = Cities.objects.filter(Name__icontains=lot.locationName)[0]
         # city_id = Cities.objects.filter(Name__icontains=lot.locationName)
@@ -92,7 +92,7 @@ class AuctionCalculatorService:
         print("DEV_CUSTOMS_CALCULATION_CALL_END")
         self.CustomsFee = round(json.loads(response.text)["data"]["autoDuty"]["total"]["value"] / 1.7, 0)
 
-    def calculate(self, auction_id, bid, city_id, to_country="Georgia", user_types_id=1):
+    def calculate(self, auction_id, bid, city_id, to_country="Georgia", user_types_id=1):   
         try:
             max_price = 15000
 
