@@ -63,7 +63,7 @@
                     </select>
                 </div>
                 <div class="col-sm-4 my-3">
-                    <select class="form-select form-select-lg">
+                    <select class="form-select form-select-lg" id="models_select">
                         <option data-filter-name="" name="model" selected>{{lang.all_models}}</option>
                         {% for make in allModels %}
                         <option name="model" data-filter-make="{{make.make}}" data-filter-name="{{make.model}}">
@@ -88,26 +88,53 @@
 
             // updateModelsHome();
 
+            // function updateModelsHome() {
+            // var homeMakesSelect = document.getElementById("home_makes_select");
+            // var selectedMake = homeMakesSelect.value;
+
+            // document.getElementsByName("model").forEach(function (el) {
+            //     var filterMake = el.getAttribute("data-filter-make");
+
+            //     if (filterMake !== selectedMake && selectedMake !== "All Makes") {
+            //     // el.style.visibility  = "none";
+            //     el.setAttribute("hidden", true);
+
+            //     } else {
+            //     // el.style.visibility  = "";
+            //     el.removeAttribute("hidden");
+
+            //     }
+            // });
+
+            // if (selectedMake === "All Makes") {
+            //     document.getElementsByName("model")[0].selected = true;
+            // }
+            // }
+
+
             function updateModelsHome() {
-            var homeMakesSelect = document.getElementById("home_makes_select");
-            var selectedMake = homeMakesSelect.value;
+                    // Get selected make from home_makes_select
+                    var selectedMake = document.getElementById("home_makes_select").value;
 
-            document.getElementsByName("model").forEach(function (el) {
-                var filterMake = el.getAttribute("data-filter-make");
+                    // Get models_select dropdown
+                    var modelsSelect = document.getElementById("models_select");
 
-                if (filterMake !== selectedMake && selectedMake !== "All Makes") {
-                el.style.display = "none";
-                } else {
-                el.style.display = "";
+                    // Clear existing options
+                    modelsSelect.innerHTML = '<option data-filter-name="" name="model" selected>{{lang.all_models}}</option>';
+
+                    // Filter models based on the selected make and add options
+                    {% for make in allModels %}
+                            if ("{{make.make}}" === selectedMake) {
+                                var option = document.createElement("option");
+                                option.setAttribute("name", "model");
+                                option.setAttribute("data-filter-make", "{{make.make}}");
+                                option.setAttribute("data-filter-name", "{{make.model}}");
+                                option.textContent = "{{make.model}}";
+                                modelsSelect.appendChild(option);
+                            }
+                    {% endfor %}
                 }
-            });
-
-            if (selectedMake === "All Makes") {
-                document.getElementsByName("model")[0].selected = true;
-            }
-            }
-
-            updateModelsHome();
+            // updateModelsHome();
 
 
 
