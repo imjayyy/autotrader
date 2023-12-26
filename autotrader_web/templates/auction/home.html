@@ -65,11 +65,7 @@
                 <div class="col-sm-4 my-3">
                     <select class="form-select form-select-lg" id="models_select">
                         <option data-filter-name="" name="model" selected>{{lang.all_models}}</option>
-                        {% for make in allModels %}
-                        <option name="model" data-filter-make="{{make.make}}" data-filter-name="{{make.model}}">
-                            {{make.model}}
-                        </option>
-                        {% endfor %}
+
                     </select>
                 </div>
                 <script>
